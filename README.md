@@ -7,9 +7,7 @@
 投稿にはアイコンや画像を追加し、観戦の楽しさを共有します。
 また、席からの見え方や風通し、日差しの情報を共有する機能も搭載しています。
 
-[![Image from Gyazo](https://i.gyazo.com/62ac8b27fdc51602494ebd3995fb9dbb.png)](https://gyazo.com/62ac8b27fdc51602494ebd3995fb9dbb)
-https://i.gyazo.com/62ac8b27fdc51602494ebd3995fb9dbb.png
-
+<a href="https://gyazo.com/62ac8b27fdc51602494ebd3995fb9dbb"><img src="https://i.gyazo.com/62ac8b27fdc51602494ebd3995fb9dbb.png" alt="Image from Gyazo" width="947"/></a>
 
 ■このサービスへの思い・作りたい理由
 甲子園球場での観戦中、周囲のファンともっと交流したいと思った経験から、このサービスを思いつきました。
