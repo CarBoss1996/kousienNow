@@ -1,6 +1,9 @@
 ###甲子園NOW！###
 今の興奮、感動を共有しよう！
 
+画面
+https://www.figma.com/board/I7TWuNN9Id1z2tpi35RQI0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=nh8q1upwOsbcAm3l-0
+
 ■サービス概要
 甲子園NOWは、甲子園球場での観戦をより楽しくするためのSNSアプリです。
 ユーザーはリアルタイムで位置情報付き投稿を行い、他のファンと交流できます。
@@ -96,6 +99,8 @@ ERBファイルを使用したHTML: フロントエンドはシンプルに黄�
 JavaScript
 CSSフレームワーク:
 Bootstrap 5系: レスポンシブデザインを実装し、ユーザービリティを意識したシンプルなデザインを採用。
+
+ データベースサーバ: PostgreSQL
 
 WebAPI
 Google Maps API: 投稿に位置情報を追加。
