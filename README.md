@@ -3,7 +3,7 @@ addreadme
 今の興奮、感動を共有しよう！
 
 画面遷移図
-https://www.figma.com/board/I7TWuNN9Id1z2tpi35RQI0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=nh8q1upwOsbcAm3l-0
+https://www.figma.com/board/I7TWuNN9Id1z2tpi35RQI0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=YFu5AwU4WgDuX3Ym-0
 
 ■サービス概要
 甲子園NOWは、甲子園球場での観戦をより楽しくするためのSNSアプリです。
