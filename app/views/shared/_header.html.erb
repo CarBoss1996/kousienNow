@@ -1,0 +1,28 @@
+<header>
+  <nav class='navbar navbar-expand-lg navigation navbar-dark bg-dark fixed-top'>
+  <%= link_to '/', class: 'navbar-brand' do %>
+  <h4>甲子園NOW!</h4>
+  <% end %>
+  <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent'
+    aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+    <span class='navbar-toggler-icon'></span>
+  </button>
+
+    <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+      <ul class='navbar-nav ms-auto main-nav align-items-center'>
+        <li class='nav-item dropdown dropdown-slide'>
+          <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+            メニュー
+          </a>
+          <div class='dropdown-menu dropdown-menu-end'>
+            <a class='dropdown-item' href='/'>トップページ</a>
+            <a class='dropdown-item' href='/about'>マイページ</a>
+            <a class='dropdown-item' href='/'>投稿一覧</a>
+            <a class='dropdown-item' href='/about'>座席情報</a>
+            <a class='dropdown-item' href='/about'>ログアウト</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

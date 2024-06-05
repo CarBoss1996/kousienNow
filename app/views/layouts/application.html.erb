@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <%= breadcrumbs separator: " &rsaquo; " %>
+      <%= render 'shared/header', class: 'fixed-top' %>
+      <%= render 'shared/before_login_header', class: 'fixed-top' %>
+    <%= render 'shared/flash_message' %>
     <%= yield %>
+
+    <%= render 'shared/footer', class: 'fixed-bottom' %>
   </body>
 </html>
