@@ -1,0 +1,29 @@
+<% content_for(:title, t('.title')) %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1><%= t('.title') %></h1>
+      <%= render 'shared/flash_message' %>
+      <%= form_for(resource, as: resource_name, url: user_session_path) do |f| %>
+        <div class="md-3">
+        <%= f.label :email %><br />
+        <%= f.text_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+      <div class="md-3">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+        <%= f.submit I18n.t('devise.sessions.new.submit'), class: "btn bnt-primary" %>
+    <% end %>
+
+    <div class='text-center'>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
