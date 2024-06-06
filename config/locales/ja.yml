@@ -10,6 +10,9 @@ ja:
         current_sign_in_at: 現在のログイン時刻
         current_sign_in_ip: 現在のログインIPアドレス
         email: Eメール
+        last_name: 姓
+        first_name: 名
+        user_name: アカウント名
         encrypted_password: 暗号化パスワード
         failed_attempts: 失敗したログイン試行回数
         last_sign_in_at: 最終ログイン時刻
@@ -27,6 +30,39 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: メールアドレスを入力してください
+              invalid: 正しいメールアドレスを入力してください
+              taken: このメールアドレスはすでに使用されています
+            last_name:
+              blank: 姓を入力してください
+              invalid: 正しい姓を入力してください
+            first_name:
+              blank: 名を入力してください
+              invalid: 正しい名を入力してください
+            user_name:
+              blank: アカウント名を入力してください
+              invalid: 正しいアカウント名を入力してください
+            password:
+              blank: パスワードを入力してください
+              too_short: 6文字以上で入力してください
+            password_confirmation:
+              confirmation: パスワード（確認用）が一致しません
+              blank: パスワード（確認用）を入力してください
+  errors:
+    messages:
+      already_confirmed: は既に登録済みです。ログインしてください。
+      confirmation_period_expired: の期限が切れました。%{period} までに確認する必要があります。 新しくリクエストしてください。
+      expired: の有効期限が切れました。新しくリクエストしてください。
+      not_found: は見つかりませんでした。
+      not_locked: はロックされていません。
+      not_saved:
+        one: エラーが発生したため %{resource} は保存されませんでした。
+        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
@@ -102,6 +138,7 @@ ja:
         we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
       new:
         sign_up: アカウント登録
+        submit: 登録
       signed_up: アカウント登録が完了しました。
       signed_up_but_inactive: ログインするためには、アカウントを有効化してください。
       signed_up_but_locked: アカウントがロックされているためログインできません。
@@ -133,16 +170,6 @@ ja:
       send_instructions: アカウントのロック解除方法を数分以内にメールでご連絡します。
       send_paranoid_instructions: アカウントが見つかった場合、アカウントのロック解除方法を数分以内にメールでご連絡します。
       unlocked: アカウントをロック解除しました。
-  errors:
-    messages:
-      already_confirmed: は既に登録済みです。ログインしてください。
-      confirmation_period_expired: の期限が切れました。%{period} までに確認する必要があります。 新しくリクエストしてください。
-      expired: の有効期限が切れました。新しくリクエストしてください。
-      not_found: は見つかりませんでした。
-      not_locked: はロックされていません。
-      not_saved:
-        one: エラーが発生したため %{resource} は保存されませんでした。
-        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
   helpers:
     submit:
       user:
