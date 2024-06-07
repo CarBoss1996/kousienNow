@@ -22,7 +22,6 @@ class ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:user_name, :last_name, :first_name, :avatar, :favorite_player,
-                                 :favorite_viewing_block)
+    params.require(:user).permit(:user_name, :last_name, :first_name, :avatar, :favorite_player, :favorite_viewing_block)
   end
 end
