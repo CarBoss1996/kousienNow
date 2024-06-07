@@ -66,6 +66,7 @@ gem 'noticed'
 gem 'rspec-rails', group: %i[development test]
 gem 'sidekiq'
 gem 'sitemap_generator'
+gem 'aws-sdk-s3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
