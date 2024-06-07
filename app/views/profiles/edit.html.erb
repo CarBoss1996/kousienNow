@@ -1,0 +1,45 @@
+<% content_for(:title, t('.title')) %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1><%= t('.title') %></h1>
+      <%= form_with model: @user, url: profile_path, method: :put do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="mb-3">
+          <%= f.label :user_name, class: "form-label" %>
+          <%= f.text_field :user_name, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :last_name, class: "form-label" %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :first_name, class: "form-label" %>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :favorite_player, class: "form-label" %>
+          <%= f.text_field :favorite_player, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :favorite_viewing_block, class: "form-label" %>
+          <%= f.text_field :favorite_viewing_block, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :avatar %>
+          <%= f.file_field :avatar, class: 'form-control mb-3', accept: 'image/*' %>
+          <%= f.hidden_field :avatar_cache %>
+          <div class='mt-3 mb-3'>
+            <%= image_tag @user.avatar.url,
+                          class: 'rounded-circle',
+                          id: 'preview',
+                          size: '100x100' %>
+          </div>
+        </div>
+        <%= f.submit t('defaults.update'), class: "btn btn-primary" %>
+      <% end %>
+      <p>メールアドレスの変更をしたい方は<a href="#">こちら</a></p>
+      <p>パスワードの変更をしたい方は<a href="#">こちら</a></p>
+    </div>
+  </div>
+</div>
