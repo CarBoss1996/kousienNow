@@ -30,7 +30,7 @@
           <%= f.file_field :avatar, class: 'form-control mb-3', accept: 'image/*' %>
           <div class='mt-3 mb-3'>
             <% if @user.avatar.attached? %>
-              <%= image_tag @user.avatar.variant(resize: "100x100"), class: 'rounded-circle', id: 'preview' %>
+              <%= image_tag @user.avatar_variant, class: 'rounded-circle', id: 'preview' %>
             <% else %>
               <%= image_tag 'sample.jpg', size: '100x100', class: 'rounded-circle', id: 'preview' %>
             <% end %>
