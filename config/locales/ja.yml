@@ -12,6 +12,10 @@ ja:
         email: メールアドレス
         last_name: 姓
         first_name: 名
+        full_name: 名前
+        favorite_player: 推し選手
+        favorite_viewing_block: いつもの場所
+        avatar: プロフィール画像
         user_name: アカウント名
         encrypted_password: 暗号化パスワード
         failed_attempts: 失敗したログイン試行回数
@@ -35,21 +39,21 @@ ja:
         user:
           attributes:
             email:
-              blank: メールアドレスを入力してください
+              blank: を入力してください
               invalid: 正しいメールアドレスを入力してください
               taken: このメールアドレスはすでに使用されています
               not_found: メールアドレスは見つかりませんでした
             last_name:
-              blank: 姓を入力してください
+              blank: を入力してください
               invalid: 正しい姓を入力してください
             first_name:
-              blank: 名を入力してください
+              blank: を入力してください
               invalid: 正しい名を入力してください
             user_name:
-              blank: アカウント名を入力してください
+              blank: を入力してください
               invalid: 正しいアカウント名を入力してください
             password:
-              blank: パスワードを入力してください
+              blank: を入力してください
               too_short: 6文字以上で入力してください
             password_confirmation:
               confirmation: パスワード（確認用）が一致しません
@@ -182,3 +186,15 @@ ja:
         create: 新規登録
         destroy: 削除
         forgot_password: パスワードを忘れた方
+        logout: ログアウト
+        profile: マイページ
+  profiles:
+    show:
+      title: マイページ
+  defaults:
+    edit: 編集
+    destroy: 削除
+    update: 更新
+    flash_message:
+      updated: 更新しました
+      not_updated: 更新できませんでした
