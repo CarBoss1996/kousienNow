@@ -24,4 +24,9 @@ class User < ApplicationRecord
       errors.add(:avatar, 'must be a JPEG or PNG or JPG')
     end
   end
+
+  def avatar_variant
+    avatar.variant(resize_to_limit: [100, 100])
+  end
 end
+
