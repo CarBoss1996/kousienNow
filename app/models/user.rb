@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
+  has_many :posts, dependent: :destroy
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
@@ -27,6 +28,10 @@ class User < ApplicationRecord
 
   def avatar_variant
     avatar.variant(resize_to_limit: [100, 100])
+  end
+
+  def own?(object)
+    id == object&.user_id.to_i
   end
 end
 

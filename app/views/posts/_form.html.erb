@@ -1,0 +1,13 @@
+<%= form_with model: @post, local: true do |form| %>
+<%= render 'shared/error_messages', object: @post %>
+<div class="mb-3">
+  <label for="body"><%= Post.human_attribute_name(:body) %></label>
+  <%= form.text_area :body, class: 'form-control',rows: "10" %>
+</div>
+<div class="mb-3">
+  <label for="image"><%= Post.human_attribute_name(:image) %></label>
+  <%= form.file_field :image, class: 'form-control', accept: 'image/*' %>
+</div>
+<%= form.submit nil, class: 'btn btn-primary' %>
+<% end %>
+<%= link_to '戻る', posts_path%>

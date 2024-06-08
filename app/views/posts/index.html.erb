@@ -1,0 +1,22 @@
+<% content_for(:title, t('.title')) %>
+<div class='container'>
+<h1><%= t('.title') %></h1>
+<%= link_to t('.create.posts'), new_post_path, class: 'btn btn-success float-right' %>
+</div>
+<% if @posts.present? %>
+  <% @posts.each do |post| %>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-md-4 offset-md-4">
+        <%= render post %>
+      </div>
+    </div>
+  <% end %>
+  <% else %>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="mb-3"><%= I18n.t('posts.no_result') %></div>
+    </div>
+  </div>
+  </div>
+<% end %>

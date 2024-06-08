@@ -16,7 +16,7 @@
           </a>
           <div class='dropdown-menu dropdown-menu-end'>
             <a class='dropdown-item' href='/'>トップページ</a>
-            <a class='dropdown-item' href='/'>投稿一覧</a>
+            <%= link_to t('helpers.submit.user.post'), posts_path, class: 'dropdown-item' %>
             <a class='dropdown-item' href='/about'>座席情報</a>
           <% if user_signed_in? %>
             <%= link_to t('helpers.submit.user.profile'), profile_path, class: 'dropdown-item' %>
