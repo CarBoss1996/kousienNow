@@ -15,7 +15,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   web:
     build:
       context: .
@@ -34,7 +33,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
 volumes:
   bundle_data:
   postgresql_data:
