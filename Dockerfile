@@ -12,6 +12,7 @@ RUN apt-get update -qq \
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs yarn vim libvips-dev
 RUN mkdir /myapp
 WORKDIR /myapp
+COPY . /myapp
 RUN gem install bundler
 RUN yarn install
-COPY . /myapp
+RUN gem install foreman
