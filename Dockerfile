@@ -19,4 +19,4 @@ RUN gem install foreman
 
 EXPOSE 3000
 
-CMD ["bash", "-c", "bundle install && bundle exec rails db:prepare && rm -f tmp/pids/server.pid && foreman start -f Procfile"]
+CMD ["bash", "-c", "bundle install && bundle exec rails db:create && bundle exec rails db:prepare && rm -f tmp/pids/server.pid && foreman start -f Procfile"]
