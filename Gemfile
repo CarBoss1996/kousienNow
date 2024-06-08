@@ -52,19 +52,14 @@ gem 'bootsnap', require: false
 # Additional gems for the project
 gem 'active_model_serializers'
 gem 'config'
-gem 'delayed_job_active_record'
 gem 'devise'
-gem 'dotenv-rails', groups: %i[development test]
 gem 'fog-aws'
 gem 'google-cloud-vision'
 gem 'gretel'
 gem 'httparty'
 gem 'line-bot-api'
-gem 'mini_magick'
 gem 'noticed'
-gem 'rspec-rails', group: %i[development test]
 gem 'sidekiq'
-gem 'sitemap_generator'
 gem 'aws-sdk-s3', require: false
 gem 'image_processing', '~> 1.2'
 gem 'ruby-vips'
@@ -75,6 +70,8 @@ group :development, :test do
   gem 'letter_opener_web'
   gem 'rubocop', require: false
   gem 'simplecov', require: false
+  gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do
