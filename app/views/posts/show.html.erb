@@ -1,0 +1,47 @@
+<% content_for(:body, @post.body ) %>
+<div class="container pt-5">
+  <div class="row mb-3">
+    <div class="col-lg-8 offset-lg-2">
+      <%= link_to t('helpers.submit.user.post'), posts_path, class: 'btn btn-success' %>
+      <h1><%= t('.title') %></h1>
+      <article class="card">
+        <div class="card-body">
+          <% if current_user.own?(@post) %>
+            <div class='d-flex justify-content-end'>
+              <%= link_to edit_post_path(@post), remote: true, id: "button-edit-#{@post.id}" do %>
+                <i class="bi bi-pencil-fill"></i>
+              <% end %>
+              <%= link_to post_path(@post), id: "button-delete-#{@post.id}", data: { turbo_method: :delete, turbo_action: 'replace', turbo_frame: 'content', turbo_confirm: I18n.t('defaults.delete_confirm') } do %>
+                <i class="bi bi-trash-fill"></i>
+              <% end %>
+            </div>
+          <% end %>
+          <div class='row'>
+            <div class='col-md-9'>
+              <p><%= simple_format(@post.body) %></p>
+              <ul class="list-inline">
+                <li class="list-inline-item"><%= "by #{@post.user.user_name}" %></li>
+                <li class="list-inline-item"><%= l(@post.created_at, format: :default) %></li>
+              </ul>
+            </div>
+            <div class='col-md-3'>
+              <% if @post.image.present? %>
+                <%= image_tag @post.image.url, class: 'card-img-top img-fluid', size: '300x200' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <%# <%= render 'comments/form', comment: @comment, board: @board %>
+  <%# <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <table class="table">
+        <tbody id="table-comment">
+          <%= render @comments %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

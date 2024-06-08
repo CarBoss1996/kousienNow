@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resource :profile, only: %i[show edit update destroy]
+  resources :posts
   root 'static_pages#top'
   get '/about', to: 'static_pages#top'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -32,6 +32,10 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+      post:
+        body: 本文
+        image: 画像
+
     models:
       user: ユーザー
     errors:
@@ -58,6 +62,10 @@ ja:
             password_confirmation:
               confirmation: パスワード（確認用）が一致しません
               blank: パスワード（確認用）を入力してください
+        post:
+          attributes:
+            body:
+              blank: を入力してください
   errors:
     messages:
       already_confirmed: は既に登録済みです。ログインしてください。
@@ -188,6 +196,7 @@ ja:
         forgot_password: パスワードを忘れた方
         logout: ログアウト
         profile: マイページ
+        post: 投稿一覧
   profiles:
     show:
       title: マイページ
@@ -195,6 +204,34 @@ ja:
     edit: 編集
     destroy: 削除
     update: 更新
+    submit: 送信
     flash_message:
       updated: 更新しました
       not_updated: 更新できませんでした
+    delete_confirm: 本当に削除しますか？
+  posts:
+    no_result: 投稿がありません
+    index:
+      title: 投稿一覧
+      create:
+        posts: 投稿する
+    show:
+      title: 投稿詳細
+    new:
+      title: 新規投稿
+      submit: 投稿
+    create:
+      success: 投稿しました
+      failure: 投稿できませんでした
+    update:
+      success: 更新しました
+      failure: 更新できませんでした
+    edit:
+      title: 投稿編集
+      submit: 更新
+    destroy:
+      success: 削除しました
+  time:
+    formats:
+      default: "%Y.%m.%d. %H:%M"
+      short: "%m/%d %H:%M"
