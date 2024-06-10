@@ -3,7 +3,9 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
-  def show; end
+  def show
+    @user = current_user
+  end
 
   def edit
     @user = current_user

@@ -1,29 +1,22 @@
-    <%# <%= image_tag "post_placeholder.png", class: "card-img-top", width: "300", height:"200" %>
-      <%= link_to post.body, post_path(post) %>
-        <div class="d-flex">
-          <% if current_user.own?(post) %>
-          <div class='ms-auto'>
-            <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
-              <i class="bi bi-pencil-fill"></i>
-            <% end %>
-            <%= link_to post_path(post), id: "button-delete-#{post.id}", data: {turbo_method: :delete, turbo_confirm: I18n.t('defaults.delete_confirm') } do %>
-              <i class="bi bi-trash-fill"></i>
-            <% end %>
-          </div>
-        <%# <% else %>
-            <%# <%= render 'bookmark_button', { post: post } %>
-        <% end %>
-        </div>
-        <div class='col-md-3'>
-          <% if post.image.present? %>
-            <%= image_tag post.image, class: 'card-img-top img-fluid', size: '100x100' %>
-          <% end %>
-        </div>
-        <ul class="list-inline float">
-          <li><i class="bi bi-person"></i><%= post.user.user_name %></li>
-          <li><i class="bi bi-calendar"></i><%= l post.created_at, format: :short %></li>
-        </ul>
-      </div>
+<%= link_to post.body, post_path(post) %>
+<div class="d-flex">
+  <% if current_user.own?(post) %>
+    <div class='ms-auto'>
+      <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
+        <i class="bi bi-pencil-fill"></i>
+      <% end %>
+      <%= link_to post_path(post), id: "button-delete-#{post.id}", data: {turbo_method: :delete, turbo_confirm: I18n.t('defaults.delete_confirm') } do %>
+        <i class="bi bi-trash-fill"></i>
+      <% end %>
     </div>
-  </div>
+  <% end %>
 </div>
+<div class='col-md-3'>
+  <% if post.image.present? %>
+    <%= image_tag post.image, class: 'card-img-top img-fluid', size: '100x100' %>
+  <% end %>
+</div>
+<ul class="list-inline float">
+  <li><i class="bi bi-person"></i><%= post.user.user_name %></li>
+  <li><i class="bi bi-calendar"></i><%= l post.created_at, format: :short %></li>
+</ul>
