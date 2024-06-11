@@ -13,39 +13,21 @@
 
   <div>
     <button type="button" id="get-location">位置情報を取得</button>
-    <p id="location-info"></p>
   </div>
+
+<div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
 
   <div>
     <%= form.submit '投稿' %>
   </div>
 <% end %>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('get-location').addEventListener('click', () => {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-
-            document.getElementById('latitude').value = latitude;
-            document.getElementById('longitude').value = longitude;
-            document.getElementById('location-info').innerText = `緯度: ${latitude}, 経度: ${longitude}`;
-          },
-          (error) => {
-            alert("位置情報が利用できません。");
-          },
-          {
-            enableHighAccuracy: true,
-            maximumAge: 30000,
-            timeout: 27000,
-          }
-        );
-      } else {
-        alert("このブラウザでは位置情報がサポートされていません。");
-      }
-    });
-  });
-</script>
+<%= javascript_include_tag 'location' %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsRqy4NDHd9UEbLwjzOvBrDmGhNa3jpJk&callback=initMap" async defer></script>
