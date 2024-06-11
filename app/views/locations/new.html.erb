@@ -1,0 +1,51 @@
+<% content_for(:title, t('.title')) %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h1><%= t('.title') %></h1>
+<%= form_with model: @post, local: true do |form| %>
+<%= render 'shared/error_messages', object: @location %>
+
+  <div>
+    <%= form.hidden_field :latitude, id: 'latitude' %>
+    <%= form.hidden_field :longitude, id: 'longitude' %>
+  </div>
+
+  <div>
+    <button type="button" id="get-location">位置情報を取得</button>
+    <p id="location-info"></p>
+  </div>
+
+  <div>
+    <%= form.submit '投稿' %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('get-location').addEventListener('click', () => {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            document.getElementById('latitude').value = latitude;
+            document.getElementById('longitude').value = longitude;
+            document.getElementById('location-info').innerText = `緯度: ${latitude}, 経度: ${longitude}`;
+          },
+          (error) => {
+            alert("位置情報が利用できません。");
+          },
+          {
+            enableHighAccuracy: true,
+            maximumAge: 30000,
+            timeout: 27000,
+          }
+        );
+      } else {
+        alert("このブラウザでは位置情報がサポートされていません。");
+      }
+    });
+  });
+</script>

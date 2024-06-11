@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_08_131954) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_045925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_131954) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "icon"
+    t.string "name"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "body"
@@ -49,6 +60,35 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_131954) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.string "name"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shapes", force: :cascade do |t|
+    t.bigint "seat_id", null: false
+    t.float "min_latitude"
+    t.float "max_latitude"
+    t.float "min_longitude"
+    t.float "max_longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seat_id"], name: "index_shapes_on_seat_id"
+  end
+
+  create_table "user_locations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "location_id"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_user_locations_on_location_id"
+    t.index ["user_id"], name: "index_user_locations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,5 +111,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_131954) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "locations", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "shapes", "seats"
+  add_foreign_key "user_locations", "locations"
+  add_foreign_key "user_locations", "users"
 end
