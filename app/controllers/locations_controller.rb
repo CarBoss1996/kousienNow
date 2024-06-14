@@ -13,9 +13,10 @@ class LocationsController < ApplicationController
     else
       @location = current_user_locations.build(location_params)
       if @location.save
-        redirect_to locations_path
+        redirect_to root_path, success: t('locations.create.success')
       else
-        render :new
+        flash.now[:danger] = t('locations.create.failure')
+        render :new, status: :unprocessable_entity
       end
     end
   end

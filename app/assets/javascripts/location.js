@@ -1,3 +1,5 @@
+import { isInsideKoshien } from './map.js';
+
 let map;
 let geocoder;
 let marker;
@@ -24,9 +26,13 @@ function initMap() {
         document.getElementById('latitude').value = latitude;
         document.getElementById('longitude').value = longitude;
 
-        // Update the map and marker with the current position
-        map.setCenter({ lat: latitude, lng: longitude });
-        marker.setPosition({ lat: latitude, lng: longitude });
+        if (isInsideKoshien(latitude, longitude)) {
+          // Update the map and marker with the current position
+          map.setCenter({ lat: latitude, lng: longitude });
+          marker.setPosition({ lat: latitude, lng: longitude });
+        } else {
+          console.log("自宅から応援");
+        }
       },
       (error) => {
         alert('位置情報が利用できません。');
@@ -41,6 +47,3 @@ function initMap() {
     alert('このブラウザでは位置情報がサポートされていません。');
   }
 }
-
-// Google Maps APIのスクリプトタグのcallbackパラメータがinitMap関数を指すようにするため、
-// このファイルはGoogle Maps APIのスクリプトタグよりも前に読み込む必要があります。

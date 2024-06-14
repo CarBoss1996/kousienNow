@@ -231,6 +231,13 @@ ja:
       submit: 更新
     destroy:
       success: 削除しました
+  locations:
+    create:
+      success: 登録しました
+      failure: 位置情報を取得してください
+    new:
+      title: 位置情報の登録
+      submit: 登録
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
