@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_10_045925) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_16_023842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_045925) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.string "body"
+    t.datetime "event_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "like_posts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_like_posts_on_post_id"
+    t.index ["user_id"], name: "index_like_posts_on_user_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.bigint "user_id"
     t.string "icon"
@@ -51,6 +78,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_045925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.datetime "match_date"
+    t.bigint "team_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_matches_on_event_id"
+    t.index ["team_id"], name: "index_matches_on_team_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.text "message"
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_notifications_on_post_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -79,6 +126,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_045925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["seat_id"], name: "index_shapes_on_seat_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "team_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_locations", force: :cascade do |t|
@@ -111,7 +164,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_045925) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "like_posts", "posts"
+  add_foreign_key "like_posts", "users"
   add_foreign_key "locations", "users"
+  add_foreign_key "matches", "events"
+  add_foreign_key "matches", "teams"
+  add_foreign_key "notifications", "posts"
+  add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "shapes", "seats"
   add_foreign_key "user_locations", "locations"
