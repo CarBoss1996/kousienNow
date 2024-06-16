@@ -1,4 +1,4 @@
-import { isInsideKoshien } from './map.js';
+const isInsideKoshien = require('./map.js').isInsideKoshien;
 
 let map;
 let geocoder;

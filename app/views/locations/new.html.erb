@@ -3,31 +3,29 @@
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
       <h1><%= t('.title') %></h1>
-<%= form_with model: @post, local: true do |form| %>
-<%= render 'shared/error_messages', object: @location %>
+      <%= form_with model: @location, local: true do |form| %>
+        <%= render 'shared/error_messages', object: @location %>
 
-  <div>
-    <%= form.hidden_field :latitude, id: 'latitude' %>
-    <%= form.hidden_field :longitude, id: 'longitude' %>
+        <div>
+          <%= form.hidden_field :latitude, id: 'latitude' %>
+          <%= form.hidden_field :longitude, id: 'longitude' %>
+        </div>
+
+        <div>
+          <button type="button" id="get-location">位置情報を取得</button>
+        </div>
+
+        <div id='map'></div>
+
+        <style>
+          #map {
+            height: 600px;
+            width: 600px;
+          }
+        </style>
+      <% end %>
+      <script type="module" src="/assets/javascripts/map.js"></script>
+      <script type="module" src="/assets/javascripts/location.js"></script>
+    </div>
   </div>
-
-  <div>
-    <button type="button" id="get-location">位置情報を取得</button>
-  </div>
-
-<div id='map'></div>
-
-<style>
-#map {
-  height: 600px;
-  width: 600px;
-}
-</style>
-
-  <div>
-    <%= form.submit t('.submit') %>
-  </div>
-<% end %>
-
-<%= javascript_include_tag 'location' %>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+</div>

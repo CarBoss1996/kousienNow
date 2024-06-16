@@ -8,6 +8,6 @@
   <label for="image"><%= Post.human_attribute_name(:image) %></label>
   <%= form.file_field :image, class: 'form-control', accept: 'image/*' %>
 </div>
-<%= form.submit nil, class: 'btn btn-primary' %>
+<%= form.submit @post.new_record? ? t('posts.new.submit') : t('posts.edit.submit'), class: 'btn btn-primary' %>
 <% end %>
 <%= link_to '戻る', posts_path%>
