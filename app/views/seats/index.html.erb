@@ -1,0 +1,46 @@
+<head>
+    <title>座席一覧</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map { height: 80vh; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="<%= asset_path 'koushien.jpg' %>" usemap="#ImageMap" alt="Stadium Map" class="img-fluid">
+                <map name="ImageMap">
+                    <!-- Backnet area -->
+                    <area alt="Backnet" href="#" coords="515,872,282,1024,423,1129,806,1128,935,1027,709,870,668,910,579,909" shape="poly">
+                    <!--  -->
+                    <area alt="First_Alps" href="#" coords="877,628,715,872,939,1026,1094,730" shape="poly">
+                    <!-- First Alps seat -->
+                    <area target="" alt="" title="" href="" coords="1088,727,872,641,969,393,1200,433" shape="poly">
+                    <!-- Right outfield area -->
+                    <area shape="poly" coords="800,240,750,340,700,300,670,200" alt="Right Outfield" href="#" data-section="right_outfield" class="map-area">
+                    <!-- Center outfield area -->
+                    <area shape="circle" coords="500,100,50" alt="Center Outfield" href="#" data-section="center_outfield" class="map-area">
+                    <!-- New multi-point area for the red outlined section -->
+                    <area shape="poly" coords="150,200,200,250,250,200,300,250,350,200,400,250,450,200,500,250" alt="Red Area" href="#" data-section="red_area" class="map-area">
+                </map>
+            </div>
+            <div class="col-md-6" id="details">
+                <!-- Dynamic content will be loaded here -->
+                <h3>Select a section to see details</h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.map-area').on('click', function(event) {
+                event.preventDefault();
+                var section = $(this).data('section');
+                $('#details').load('/sections/' + section);
+            });
+        });
+    </script>
+</body>

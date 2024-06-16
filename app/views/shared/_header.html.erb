@@ -17,7 +17,7 @@
           <div class='dropdown-menu dropdown-menu-end'>
             <a class='dropdown-item' href='/'>トップページ</a>
             <%= link_to t('helpers.submit.user.post'), posts_path, class: 'dropdown-item' %>
-            <%= link_to t('helpers.submit.user.seat'), seats_path, class: 'dropdown-item' %>
+            <%= link_to t('helpers.submit.user.seat'), 'https://koshien.hanshin.co.jp/stadium_seat/', class: 'dropdown-item' %>
           <% if user_signed_in? %>
             <%= link_to t('helpers.submit.user.profile'), profile_path, class: 'dropdown-item' %>
             <%= link_to t('helpers.submit.user.logout'), destroy_user_session_path, class: 'dropdown-item', data: { turbo_confirm: 'ログアウトしますか？', turbo_method: :delete } %>

@@ -197,6 +197,7 @@ ja:
         logout: ログアウト
         profile: マイページ
         post: 投稿一覧
+        seat: 座席情報
   profiles:
     show:
       title: マイページ
@@ -238,6 +239,9 @@ ja:
     new:
       title: 位置情報の登録
       submit: 登録
+  seats:
+    index:
+      title: 座席一覧
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
