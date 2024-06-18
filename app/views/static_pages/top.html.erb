@@ -1,5 +1,7 @@
 <div class='top-wrapper'>
   <div class='top-inner-text'>
-    <h1>甲子園NOW!</h1>
+    <title>甲子園NOW!</title>
+    <%= render 'matches/matches', matches: @matches %>
+      <%= link_to '位置情報を登録する', new_location_path, class: 'btn btn-primary' %>
   </div>
 </div>

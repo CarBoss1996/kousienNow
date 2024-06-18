@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_16_030515) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_16_164050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_030515) do
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "opponent"
     t.index ["event_id"], name: "index_matches_on_event_id"
     t.index ["team_id"], name: "index_matches_on_team_id"
   end
@@ -126,12 +127,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_030515) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["seat_id"], name: "index_shapes_on_seat_id"
-  end
-
-  create_table "teams", force: :cascade do |t|
-    t.string "team_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "user_locations", force: :cascade do |t|
@@ -179,7 +174,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_030515) do
   add_foreign_key "like_posts", "users"
   add_foreign_key "locations", "users"
   add_foreign_key "matches", "events"
-  add_foreign_key "matches", "teams"
   add_foreign_key "notifications", "posts"
   add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"

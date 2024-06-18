@@ -1,0 +1,14 @@
+<h1>今日の試合</h1>
+
+<% if matches.blank? %>
+  <p>今日の試合はありません</p>
+<% else %>
+  <table>
+    <% matches.each do |match| %>
+      <tr>
+        <td><%= match.match_date.strftime('%H:%M') %></td>
+        <td>阪神 VS <%= match.opponent %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
