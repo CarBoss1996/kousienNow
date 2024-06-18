@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_16_164050) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_063437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,24 +71,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_164050) do
 
   create_table "locations", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "icon"
+    t.integer "icon"
     t.string "name"
     t.float "latitude"
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "seat_id", null: false
+    t.index ["seat_id"], name: "index_locations_on_seat_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "matches", force: :cascade do |t|
     t.datetime "match_date"
-    t.bigint "team_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "opponent"
     t.index ["event_id"], name: "index_matches_on_event_id"
-    t.index ["team_id"], name: "index_matches_on_team_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -116,6 +116,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_164050) do
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "seat", default: 0, null: false
+    t.index ["seat_name"], name: "index_seats_on_seat_name", unique: true
   end
 
   create_table "shapes", force: :cascade do |t|
@@ -172,6 +174,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_164050) do
   add_foreign_key "comments", "users"
   add_foreign_key "like_posts", "posts"
   add_foreign_key "like_posts", "users"
+  add_foreign_key "locations", "seats", primary_key: "seat_name"
   add_foreign_key "locations", "users"
   add_foreign_key "matches", "events"
   add_foreign_key "notifications", "posts"

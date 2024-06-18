@@ -7,8 +7,8 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
   has_many :posts, dependent: :destroy
-  has_many :locations, through: :user_locations
   has_many :user_locations
+  has_many :locations, through: :user_locations
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
