@@ -226,6 +226,7 @@ ja:
         posts: 投稿する
     show:
       title: 投稿詳細
+      failure: 投稿が見つかりません
     new:
       title: 新規投稿
       submit: 投稿

@@ -1,3 +1,3 @@
 //= require @hotwired/turbo-rails
 //= require ./controllers
-//= require bootstrap
+//= require bootstrapimport "@hotwired/turbo-rails"

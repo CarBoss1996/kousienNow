@@ -20,7 +20,7 @@
             <%= link_to t('helpers.submit.user.seat'), 'https://koshien.hanshin.co.jp/stadium_seat/', class: 'dropdown-item' %>
           <% if user_signed_in? %>
             <%= link_to t('helpers.submit.user.profile'), profile_path, class: 'dropdown-item' %>
-            <%= link_to t('helpers.submit.user.logout'), destroy_user_session_path, class: 'dropdown-item', data: { turbo_confirm: 'ログアウトしますか？', turbo_method: :delete } %>
+            <%= link_to t('helpers.submit.user.logout'), destroy_user_session_path, class: 'dropdown-item', data: { turbo: false, turbo_confirm: 'ログアウトしますか？', turbo_method: :delete } %>
           <% else %>
           <%= link_to t('helpers.submit.user.new'), new_user_session_path, class: 'dropdown-item' %>
           <% end %>
