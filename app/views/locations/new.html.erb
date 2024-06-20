@@ -6,26 +6,31 @@
       <%= form_with model: @location, local: true do |form| %>
         <%= render 'shared/error_messages', object: @location %>
 
-        <div>
-          <%= form.hidden_field :latitude, id: 'latitude' %>
-          <%= form.hidden_field :longitude, id: 'longitude' %>
+      <div class="md-3">
+        <%= form.label :seat_name, I18n.t('location.seat.seat_id'), class: 'form-label' %>
+      </div>
+      <div class="mb-5">
+        <%= form.select :seat_name, Seat.seats.keys.map { |s| [I18n.t("location.seat.#{s}"), s] }, prompt: I18n.t('location.seat.blank') %>
+      </div>
+
+      <div class="actions md-3">
+      <%= form.label :icon, I18n.t('location.seat.icon'), class: 'form-label' %>
+          <div class="icon-selection">
+            <% Location.icons.keys.each do |icon| %>
+              <div class="icon-option md-3">
+                <%= form.radio_button :icon, icon, id: "icon_#{icon}" %>
+                <%= label_tag "icon_#{icon}" do %>
+                  <img src="<%= image_path("icons/#{icon}.png") %>" alt="<%= icon %>">
+                  <%= I18n.t("location.icon.#{icon}") %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
-
-        <div>
-          <button type="button" id="get-location">位置情報を取得</button>
-        </div>
-
-        <div id='map'></div>
-
-        <style>
-          #map {
-            height: 600px;
-            width: 600px;
-          }
-        </style>
-      <% end %>
-      <script type="module" src="/assets/javascripts/map.js"></script>
-      <script type="module" src="/assets/javascripts/location.js"></script>
     </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <%= form.submit I18n.t('location.seat.submit'), class: 'btn btn-primary' %>
+    </div>
+    <% end %>
   </div>
 </div>

@@ -1,7 +1,10 @@
+<div class="container d-flex justify-content-center align-items-center">
 <h1>今日の試合</h1>
+</div>
 
+<div class=" d-flex justify-content-center md-">
 <% if matches.blank? %>
-  <p>今日の試合はありません</p>
+  <h2>今日の試合はありません</h2>
 <% else %>
   <table>
     <% matches.each do |match| %>
@@ -12,3 +15,4 @@
     <% end %>
   </table>
 <% end %>
+</div>

@@ -1,3 +1,44 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import "top";
+
+ body {
+  background-color: #FFDE59;
+}
+
+#dropdownMenuButton1 {
+  color: white;
+  margin-right: 10px;
+}
+
+.icon-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon-option input {
+  display: none;
+}
+
+.icon-option img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.icon-option input:checked + label img {
+  border-color: #007bff;
+}
+
+.stadium-link {
+  position: absolute;
+}

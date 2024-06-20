@@ -6,6 +6,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    unless @post
+        redirect_to root_path, alert: t('posts.show.failure')
+    end
   end
 
   def new

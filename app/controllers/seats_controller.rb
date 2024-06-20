@@ -6,6 +6,6 @@ class SeatsController < ApplicationController
 
   private
   def seat_params
-    params.require(:seat).permit(:id, :name)
+    params.require(:seat).permit(:id, :name, :seat)
   end
 end

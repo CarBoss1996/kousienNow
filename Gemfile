@@ -63,6 +63,9 @@ gem 'sidekiq'
 gem 'aws-sdk-s3', require: false
 gem 'image_processing', '~> 1.2'
 gem 'ruby-vips'
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.6'
+gem 'popper_js', '~> 1.16'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

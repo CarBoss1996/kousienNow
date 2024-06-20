@@ -35,7 +35,9 @@ ja:
       post:
         body: 本文
         image: 画像
-
+      location:
+        seat: 座席
+        icon: アイコン
     models:
       user: ユーザー
     errors:
@@ -66,6 +68,12 @@ ja:
           attributes:
             body:
               blank: を入力してください
+        location:
+          attributes:
+            seat:
+              required: を登録してください
+            icon:
+              blank: を登録してください
   errors:
     messages:
       already_confirmed: は既に登録済みです。ログインしてください。
@@ -218,6 +226,7 @@ ja:
         posts: 投稿する
     show:
       title: 投稿詳細
+      failure: 投稿が見つかりません
     new:
       title: 新規投稿
       submit: 投稿
@@ -235,10 +244,33 @@ ja:
   locations:
     create:
       success: 登録しました
-      failure: 位置情報を取得してください
+      failure: 座席情報を登録してください
+      seat_not_found: 座席が登録できませんでした
+      already: すでに登録されています
     new:
       title: 位置情報の登録
       submit: 登録
+  location:
+    seat:
+      seat_id: 座席を選択する
+      backnet: "バックネット"
+      smbc_seat: "SMBCシート"
+      ivy_seat: "アイビーシート"
+      breeze_seat: "ブリーズシート"
+      first_base_alps: "1塁アルプス席"
+      third_base_alps: "3塁アルプス席"
+      right_outfield: "ライト外野席"
+      left_outfield: "レフト外野席"
+      home_cheering: "自宅から応援"
+      blank: 座席を登録してください
+      submit: 登録
+      icon: アイコンを選択する
+    icon:
+      heart: ハート
+      tiger: 虎
+      beer: ビール
+      chu_hi: チューハイ
+      curry: カレー
   seats:
     index:
       title: 座席一覧
