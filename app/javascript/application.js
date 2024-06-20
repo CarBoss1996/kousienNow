@@ -1,4 +1,4 @@
-//= require @hotwired/turbo-rails
+//= require turbo
 //= require ./controllers
 //= require bootstrap
-//= require turbo
+//= require confirm
