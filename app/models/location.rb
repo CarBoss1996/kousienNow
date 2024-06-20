@@ -17,13 +17,12 @@ class Location < ApplicationRecord
   }
 
   def self.create_with_seat(user, location_params)
-    seat = Seat.find_by(seat_name: location_params[:seat_id])
-    location = user.locations.build(location_params.except(:seat_id))
-    if seat
-      location.seat_id = seat.id
-      location.save ? location : nil
+    location = user.locations.build(location_params)
+    if location.seat_id
+      location.save ? location : location
     else
-      nil
+      location.errors.add(:seat, "シート名が見つかりませんでした。")
+      location
     end
   end
 end

@@ -25,7 +25,7 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    seat = Seat.find_by(seat_name: params[:location][:seat_id])
-    params.require(:location).permit(:name, :icon, :seat_id).merge(seat_id: seat ? seat.id : nil)
+    seat = Seat.find_by(seat_name: params[:location][:seat_name])
+    params.require(:location).permit(:icon).merge(seat_id: seat ? seat.id : nil)
   end
 end
