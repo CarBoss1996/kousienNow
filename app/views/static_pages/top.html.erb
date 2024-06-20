@@ -1,7 +1,14 @@
 <div class='top-wrapper'>
   <div class='top-inner-text'>
     <title>甲子園NOW!</title>
-    <%= render 'matches/matches', matches: @matches %>
-      <%= link_to '位置情報を登録する', new_location_path, class: 'btn btn-primary' %>
   </div>
 </div>
+  <div class="center d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+      <%= render 'matches/matches', matches: @matches %>
+    </div>
+    <div class="container">
+    <%= render 'locations/location' %>
+    </div>
+      <%= link_to '位置情報を登録する', new_location_path, class: 'btn btn-success' %>
+  </div>
