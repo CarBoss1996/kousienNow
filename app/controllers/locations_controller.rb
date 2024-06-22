@@ -10,8 +10,8 @@ class LocationsController < ApplicationController
     Rails.logger.info(location_params)
     last_location = current_user.locations.order(created_at: :desc).first
     if last_location && last_location.created_at.to_date == Date.today
-      flash[:danger] = t('location.create.already')
-      render :top
+      flash[:danger] = t('locations.create.already')
+      redirect_to root_path
     else
       @location = Location.create_with_seat(location_params, current_user)
       if @location.persisted?

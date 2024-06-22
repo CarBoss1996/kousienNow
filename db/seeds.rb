@@ -17,6 +17,6 @@ User.find_or_create_by!(email: 'test@example.com') do |user|
   user.password_confirmation = 'password'
 end
 
-Seat.seats.keys.each do |seat_name|
-  Seat.find_or_create_by!(seat_name: seat_name)
+Seat.seats.keys.each_with_index do |seat_name, index|
+  Seat.find_or_create_by!(id: index + 1, seat: seat_name)
 end
