@@ -72,8 +72,11 @@ ja:
           attributes:
             seat:
               required: を登録してください
+              blank: を登録してください
             icon:
               blank: を登録してください
+            seat_id:
+              blank: を選択してください
   errors:
     messages:
       already_confirmed: は既に登録済みです。ログインしてください。

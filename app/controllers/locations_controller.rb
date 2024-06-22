@@ -7,12 +7,13 @@ class LocationsController < ApplicationController
   end
 
   def create
+    Rails.logger.info(location_params)
     last_location = current_user.locations.order(created_at: :desc).first
     if last_location && last_location.created_at.to_date == Date.today
-      flash[:danger] = t('location.create.already')
-      render :top
+      flash[:danger] = t('locations.create.already')
+      redirect_to root_path
     else
-      @location = Location.create_with_seat(current_user, location_params) || Location.new(location_params)
+      @location = Location.create_with_seat(location_params, current_user)
       if @location.persisted?
         redirect_to root_path, success: t('locations.create.success')
       else
@@ -25,7 +26,6 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    seat = Seat.find_by(seat_name: params[:location][:seat_name])
-    params.require(:location).permit(:icon).merge(seat_id: seat ? seat.id : nil)
+    params.require(:location).permit(:seat_id, :icon)
   end
 end
