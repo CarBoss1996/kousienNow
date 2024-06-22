@@ -10,7 +10,7 @@
         <%= form.label :seat_name, I18n.t('location.seat.seat_id'), class: 'form-label' %>
       </div>
       <div class="mb-5">
-        <%= form.select :seat_name, Seat.seats.keys.map { |s| [I18n.t("location.seat.#{s}"), s] }, prompt: I18n.t('location.seat.blank') %>
+        <%= form.select :seat_id, Seat.seats.map { |s, v| [I18n.t("location.seat.#{s}"), v] }, prompt: I18n.t('location.seat.blank') %>
       </div>
 
       <div class="actions md-3">
