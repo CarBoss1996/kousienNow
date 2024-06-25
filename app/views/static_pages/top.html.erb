@@ -8,7 +8,7 @@
       <%= render 'matches/matches', matches: @matches %>
     </div>
     <div class="container">
-    <%= render 'locations/location' %>
+    <%= render 'user_locations/location' %>
     </div>
-      <%= link_to '位置情報を登録する', new_location_path, class: 'btn btn-success' %>
+      <%= link_to '位置情報を登録する', new_user_location_path, class: 'btn btn-success' %>
   </div>

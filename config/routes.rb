@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get :like_posts
     end
   end
-  resources :locations
+  resources :user_locations
   resources :seats
 
   root 'static_pages#top'

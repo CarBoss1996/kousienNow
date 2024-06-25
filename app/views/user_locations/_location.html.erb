@@ -41,26 +41,26 @@
 </head>
 <body>
 <map name="image-map">
-  <% Location.where(seat_id: @seat_id).each do |location| %>
-  <% coords = location.points.map { |point| "#{point['x']},#{point['y']}" }.join(',') %>
-    <area shape="poly" coords="<%= location.points %>">
+  <% UserLocation.where(location_id: @location_id).each do |user_location| %>
+  <% coords = user_location.points.map { |point| "#{point['x']},#{point['y']}" }.join(',') %>
+    <area shape="poly" coords="<%= user_location.points %>">
   <% end %>
 </map>
 <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600', usemap: '#image-map' %>
 
 <% if @users.any? %>
     <% @users.each_with_index do |user, index| %>
-      <% if user.locations.any? %>
-        <% location = user.locations.find_by(created_at: Date.today.all_day) %>
-        <% if location.present? && location.points.present? %>
+      <% if user.user_locations.any? %>
+        <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
+        <% if user_location.present? && user_location.points.present? %>
         <% offset_x = (index % 5) * 2 %> <!-- 横方向のオフセット -->
         <% offset_y = (index % 5) * 2 %> <!-- 縦方向のオフセット -->
-        <% location.points.each_with_index do |point, point_index| %>
+        <% user_location.points.each_with_index do |point, point_index| %>
           <% left = point[:x] + offset_x %>
           <% top = point[:y] + offset_y %>
-            <%= "icons/#{location.icon}" %>
-          <%= image_tag "icons/#{location.icon}", class: "seat-icon", style: "left: #{left}px; top: #{top}px;" %>
-          <%= image_path "icons/#{location.icon}" %>
+            <%= "icons/#{user_location.icon}" %>
+          <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}px; top: #{top}px;" %>
+          <%= image_path "icons/#{user_location.icon}" %>
           <div class="tooltip">
             <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
           </div>
