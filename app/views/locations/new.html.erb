@@ -7,7 +7,7 @@
         <%= render 'shared/error_messages', object: @location %>
 
       <div class="md-3">
-        <%= form.label :seat_name, I18n.t('location.seat.seat_id'), class: 'form-label' %>
+        <%= form.label :seat_id, I18n.t('location.seat.seat_id'), class: 'form-label' %>
       </div>
       <div class="mb-5">
         <%= form.select :seat_id, Seat.seats.map { |s, v| [I18n.t("location.seat.#{s}"), v] }, prompt: I18n.t('location.seat.blank') %>
@@ -18,7 +18,7 @@
           <div class="icon-selection">
             <% Location.icons.keys.each do |icon| %>
               <div class="icon-option md-3">
-                <%= form.radio_button :icon, icon, id: "icon_#{icon}" %>
+                <%= form.radio_button :icon, Location.icons[icon], id: "icon_#{icon}" %>
                 <%= label_tag "icon_#{icon}" do %>
                   <img src="<%= image_path("icons/#{icon}.png") %>" alt="<%= icon %>">
                   <%= I18n.t("location.icon.#{icon}") %>

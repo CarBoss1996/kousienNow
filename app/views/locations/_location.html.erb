@@ -1,5 +1,72 @@
-<div class="container d-flex justify-content-center align-items-center">
-  <div class="md-3">
-    <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600' %>
-  </div>
-</div>
+  <style>
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    .seat-icon {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+    }
+    .tooltip {
+      position: absolute;
+      display: none;
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const icons = document.querySelectorAll('.seat-icon');
+      icons.forEach(icon => {
+        icon.addEventListener('click', function(event) {
+          const tooltip = this.nextElementSibling;
+          tooltip.style.display = 'block';
+          tooltip.style.left = `${event.clientX}px`;
+          tooltip.style.top = `${event.clientY}px`;
+        });
+      });
+      document.addEventListener('click', function(event) {
+        const tooltips = document.querySelectorAll('.tooltip');
+        tooltips.forEach(tooltip => {
+          if (!tooltip.contains(event.target)) {
+            tooltip.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+<map name="image-map">
+  <% Location.where(seat_id: @seat_id).each do |location| %>
+  <% coords = location.points.map { |point| "#{point['x']},#{point['y']}" }.join(',') %>
+    <area shape="poly" coords="<%= location.points %>">
+  <% end %>
+</map>
+<%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600', usemap: '#image-map' %>
+
+<% if @users.any? %>
+    <% @users.each_with_index do |user, index| %>
+      <% if user.locations.any? %>
+        <% location = user.locations.find_by(created_at: Date.today.all_day) %>
+        <% if location.present? && location.points.present? %>
+        <% offset_x = (index % 5) * 2 %> <!-- 横方向のオフセット -->
+        <% offset_y = (index % 5) * 2 %> <!-- 縦方向のオフセット -->
+        <% location.points.each_with_index do |point, point_index| %>
+          <% left = point[:x] + offset_x %>
+          <% top = point[:y] + offset_y %>
+            <%= "icons/#{location.icon}" %>
+          <%= image_tag "icons/#{location.icon}", class: "seat-icon", style: "left: #{left}px; top: #{top}px;" %>
+          <%= image_path "icons/#{location.icon}" %>
+          <div class="tooltip">
+            <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+</body>

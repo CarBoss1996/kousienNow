@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_22_144210) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_103647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,13 +71,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_144210) do
 
   create_table "locations", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "icon"
-    t.string "name"
-    t.float "latitude"
-    t.float "longitude"
+    t.string "seat_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "seat_id", null: false
+    t.jsonb "points"
     t.index ["seat_id"], name: "index_locations_on_seat_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
@@ -117,18 +115,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_144210) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "seat", default: 0, null: false
-    t.index ["seat_name"], name: "index_seats_on_seat_name", unique: true
-  end
-
-  create_table "shapes", force: :cascade do |t|
-    t.bigint "seat_id", null: false
     t.float "min_latitude"
     t.float "max_latitude"
     t.float "min_longitude"
     t.float "max_longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["seat_id"], name: "index_shapes_on_seat_id"
+    t.index ["seat_name"], name: "index_seats_on_seat_name", unique: true
   end
 
   create_table "user_locations", force: :cascade do |t|
@@ -137,7 +128,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_144210) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "icon"
+    t.bigint "seat_id"
     t.index ["location_id"], name: "index_user_locations_on_location_id"
+    t.index ["seat_id"], name: "index_user_locations_on_seat_id"
     t.index ["user_id"], name: "index_user_locations_on_user_id"
   end
 
@@ -164,8 +158,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_144210) do
     t.string "avatar"
     t.string "favorite_player"
     t.integer "favorite_viewing_block"
+    t.bigint "seat_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["seat_id"], name: "index_users_on_seat_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -180,9 +176,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_144210) do
   add_foreign_key "notifications", "posts"
   add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
-  add_foreign_key "shapes", "seats"
   add_foreign_key "user_locations", "locations"
+  add_foreign_key "user_locations", "seats"
   add_foreign_key "user_locations", "users"
   add_foreign_key "user_matches", "matches"
   add_foreign_key "user_matches", "users"
+  add_foreign_key "users", "seats"
 end
