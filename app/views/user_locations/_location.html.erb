@@ -21,7 +21,7 @@
               <% offset_y = (index / 5) * 2 %> <!-- 縦方向のオフセット -->
               <% left = left + offset_x %>
               <% top = top + offset_y %>
-              <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
+              <%= image_tag "icons/#{user_location.icon}.png", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
               <div class="tooltip">
                 <% if user.latest_post %>
                   <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
