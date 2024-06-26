@@ -24,7 +24,7 @@
               <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
               <div class="tooltip">
                 <% if user.latest_post %>
-                  <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
+                  <%= user.latest_post.body %> <!-- 最新の投稿を表示 -->
                 <% end %>
               </div>
             <% end %>
