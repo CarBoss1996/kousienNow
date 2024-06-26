@@ -4,11 +4,7 @@
   </div>
 </div>
   <div class="center d-flex flex-column justify-content-center align-items-center">
-    <div class="container">
       <%= render 'matches/matches', matches: @matches %>
-    </div>
-    <div class="container">
-    <%= render 'locations/location' %>
-    </div>
-      <%= link_to '位置情報を登録する', new_location_path, class: 'btn btn-success' %>
+      <%= render 'user_locations/location' %>
+      <%= link_to '位置情報を登録する', new_user_location_path, class: 'btn btn-success' %>
   </div>

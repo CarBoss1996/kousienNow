@@ -9,14 +9,26 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 # db/seeds.rb
-User.find_or_create_by!(email: 'test@example.com') do |user|
+User.find_or_create_by!(email: 'aaa@aaa') do |user|
   user.user_name = 'aaa'
   user.last_name = 'aaa'
   user.first_name = 'aaa'
-  user.password = 'password'
-  user.password_confirmation = 'password'
+  user.password = 'aaaaaa'
+  user.password_confirmation = 'aaaaaa'
 end
 
-Seat.seats.keys.each_with_index do |seat_name, index|
-  Seat.find_or_create_by!(id: index + 1, seat: seat_name)
-end
+locations = [
+    { id: 1, location_type: :backnet, seat_name: "backnet", points: [{ x: 36, y: 72 }, { x: 25, y: 81 }, { x: 32, y: 86 }, { x: 58, y: 86 }, { x: 67, y: 81 }, { x: 55, y: 72 }] },
+    { id: 2, location_type: :smbc_seat, seat_name: "smbc_seat", points: [{ x: 59, y: 68 }, { x: 67, y: 53 }, { x: 64, y: 61 }] },
+    { id: 3, location_type: :ivy_seat, seat_name: "ivy_seat", points: [{ x: 73, y: 54 }, { x: 81, y: 58 }, { x: 64, y: 71 }, { x: 72, y: 76 }] },
+    { id: 4, location_type: :breeze_seat, seat_name: "breeze_seat", points:  [{ x: 25, y: 52 }, { x: 11, y: 58 }, { x: 21, y: 76 }, { x: 33, y: 67 }] },
+    { id: 5, location_type: :first_base_alps, seat_name: "first_base_alps", points: [{ x: 76, y: 32 }, { x: 71, y: 45 }, { x: 84, y: 51 }, { x: 90, y: 34 }] },
+    { id: 6, location_type: :third_base_alps, seat_name: "third_base_alps", points: [{ x: 2, y: 34 }, { x: 8, y: 52 }, { x: 21, y: 46 }, { x: 15, y: 31 }] },
+    { id: 7, location_type: :right_outfield, seat_name: "right_outfield", points: [{ x: 55, y: 2 }, { x: 54, y: 11 }, { x: 69, y: 15 }, { x: 77, y: 24 }, { x: 89, y: 26 }, { x: 78, y: 8 }] },
+    { id: 8, location_type: :left_outfield, seat_name: "left_outfield", points: [{ x: 38, y: 2 }, { x: 38, y: 11 }, { x: 23, y: 16 }, { x: 15, y: 24 }, { x: 4, y: 26 }, { x: 12, y: 10 }] },
+    { id: 9, location_type: :home_cheering, seat_name: "home_cheering", points: [{ x: 30, y: 26 }, { x: 30, y: 37 }, { x: 60, y: 37 }, { x: 60, y: 26 }] }
+  ]
+
+  locations.each do |location|
+    Location.create(location_type: location[:location_type], seat_name: location[:seat_name], points: location[:points].to_json)
+  end

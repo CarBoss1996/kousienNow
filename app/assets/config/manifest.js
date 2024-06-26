@@ -3,3 +3,4 @@
 //= link rails-ujs.js
 //= link application.js
 //= link application.css
+//= link user_location.js

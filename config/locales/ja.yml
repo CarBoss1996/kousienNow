@@ -35,7 +35,7 @@ ja:
       post:
         body: 本文
         image: 画像
-      location:
+      user_location:
         seat: 座席
         icon: アイコン
     models:
@@ -68,15 +68,19 @@ ja:
           attributes:
             body:
               blank: を入力してください
-        location:
+        user_location:
           attributes:
             seat:
               required: を登録してください
               blank: を登録してください
             icon:
               blank: を登録してください
-            seat_id:
+            location_id:
               blank: を選択してください
+            user:
+              required: を登録してください
+            location:
+              required: を登録してください
   errors:
     messages:
       already_confirmed: は既に登録済みです。ログインしてください。
@@ -244,16 +248,17 @@ ja:
       submit: 更新
     destroy:
       success: 削除しました
-  locations:
+  user_locations:
     create:
       success: 登録しました
       failure: 座席情報を登録してください
       seat_not_found: 座席が登録できませんでした
       already: すでに登録されています
+      invalid_location: 座席を登録してください
     new:
       title: 位置情報の登録
       submit: 登録
-  location:
+  user_location:
     seat:
       seat_id: 座席を選択する
       backnet: "バックネット"

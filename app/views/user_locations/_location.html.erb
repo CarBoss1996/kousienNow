@@ -1,0 +1,37 @@
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="relative">
+    <map name="image-map">
+      <% UserLocation.where(location_id: @location_id).each do |user_location| %>
+        <% coords = location.points.map { |point| "#{point['x']},#{point['y']}" }.join(',') %>
+        <area shape="poly" coords="<%= location.points %>">
+      <% end %>
+    </map>
+    <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600', usemap: '#image-map' %>
+
+    <% if @users.any? %>
+      <% @users.group_by { |user| user.user_locations.find_by(created_at: Date.today.all_day)&.location_id }.each do |location_id, users| %>
+        <% users.each_with_index do |user, index| %>
+          <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
+          <% if user_location.present? %>
+            <% points = JSON.parse(user_location.location.points) %>
+            <% if points.present? %>
+              <% top = points.sum { |point| point["y"].to_i } / points.size %>
+              <% left = points.sum { |point| point["x"].to_i } / points.size %>
+              <% offset_x = (index % 5) * 2 %> <!-- 横方向のオフセット -->
+              <% offset_y = (index / 5) * 2 %> <!-- 縦方向のオフセット -->
+              <% left = left + offset_x %>
+              <% top = top + offset_y %>
+              <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
+              <div class="tooltip">
+                <% if user.latest_post %>
+                  <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= javascript_include_tag 'user_location' %>
+  </div>
+</div>
