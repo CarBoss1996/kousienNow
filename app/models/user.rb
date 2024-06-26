@@ -35,5 +35,9 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id.to_i
   end
+
+  def latest_post
+    self.posts.order(created_at: :desc).first
+  end
 end
 

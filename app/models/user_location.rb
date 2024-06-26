@@ -13,9 +13,6 @@ class UserLocation < ApplicationRecord
 
     if user_location.save
       location = user_location.location
-      if location.nil?
-        Rails.logger.error("Location with id #{location_params[:location_id]} not found")
-      end
     else
       Rails.logger.error(user_location.errors.full_messages.join(", "))
     end

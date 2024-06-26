@@ -1,5 +1,7 @@
 class UserLocationsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
+  before_action :validate_location_id, only: [:create]
+
   def index; end
 
   def show
@@ -32,5 +34,13 @@ class UserLocationsController < ApplicationController
 
   def user_location_params
     params.require(:user_location).permit(:location_id, :icon)
+  end
+
+  def validate_location_id
+    unless Location.exists?(user_location_params[:location_id])
+      flash[:danger] = t('user_locations.create.invalid_location')
+      redirect_to new_user_location_path
+      return
+    end
   end
 end

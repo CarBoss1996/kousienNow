@@ -1,72 +1,37 @@
-  <style>
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-    .seat-icon {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-    }
-    .tooltip {
-      position: absolute;
-      display: none;
-      background-color: white;
-      border: 1px solid #ccc;
-      padding: 5px;
-      border-radius: 5px;
-    }
-  </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const icons = document.querySelectorAll('.seat-icon');
-      icons.forEach(icon => {
-        icon.addEventListener('click', function(event) {
-          const tooltip = this.nextElementSibling;
-          tooltip.style.display = 'block';
-          tooltip.style.left = `${event.clientX}px`;
-          tooltip.style.top = `${event.clientY}px`;
-        });
-      });
-      document.addEventListener('click', function(event) {
-        const tooltips = document.querySelectorAll('.tooltip');
-        tooltips.forEach(tooltip => {
-          if (!tooltip.contains(event.target)) {
-            tooltip.style.display = 'none';
-          }
-        });
-      });
-    });
-  </script>
-</head>
-<body>
-<map name="image-map">
-  <% UserLocation.where(location_id: @location_id).each do |user_location| %>
-  <% coords = user_location.points.map { |point| "#{point['x']},#{point['y']}" }.join(',') %>
-    <area shape="poly" coords="<%= user_location.points %>">
-  <% end %>
-</map>
-<%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600', usemap: '#image-map' %>
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="relative">
+    <map name="image-map">
+      <% UserLocation.where(location_id: @location_id).each do |user_location| %>
+        <% coords = location.points.map { |point| "#{point['x']},#{point['y']}" }.join(',') %>
+        <area shape="poly" coords="<%= location.points %>">
+      <% end %>
+    </map>
+    <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600', usemap: '#image-map' %>
 
-<% if @users.any? %>
-    <% @users.each_with_index do |user, index| %>
-      <% if user.user_locations.any? %>
-        <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
-        <% if user_location.present? && user_location.points.present? %>
-        <% offset_x = (index % 5) * 2 %> <!-- 横方向のオフセット -->
-        <% offset_y = (index % 5) * 2 %> <!-- 縦方向のオフセット -->
-        <% user_location.points.each_with_index do |point, point_index| %>
-          <% left = point[:x] + offset_x %>
-          <% top = point[:y] + offset_y %>
-            <%= "icons/#{user_location.icon}" %>
-          <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}px; top: #{top}px;" %>
-          <%= image_path "icons/#{user_location.icon}" %>
-          <div class="tooltip">
-            <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
-          </div>
+    <% if @users.any? %>
+      <% @users.group_by { |user| user.user_locations.find_by(created_at: Date.today.all_day)&.location_id }.each do |location_id, users| %>
+        <% users.each_with_index do |user, index| %>
+          <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
+          <% if user_location.present? %>
+            <% points = JSON.parse(user_location.location.points) %>
+            <% if points.present? %>
+              <% top = points.sum { |point| point["y"].to_i } / points.size %>
+              <% left = points.sum { |point| point["x"].to_i } / points.size %>
+              <% offset_x = (index % 5) * 2 %> <!-- 横方向のオフセット -->
+              <% offset_y = (index / 5) * 2 %> <!-- 縦方向のオフセット -->
+              <% left = left + offset_x %>
+              <% top = top + offset_y %>
+              <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
+              <div class="tooltip">
+                <% if user.latest_post %>
+                  <%= user.latest_post.content %> <!-- 最新の投稿を表示 -->
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
-  <% end %>
-<% end %>
-</body>
+    <%= javascript_include_tag 'user_location' %>
+  </div>
+</div>
