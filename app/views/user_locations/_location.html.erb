@@ -17,8 +17,8 @@
             <% if points.present? %>
               <% top = points.sum { |point| point["y"].to_i } / points.size %>
               <% left = points.sum { |point| point["x"].to_i } / points.size %>
-              <% offset_x = (index % 5) * 2 %> <!-- 横方向のオフセット -->
-              <% offset_y = (index / 5) * 2 %> <!-- 縦方向のオフセット -->
+              <% offset_x = (index % 5) * 5 %> <!-- 横方向のオフセット -->
+              <% offset_y = (index / 5) * 5 %> <!-- 縦方向のオフセット -->
               <% left = left + offset_x %>
               <% top = top + offset_y %>
               <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
