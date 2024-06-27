@@ -55,6 +55,9 @@
   width: 50px;
   height: 50px;
 }
+.icon-container {
+  position: relative;
+}
 .tooltip {
   position: absolute;
   display: none;
@@ -62,4 +65,12 @@
   border: 1px solid #ccc;
   padding: 5px;
   border-radius: 5px;
+  opacity: 1;
+}
+.btn-block {
+  padding: 1.25rem; /* パディングを2倍に */
+  width: 100%; /* 幅を100%に */
+}
+#stadium-image {
+  pointer-events: none;
 }

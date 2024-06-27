@@ -46,6 +46,12 @@ class PostsController < ApplicationController
     redirect_to posts_path, success: t('posts.destroy.success')
   end
 
+  def latest
+    @user = User.find_by(user_name: params[:user_name])
+    @latest_post = @user.posts.order(created_at: :desc).first
+    render json: @latest_post
+  end
+
   private
 
   def post_params
