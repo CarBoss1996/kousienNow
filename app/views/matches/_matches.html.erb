@@ -16,5 +16,14 @@
         <% end %>
       </table>
     <% end %>
+<% if @weather.present? %>
+  <div class="weather-info">
+    <h4>
+    天気: <%= @weather[:description] %><img src="<%= @weather[:icon_url] %>" alt="<%= @weather[:description] %>">
+    気温: <%= @weather[:temp_celsius] %>℃</h4>
+  </div>
+<% else %>
+  <p>天気情報を取得できませんでした。</p>
+<% end %>
   </div>
 </div>
