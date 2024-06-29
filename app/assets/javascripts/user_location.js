@@ -9,10 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
       allTooltips.forEach(tooltip => {
         tooltip.style.display = 'none';
       });
-      const allIcons = document.querySelectorAll('.icon');
+      const allIcons = document.querySelectorAll('.seat-icon');
       allIcons.forEach(icon => {
         icon.style.width = '';
         icon.style.height = '';
+        icon.dataset.enlarged = 'false'; // アイコンが拡大されていないことを示す
       });
 
       // アイコンの位置を取得
@@ -25,15 +26,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
       tooltip.style.display = 'block';
 
-      // アイコンのサイズを変更
-      let style = window.getComputedStyle(icon);
-      let originalWidth = parseFloat(style.width);
-      let originalHeight = parseFloat(style.height);
+      // アイコンがすでに拡大されていない場合のみ、アイコンのサイズを変更
+      if (icon.dataset.enlarged === 'false') {
+        let style = window.getComputedStyle(icon);
+        let originalWidth = parseFloat(style.width);
+        let originalHeight = parseFloat(style.height);
 
-      icon.style.width = (originalWidth * 1.2) + 'px';
-      icon.style.height = (originalHeight * 1.2) + 'px';
+        icon.style.width = (originalWidth * 1.2) + 'px';
+        icon.style.height = (originalHeight * 1.2) + 'px';
+        icon.dataset.enlarged = 'true'; // アイコンが拡大されたことを示す
+      }
+
       event.stopPropagation();
-    }, { once: true });
+    });
   });
 
   document.addEventListener('click', function(event) {
@@ -48,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     icons.forEach(icon => {
       icon.style.width = '';
       icon.style.height = '';
+      icon.dataset.enlarged = 'false'; // アイコンが拡大されていないことを示す
     });
   });
 });
