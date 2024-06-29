@@ -1,18 +1,20 @@
-<div class="container d-flex justify-content-center align-items-center">
-<h1>今日の試合</h1>
-</div>
+<div class="card mb-4 mx-auto">
+  <div class="card-body">
+    <div class="container d-flex justify-content-center align-items-center">
+      <h1>今日の試合</h1>
+    </div>
 
-<div class=" d-flex justify-content-center md-">
-<% if matches.blank? %>
-  <h2>今日の試合はありません</h2>
-<% else %>
-  <table>
-    <% matches.each do |match| %>
-      <tr>
-        <td><%= match.match_date.strftime('%H:%M') %></td>
-        <td>阪神 VS <%= match.opponent %></td>
-      </tr>
+    <% if matches.blank? %>
+      <h2>今日の試合はありません</h2>
+    <% else %>
+      <table>
+        <% matches.each do |match| %>
+          <tr>
+            <td><%= match.match_date.strftime('%H:%M') %></td>
+            <td>阪神 VS <%= match.opponent %></td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
-  </table>
-<% end %>
+  </div>
 </div>

@@ -67,6 +67,7 @@ gem 'jquery-rails'
 gem 'bootstrap', '~> 4.6'
 gem 'popper_js', '~> 1.16'
 gem 'annotate'
+gem 'font-awesome-sass', '~> 6.5.2'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

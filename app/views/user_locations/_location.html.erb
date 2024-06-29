@@ -6,7 +6,7 @@
         <area shape="poly" coords="<%= location.points %>">
       <% end %>
     </map>
-    <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '600', usemap: '#image-map' %>
+    <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '700', usemap: '#image-map' %>
 
     <% if @users.any? %>
       <% @users.group_by { |user| user.user_locations.find_by(created_at: Date.today.all_day)&.location_id }.each do |location_id, users| %>

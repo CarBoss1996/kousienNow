@@ -238,6 +238,7 @@ ja:
       title: 新規投稿
       submit: 投稿
     create:
+      submit: 虎に熱い声援を送る
       success: 投稿しました
       failure: 投稿できませんでした
     update:
@@ -250,6 +251,7 @@ ja:
       success: 削除しました
   user_locations:
     create:
+      submit: 位置情報を登録する
       success: 登録しました
       failure: 座席情報を登録してください
       seat_not_found: 座席が登録できませんでした

@@ -3,8 +3,28 @@
     <title>甲子園NOW!</title>
   </div>
 </div>
-  <div class="center d-flex flex-column justify-content-center align-items-center">
-      <%= render 'matches/matches', matches: @matches %>
-      <%= render 'user_locations/location' %>
-      <%= link_to '位置情報を登録する', new_user_location_path, class: 'btn btn-success' %>
+  <div class="center d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+    <%= render 'matches/matches', matches: @matches %>
+    <%= render 'user_locations/location' %>
+  <div class="d-grid gap-2 col-11 col-md-6 mx-auto mt-2 mb-4">
+      <%= link_to t('user_locations.create.submit'), new_user_location_path, class: 'btn btn-success btn-block' %>
+      <%= link_to t('posts.create.submit'), new_post_path, class: 'btn btn-primary btn-block' %>
   </div>
+</div>
+  <% if @posts.present? %>
+    <% @posts.each do |post| %>
+      <div class="card-body mb-3">
+        <div class="row">
+          <div class="col-8 col-md-6 mx-auto">
+            <%= render post %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="mb-3"><%= I18n.t('posts.no_result') %></div>
+      </div>
+    </div>
+  <% end %>

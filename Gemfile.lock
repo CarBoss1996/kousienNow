@@ -180,6 +180,8 @@ GEM
     fog-xml (0.1.4)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
+    font-awesome-sass (6.5.2)
+      sassc (~> 2.0)
     formatador (1.1.0)
     gapic-common (0.21.1)
       faraday (>= 1.9, < 3.a)
@@ -500,6 +502,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   fog-aws
+  font-awesome-sass (~> 6.5.2)
   google-cloud-vision
   gretel
   httparty
