@@ -63,9 +63,13 @@
   display: none;
   background-color: white;
   border: 1px solid #ccc;
+  max-width: 200px;
+  max-height: 100px;
   padding: 10px;
   border-radius: 5px;
   opacity: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .btn-block {
   padding: 1.25rem; /* パディングを2倍に */

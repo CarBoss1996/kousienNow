@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const iconLeft = parseFloat(icon.style.left);
 
       // ツールチップの位置を設定
-      tooltip.style.top = (iconTop - 5) + '%';
-      tooltip.style.left = (iconLeft - 1) + '%';
+      tooltip.style.bottom = (iconTop + 20) + '%';
+      tooltip.style.left = (iconLeft - 5) + '%';
 
       tooltip.style.display = 'block';
 
