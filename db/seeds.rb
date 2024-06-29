@@ -9,23 +9,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 # db/seeds.rb
-User.find_or_create_by!(email: 'aaa@aaa') do |user|
+user = User.find_or_create_by!(email: 'aaa@aaa') do |user|
   user.user_name = 'aaa'
   user.last_name = 'aaa'
   user.first_name = 'aaa'
   user.password = 'aaaaaa'
   user.password_confirmation = 'aaaaaa'
 end
-  # UserLocationの作成
-  user.user_locations.find_or_create_by!(location_id: Date.today.to_s) do |user_location|
-    user_location.icon = 'beer.png'
-    user_location.location_id = 5
-  end
-
-  # Postの作成
-  user.posts.find_or_create_by!(content: 'テストテスト') do |post|
-    post.created_at = Date.today
-  end
 
 locations = [
     { id: 1, location_type: :backnet, seat_name: "backnet", points: [{ x: 36, y: 72 }, { x: 25, y: 81 }, { x: 32, y: 86 }, { x: 58, y: 86 }, { x: 67, y: 81 }, { x: 55, y: 72 }] },

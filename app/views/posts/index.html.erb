@@ -13,10 +13,7 @@
     </div>
   <% end %>
   <% else %>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="mb-3"><%= I18n.t('posts.no_result') %></div>
-    </div>
-  </div>
+  <div class="card text-bg-light mb-3 mt-5 mx-auto" style="max-width: 18rem;">
+      <p class="card-text mx-auto"><%= I18n.t('posts.no_result') %></p>
   </div>
 <% end %>

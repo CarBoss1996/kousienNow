@@ -1,8 +1,10 @@
-<div class="container pt-3">
+<div class="container pt-3 mb-3">
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <h1 class="float-left mb-5"><%= t('.title') %></h1>
-      <%= link_to t('defaults.edit'), edit_profile_path, class: 'btn btn-success float-right' %>
+      <h1 class="container d-flex justify-content-center align-items-center mt-2"><%= t('.title') %></h1>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <%= link_to t('defaults.edit'), edit_profile_path, class: 'btn btn-success' %>
+      </div>
       <table class="table">
         <tr>
           <th scope="row"><%= User.human_attribute_name(:user_name) %></th>
@@ -39,6 +41,18 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <%= render partial: 'posts/post', collection: @user.posts %>
-</div>
+  <% if @posts.present? %>
+    <% @posts.each do |post| %>
+      <div class="card-body mb-3">
+        <div class="row">
+          <div class="col-8 col-md-6 mx-auto">
+            <%= render post %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+  <div class="card text-bg-light mb-3 mx-auto" style="max-width: 18rem;">
+    <p class="card-text mx-auto"><%= I18n.t('posts.no_result') %></p>
+  </div>
+  <% end %>
