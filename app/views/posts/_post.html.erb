@@ -1,22 +1,32 @@
-<%= link_to post.body, post_path(post) %>
-<div class="d-flex">
-  <% if current_user.own?(post) %>
-    <div class='ms-auto'>
-      <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
-        <i class="bi bi-pencil-fill"></i>
-      <% end %>
-      <%= link_to post_path(post), id: "button-delete-#{post.id}", data: { turbo_method: :delete, confirm: I18n.t('defaults.delete_confirm') } do %>
-        <i class="bi bi-trash-fill"></i>
-      <% end %>
+<div class="card mb-3">
+  <div class="row g-0">
+    <% if post.image.present? %>
+      <div class="col-md-4">
+        <%= image_tag post.image, class: "img-fluid rounded-start" %>
+      </div>
+      <div class="col-md-8">
+    <% else %>
+      <div class="col-md-12">
+    <% end %>
+      <div class="card-body">
+        <%= link_to post.body, post_path(post) %>
+        <div class="d-flex">
+          <% if current_user&.own?(post) %>
+            <div class='ms-auto'>
+              <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
+                <i class="bi bi-pencil-fill"></i>
+              <% end %>
+              <%= link_to post_path(post), id: "button-delete-#{post.id}", data: { turbo_method: :delete, confirm: I18n.t('defaults.delete_confirm') } do %>
+                <i class="bi bi-trash-fill"></i>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <ul class="list-inline float">
+          <li><i class="bi bi-person"></i><%= post.user.user_name %></li>
+          <li><i class="bi bi-calendar"></i><%= l post.created_at, format: :short %></li>
+        </ul>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
-<div class='col-md-3'>
-  <% if post.image.present? %>
-    <%= image_tag post.image, class: 'card-img-top img-fluid', size: '100x100' %>
-  <% end %>
-</div>
-<ul class="list-inline float">
-  <li><i class="bi bi-person"></i><%= post.user.user_name %></li>
-  <li><i class="bi bi-calendar"></i><%= l post.created_at, format: :short %></li>
-</ul>

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, expect: [:index, :show]
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to posts_path, success: t('posts.create.success')
+      redirect_to root_path, success: t('posts.create.success')
     else
       flash.now[:danger] = t('posts.create.failure')
       render :new, status: :unprocessable_entity

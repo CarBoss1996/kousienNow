@@ -5,3 +5,7 @@
 //= require bootstrap
 //= require confirm
 //= require user_location
+
+document.addEventListener('turbo:load', function() {
+  // BootstrapのJavaScriptを初期化します
+});
