@@ -32,3 +32,40 @@ locations = [
   locations.each do |location|
     Location.create(location_type: location[:location_type], seat_name: location[:seat_name], points: location[:points].to_json)
   end
+
+matches = [
+  { match_date: '2022-07-02 18:00', opponent: Match.opponents[:広島] },
+  { match_date: '2022-07-03 18:00', opponent: Match.opponents[:広島] },
+  { match_date: '2022-07-04 18:00', opponent: Match.opponents[:広島] },
+  { match_date: '2022-07-05 18:00', opponent: Match.opponents[:DeNA] },
+  { match_date: '2022-07-06 18:00', opponent: Match.opponents[:DeNA] },
+  { match_date: '2022-07-07 18:00', opponent: Match.opponents[:DeNA] },
+  { match_date: '2022-07-09 18:00', opponent: Match.opponents[:ヤクルト] },
+  { match_date: '2022-07-10 18:00', opponent: Match.opponents[:ヤクルト] },
+  { match_date: '2022-07-12 18:00', opponent: Match.opponents[:中日] },
+  { match_date: '2022-07-13 14:00', opponent: Match.opponents[:中日] },
+  { match_date: '2022-07-14 13:30', opponent: Match.opponents[:中日] },
+  { match_date: '2022-07-15 14:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2022-07-16 18:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2022-07-17 18:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2022-07-19 18:00', opponent: Match.opponents[:広島] },
+  { match_date: '2022-07-20 18:00', opponent: Match.opponents[:広島] },
+  { match_date: '2022-07-21 18:00', opponent: Match.opponents[:広島] },
+  { match_date: '2022-07-26 18:00', opponent: Match.opponents[:中日] },
+  { match_date: '2022-07-27 18:00', opponent: Match.opponents[:中日] },
+  { match_date: '2022-07-28 18:00', opponent: Match.opponents[:中日] },
+  { match_date: '2022-07-30 18:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2022-07-31 18:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2022-08-01 18:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2022-08-02 18:00', opponent: Match.opponents[:DeNA] },
+  { match_date: '2022-08-03 18:00', opponent: Match.opponents[:DeNA] },
+  { match_date: '2022-08-04 18:00', opponent: Match.opponents[:DeNA] },
+  { match_date: '2022-08-06 18:00', opponent: Match.opponents[:ヤクルト] },
+  { match_date: '2022-08-07 18:00', opponent: Match.opponents[:ヤクルト] },
+  { match_date: '2022-08-08 18:00', opponent: Match.opponents[:ヤクルト], studium: Match.studiums[:jingu] },
+
+]
+
+matches.each do |match|
+  Match.create!(match)
+end
