@@ -16,13 +16,17 @@ document.addEventListener("DOMContentLoaded", function() {
         icon.dataset.enlarged = 'false'; // アイコンが拡大されていないことを示す
       });
 
-      // アイコンの位置を取得
-      const iconTop = parseFloat(icon.style.top);
-      const iconLeft = parseFloat(icon.style.left);
+      // // アイコンの位置を取得
+      // const iconTop = parseFloat(icon.style.top);
+      // const iconLeft = parseFloat(icon.style.left);
 
-      // ツールチップの位置を設定
-      tooltip.style.bottom = (iconTop + 20) + '%';
-      tooltip.style.left = (iconLeft - 5) + '%';
+      // // ツールチップの位置を設定
+      // tooltip.style.bottom = (iconTop + 20) + '%';
+      // tooltip.style.left = (iconLeft - 5) + '%';
+
+      // // アイコンが固定で中央に表示される場合
+      // tooltip.style.bottom = '57%';
+      // tooltip.style.left = '46%';
 
       tooltip.style.display = 'block';
 
@@ -32,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let originalWidth = parseFloat(style.width);
         let originalHeight = parseFloat(style.height);
 
-        icon.style.width = (originalWidth * 1.2) + 'px';
-        icon.style.height = (originalHeight * 1.2) + 'px';
+        icon.style.width = (originalWidth * 1.3) + 'px';
+        icon.style.height = (originalHeight * 1.3) + 'px';
         icon.dataset.enlarged = 'true'; // アイコンが拡大されたことを示す
       }
 

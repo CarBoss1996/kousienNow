@@ -62,7 +62,7 @@ matches = [
   { match_date: '2022-08-04 18:00', opponent: Match.opponents[:DeNA] },
   { match_date: '2022-08-06 18:00', opponent: Match.opponents[:ヤクルト] },
   { match_date: '2022-08-07 18:00', opponent: Match.opponents[:ヤクルト] },
-  { match_date: '2022-08-08 18:00', opponent: Match.opponents[:ヤクルト], studium: Match.studiums[:jingu] },
+  { match_date: '2022-08-08 18:00', opponent: Match.opponents[:ヤクルト], stadium: :jingu },
 
 ]
 
