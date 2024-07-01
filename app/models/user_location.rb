@@ -15,6 +15,7 @@ class UserLocation < ApplicationRecord
       location = user_location.location
     else
       Rails.logger.error(user_location.errors.full_messages.join(", "))
+      raise "Failed to save UserLocation" 
     end
 
     user_location

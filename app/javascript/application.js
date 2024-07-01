@@ -1,5 +1,5 @@
-//= require rails-ujs
-//= require turbo
-//= require ./controllers
-//= require bootstrap
-//= require confirm
+import 'jquery';
+import 'rails-ujs';
+import 'bootstrap';
+import './user_location';
+import './post';

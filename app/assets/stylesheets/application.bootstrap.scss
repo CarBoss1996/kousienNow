@@ -62,7 +62,7 @@
   position: absolute;
   display: none;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 3px solid #FFDE59;
   max-width: 200px;
   max-height: 100px;
   padding: 10px;
@@ -70,6 +70,9 @@
   opacity: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  bottom: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .btn-block {
   padding: 1.25rem; /* パディングを2倍に */

@@ -9,11 +9,15 @@
     <%= image_tag 'koushien.jpg', id: 'stadium-image', class: 'img-fluid', width: '700', usemap: '#image-map' %>
 
     <% if @users.any? %>
+    <% Rails.logger.debug "users: #{@users.inspect}" %>
       <% @users.group_by { |user| user.user_locations.find_by(created_at: Date.today.all_day)&.location_id }.each do |location_id, users| %>
+      <% Rails.logger.debug "location_id: #{location_id}, users: #{users.inspect}" %>
         <% users.each_with_index do |user, index| %>
           <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
+          <% Rails.logger.debug "user_location: #{user_location.inspect}" %>
           <% if user_location.present? %>
             <% points = JSON.parse(user_location.location.points) %>
+            <% Rails.logger.debug "points: #{points.inspect}" %>
             <% if points.present? %>
               <% top = points.sum { |point| point["y"].to_i } / points.size %>
               <% left = points.sum { |point| point["x"].to_i } / points.size %>
@@ -21,6 +25,7 @@
               <% offset_y = (index / 5) * 5 %> <!-- 縦方向のオフセット -->
               <% left = left + offset_x %>
               <% top = top + offset_y %>
+              <% Rails.logger.debug "top: #{top}, left: #{left}, offset_x: #{offset_x}, offset_y: #{offset_y}" %>
               <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
               <div class="tooltip">
                 <% if user.latest_post %>
@@ -32,6 +37,5 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= javascript_include_tag 'user_location' %>
   </div>
 </div>

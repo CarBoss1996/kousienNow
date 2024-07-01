@@ -1,29 +1,25 @@
 <div class="card mb-4 mx-auto">
   <div class="card-body">
-    <div class="container d-flex justify-content-center align-items-center">
-      <h1>今日の試合</h1>
-    </div>
-
-    <% if matches.blank? %>
-      <h2>今日の試合はありません</h2>
-    <% else %>
-      <table>
-        <% matches.each do |match| %>
-          <tr>
-            <td><%= match.match_date.strftime('%H:%M') %></td>
-            <td>阪神 VS <%= match.opponent %></td>
-          </tr>
+    <div class="container d-flex flex-column align-items-center">
+      <h3>今日の試合</h3>
+      <% if @matches.blank? %>
+        <h2>今日の試合はありません</h2>
+      <% else %>
+        <% @matches.each do |match| %>
+          <h1 class="mt-3">阪神 VS <%= match.opponent %></h1>
+          <h4><%= match.match_date.strftime('%H:%M') %></h4>
         <% end %>
-      </table>
-    <% end %>
-<% if @weather.present? %>
-  <div class="weather-info">
-    <h4>
-    天気: <%= @weather[:description] %><img src="<%= @weather[:icon_url] %>" alt="<%= @weather[:description] %>">
-    気温: <%= @weather[:temp_celsius] %>℃</h4>
-  </div>
-<% else %>
-  <p>天気情報を取得できませんでした。</p>
-<% end %>
+      <% end %>
+      <% if @weather.present? %>
+        <div class="weather-info mt-3">
+          <h4>
+            天気: <%= @weather[:description] %><img src="<%= @weather[:icon_url] %>" alt="<%= @weather[:description] %>">
+            気温: <%= @weather[:temp_celsius] %>℃
+          </h4>
+        </div>
+      <% else %>
+        <p>天気情報を取得できませんでした。</p>
+      <% end %>
+    </div>
   </div>
 </div>
