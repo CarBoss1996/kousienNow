@@ -61,8 +61,8 @@ matches = [
   { match_date: '2024-08-02 18:00', opponent: Match.opponents[:DeNA] },
   { match_date: '2024-08-03 18:00', opponent: Match.opponents[:DeNA] },
   { match_date: '2024-08-04 18:00', opponent: Match.opponents[:DeNA] },
-  { match_date: '2024-08-06 18:00', opponent: Match.opponents[:ヤクルト] },
-  { match_date: '2024-08-07 18:00', opponent: Match.opponents[:ヤクルト] },
+  { match_date: '2024-08-06 18:00', opponent: Match.opponents[:ヤクルト], stadium: :jingu },
+  { match_date: '2024-08-07 18:00', opponent: Match.opponents[:ヤクルト], stadium: :jingu },
   { match_date: '2024-08-08 18:00', opponent: Match.opponents[:ヤクルト], stadium: :jingu },
 ]
 
