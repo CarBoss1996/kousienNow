@@ -8,6 +8,9 @@
         <% @matches.each do |match| %>
           <h1 class="mt-3">阪神 VS <%= match.opponent %></h1>
           <h4><%= match.match_date.strftime('%H:%M') %></h4>
+          <% if match.stadium.present? %>
+            <h5><%= Match::STADIUM_NAMES[match.stadium] %></h5>
+          <% end %>
         <% end %>
       <% end %>
       <% if @weather.present? %>
