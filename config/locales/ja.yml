@@ -35,11 +35,14 @@ ja:
       post:
         body: 本文
         image: 画像
+      comment:
+        body: コメント
       user_location:
         seat: 座席
         icon: アイコン
     models:
       user: ユーザー
+      comment: コメント
     errors:
       models:
         user:
@@ -214,6 +217,7 @@ ja:
         profile: マイページ
         post: 投稿一覧
         seat: 座席情報
+        like_post: いいね一覧
   profiles:
     show:
       title: マイページ
@@ -222,6 +226,7 @@ ja:
     destroy: 削除
     update: 更新
     submit: 送信
+    post: 投稿
     flash_message:
       updated: 更新しました
       not_updated: 更新できませんでした

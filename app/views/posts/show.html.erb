@@ -1,11 +1,10 @@
 <% content_for(:body, @post.body ) %>
-<div class="container pt-5">
+<div class="container pt-2">
   <div class="row mb-3">
-    <div class="col-lg-8 offset-lg-2">
-      <%= link_to t('helpers.submit.user.post'), posts_path, class: 'btn btn-success' %>
-      <h1><%= t('.title') %></h1>
+    <div class="col-lg-8 offset-lg-2 text-center">
+      <h1 class="mt-1 mb-3"><%= t('.title') %></h1>
       <article class="card">
-        <div class="card-body">
+        <div class="card-body show-card">
           <% if current_user.own?(@post) %>
             <div class='d-flex justify-content-end'>
               <%= link_to edit_post_path(@post), remote: true, id: "button-edit-#{@post.id}" do %>
@@ -17,33 +16,35 @@
             </div>
           <% end %>
           <div class='row'>
-            <div class='col-md-9'>
-              <p><%= simple_format(@post.body) %></p>
-              <ul class="list-inline">
-                <li class="list-inline-item"><%= "by #{@post.user.user_name}" %></li>
-                <li class="list-inline-item"><%= l(@post.created_at, format: :default) %></li>
-              </ul>
-            </div>
-            <div class='col-md-3'>
-              <% if @post.image.present? %>
+            <% if @post.image.present? %>
+              <div class='col-md-3'>
                 <%= image_tag @post.image.url, class: 'card-img-top img-fluid', size: '300x200' %>
-              <% end %>
+              </div>
+            <% end %>
+            <div class='col-md-9 text-show-body'>
+              <div class="flex-grow-1">
+                <p><%= simple_format(@post.body) %></p>
+              </div>
             </div>
           </div>
+        <ul class="list-inline">
+          <li class="list-inline-item">by <%= link_to "#{@post.user.user_name}", profile_path(@post.user) %> </li>
+          <li class="list-inline-item"><%= l(@post.created_at, format: :default) %></li>
+        </ul>
         </div>
       </article>
-      <p><%= link_to 'トップに戻る', root_path %></p>
-      <p><%= link_to 'ユーザー詳細を見る', profile_path(@post.user) %></p>
     </div>
   </div>
-  <%# <%= render 'comments/form', comment: @comment, board: @board %>
-  <%# <div class="row">
+  <%= render 'comments/form', comment: @comment, post: @post %>
+  <div class="row">
     <div class="col-lg-8 offset-lg-2">
       <table class="table">
         <tbody id="table-comment">
           <%= render @comments %>
         </tbody>
       </table>
+      <p><%= link_to t('helpers.submit.user.post'), posts_path %></p>
+      <p><%= link_to 'トップに戻る', root_path %></p>
     </div>
   </div>
 </div>

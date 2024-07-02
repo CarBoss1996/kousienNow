@@ -101,6 +101,25 @@ main {
   font-size: 0.5em; /* 必要に応じてサイズを調整 */
 }
 
+.show-card {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.text-show-body {
+  text-align: left;
+  padding: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+.list-inline {
+  margin-top: auto;
+}
+
 footer {
   margin-top: auto;
 }
