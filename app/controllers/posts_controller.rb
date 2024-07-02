@@ -52,6 +52,10 @@ class PostsController < ApplicationController
     render json: @latest_post
   end
 
+  def bookmarks
+    @bookmark_posts = current_user.like_posts.includes(:user).order(created_at: :desc)
+  end
+
   private
 
   def post_params
