@@ -285,6 +285,11 @@ ja:
   seats:
     index:
       title: 座席一覧
+  like_posts:
+    create:
+      success: いいねしました
+    destroy:
+      success: いいねを取り消しました
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"

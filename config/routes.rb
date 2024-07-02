@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get :like_posts
     end
   end
+  resources :like_posts, only: %i[create destroy]
   resources :user_locations
   resources :seats
 

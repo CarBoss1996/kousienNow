@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :user_locations
   has_many :locations, through: :user_locations
+  has_many :like_posts, dependent: :destroy
+  has_many :like_post_posts, through: :like_posts, source: :post
+
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
@@ -39,5 +42,16 @@ class User < ApplicationRecord
   def latest_post
     self.posts.order(created_at: :desc).first
   end
-end
 
+  def like(post)
+    like_posts.create(post_id: post.id)
+  end
+
+  def unlike(post)
+    like_posts.find_by(post_id: post.id)&.destroy
+  end
+
+  def like?(post)
+    like_posts.exists?(post_id: post.id)
+  end
+end
