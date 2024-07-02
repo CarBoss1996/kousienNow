@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('turbo:load', function() {
   const icons = document.querySelectorAll('.seat-icon');
   icons.forEach(icon => {
     icon.addEventListener('click', function(event) {
@@ -16,18 +16,23 @@ document.addEventListener("DOMContentLoaded", function() {
         icon.dataset.enlarged = 'false'; // アイコンが拡大されていないことを示す
       });
 
-      // // アイコンの位置を取得
-      // const iconTop = parseFloat(icon.style.top);
-      // const iconLeft = parseFloat(icon.style.left);
+      // アイコンの位置を取得
+      const iconTop = parseFloat(icon.style.top);
+      const iconLeft = parseFloat(icon.style.left);
 
-      // // ツールチップの位置を設定
-      // tooltip.style.bottom = (iconTop + 20) + '%';
-      // tooltip.style.left = (iconLeft - 5) + '%';
-
-      // // アイコンが固定で中央に表示される場合
-      // tooltip.style.bottom = '57%';
-      // tooltip.style.left = '46%';
-
+      // ツールチップの位置を設定
+      let topValue;
+      if (iconTop > 70) { // アイコンの位置が70%を超えた場合
+        topValue = iconTop - 8; // ツールチップをアイコンの上に表示
+      } else {
+        topValue = iconTop + 14; // ツールチップをアイコンの下に表示
+      }
+      if (topValue > 100) {
+        tooltip.style.top = (100 - (topValue - 100)) + '%'; // topValueが100を超える場合、100から超過分を引く
+      } else {
+        tooltip.style.top = topValue + '%';
+      }
+      tooltip.style.left = (iconLeft + 4) + '%';
       tooltip.style.display = 'block';
 
       // アイコンがすでに拡大されていない場合のみ、アイコンのサイズを変更

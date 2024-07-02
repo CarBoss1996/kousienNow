@@ -10,12 +10,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <%= breadcrumbs separator: " &rsaquo; " %>
       <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
+    <main class="flex-shrink-0">
     <%= yield %>
-
+    </main>
     <%= render 'shared/footer', class: 'fixed-bottom' %>
   </body>
 </html>
