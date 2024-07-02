@@ -9,6 +9,8 @@ class PostsController < ApplicationController
     unless @post
         redirect_to root_path, alert: t('posts.show.failure')
     end
+    @comment = Comment.new
+    @comments = @post.comments.includes(:user).order(created_at: :desc)
   end
 
   def new

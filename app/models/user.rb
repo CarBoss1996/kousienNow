@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :locations, through: :user_locations
   has_many :like_posts, dependent: :destroy
   has_many :like_post_posts, through: :like_posts, source: :post
+  has_many :comments, dependent: :destroy
 
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
