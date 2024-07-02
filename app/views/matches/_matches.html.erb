@@ -6,7 +6,7 @@
         <h2>今日の試合はありません</h2>
       <% else %>
         <% @matches.each do |match| %>
-          <h1 class="mt-3">阪神 VS <%= match.opponent %></h1>
+          <h1 class="mt-3">阪神 <span class="small-vs"> VS </span> <%= match.opponent %></h1>
           <h4><%= match.match_date.strftime('%H:%M') %></h4>
           <% if match.stadium.present? %>
             <h5><%= Match::STADIUM_NAMES[match.stadium] %></h5>
@@ -15,14 +15,21 @@
       <% end %>
       <% if @weather.present? %>
         <div class="weather-info mt-3">
-          <h4>
-            天気: <%= @weather[:description] %><img src="<%= @weather[:icon_url] %>" alt="<%= @weather[:description] %>">
-            気温: <%= @weather[:temp_celsius] %>℃
-          </h4>
+          <div class="row">
+            <div class="col-12 col-sm-6 text-center">
+              <h6>
+                天気: <img src="<%= @weather[:icon_url] %>" alt="<%= @weather[:description] %>">
+              </h6>
+            </div>
+            <div class="col-12 col-sm-6 text-center">
+              <h6>
+                気温: <%= @weather[:temp_celsius] %>℃
+              </h6>
+            </div>
+          </div>
         </div>
       <% else %>
-        <p>天気情報を取得できませんでした。</p>
+        <p class="text-center">天気情報を取得できませんでした。</p>
       <% end %>
-    </div>
-  </div>
+      </div>  </div>
 </div>

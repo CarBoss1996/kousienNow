@@ -2,16 +2,22 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import "top";
 
- body {
+body {
   background-color: #FFDE59;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 70px;
+}
+main {
+  flex: 1;
 }
 
 .header-image {
   width: 100%;
-  height: 50vh;
   object-fit: cover; // 画像がコンテナにフィットするように調整
   object-position: center; // 画像を中央に配置
 }
@@ -32,6 +38,7 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  font-size: 0.8em;
 }
 
 .icon-option input {
@@ -82,6 +89,7 @@
   transform: translate(-50%, -50%);
 }
 .btn-block {
+  font-size: 1.25rem; /* パディングを2倍に */
   padding: 1.25rem; /* パディングを2倍に */
   width: 100%; /* 幅を100%に */
 }
@@ -89,8 +97,44 @@
   pointer-events: none;
 }
 
-@media (max-width: 480px) {
+.small-vs {
+  font-size: 0.5em; /* 必要に応じてサイズを調整 */
+}
+
+footer {
+  margin-top: auto;
+}
+
+.fixed-bottom {
+  margin-top: auto;
+}
+
+@media (min-width: 700px) {
+  .match-card {
+    width: 40%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  #stadium-image {
+    width: 100%;
+  }
+  .seat-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) and (max-width: 767px) {
   .icon-option img {
+    width: 30px;
+    height: 30px;
+  }
+
+  #stadium-image {
+    width: 100%;
+  }
+  .seat-icon {
     width: 30px;
     height: 30px;
   }
