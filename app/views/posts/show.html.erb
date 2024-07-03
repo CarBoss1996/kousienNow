@@ -43,8 +43,10 @@
           <%= render @comments %>
         </tbody>
       </table>
-      <p><%= link_to t('helpers.submit.user.post'), posts_path %></p>
-      <p><%= link_to 'トップに戻る', root_path %></p>
+      <div class="text-center">
+        <p><%= link_to t('helpers.submit.user.post'), posts_path %></p>
+        <p><%= link_to 'トップに戻る', root_path %></p>
+      </div>
     </div>
   </div>
 </div>

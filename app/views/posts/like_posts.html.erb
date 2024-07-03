@@ -2,27 +2,23 @@
 <div class='container mt-3 mb-3'>
   <div class="row justify-content-center">
     <div class="col-lg-6">
-    <h1 class="text-center zen-maru"><%= t('.title') %></h1>
-      <!-- 検索フォーム -->
-      <form>
-        <div class="input-group mb-3"><input class="form-control" placeholder="検索ワード" type="search"/>
-          <div class="input-group-append"><input type="submit" value="検索" class="btn btn-primary"/></div>
-        </div>
-      </form>
-    </div>
+    <h1 class="text-center zen-maru pb-3"><%= t('.title') %></h1>
+    <%= render 'search_form', q: @q, url: like_posts_posts_path %>
   </div>
+</div>
   <% if @liked_posts.present? %>
     <% @liked_posts.each do |liked_post| %>
       <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-4 offset-md-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-5 mt-3">
             <%= render liked_post %>
           </div>
         </div>
       </div>
     <% end %>
     <% else %>
-      <p><%= t('.no_result') %></p>
+      <p class="text-center mt-5"><%= t('.no_result') %></p>
     <% end %>
   </div>
+  <%= paginate @liked_posts %>
 </div>

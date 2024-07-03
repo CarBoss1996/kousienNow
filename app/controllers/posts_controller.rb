@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, expect: [:index, :show]
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def show
@@ -55,7 +56,8 @@ class PostsController < ApplicationController
   end
 
   def like_posts
-    @liked_posts = current_user.liked_posts.includes(:user).order(created_at: :desc)
+    @q = Post.joins(:like_posts).where(like_posts: { user_id: current_user.id }).ransack(params[:q])
+    @liked_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   private
