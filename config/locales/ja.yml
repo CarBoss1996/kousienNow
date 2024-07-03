@@ -85,6 +85,10 @@ ja:
               required: を登録してください
             location:
               required: を登録してください
+        comment:
+          attributes:
+            body:
+              blank: を入力してください
   errors:
     messages:
       already_confirmed: は既に登録済みです。ログインしてください。
@@ -295,6 +299,13 @@ ja:
       success: いいねしました
     destroy:
       success: いいねを取り消しました
+  comment:
+    create:
+      success: コメントを作成しました
+    edit:
+      success: コメントを編集しました
+    destroy:
+      success: コメントを削除しました
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
