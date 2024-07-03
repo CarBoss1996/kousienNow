@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :user_locations
   has_many :locations, through: :user_locations
   has_many :like_posts, dependent: :destroy
-  has_many :like_post_posts, through: :like_posts, source: :post
+  has_many :liked_posts, through: :like_posts, source: :post
   has_many :comments, dependent: :destroy
 
 

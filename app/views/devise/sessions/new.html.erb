@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto">
-      <h1><%= t('.title') %></h1>
+      <h1 class="zen-maru"><%= t('.title') %></h1>
       <%= render "devise/shared/error_messages", resource: resource %>
       <%= form_for(resource, as: resource_name, url: user_session_path) do |f| %>
         <div class="md-3">
@@ -20,7 +20,7 @@
             <%= f.label :remember_me %>
           </div>
         <% end %>
-        <%= f.submit I18n.t('devise.sessions.new.submit'), class: 'btn btn-primary' %>
+        <%= f.submit I18n.t('devise.sessions.new.submit'), class: 'btn btn-primary', style: "width: 40%;" %>
       <% end %>
 
       <div class='text-center'>

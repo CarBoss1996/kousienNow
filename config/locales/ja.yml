@@ -259,6 +259,9 @@ ja:
       submit: 更新
     destroy:
       success: 削除しました
+    like_posts:
+      title: いいね一覧
+      no_result: いいねした投稿がありません
   user_locations:
     create:
       submit: 位置情報を登録する

@@ -54,8 +54,8 @@ class PostsController < ApplicationController
     render json: @latest_post
   end
 
-  def bookmarks
-    @bookmark_posts = current_user.like_posts.includes(:user).order(created_at: :desc)
+  def like_posts
+    @liked_posts = current_user.liked_posts.includes(:user).order(created_at: :desc)
   end
 
   private

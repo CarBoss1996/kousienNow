@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto">
-      <h1><%= t('.title') %></h1>
+      <h1 class="zen-maru"><%= t('.title') %></h1>
       <%= form_with model: @user, url: profile_path, method: :put, local: true do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <div class="mb-3">
@@ -36,7 +36,7 @@
             <% end %>
           </div>
         </div>
-        <%= f.submit t('defaults.update'), class: "btn btn-primary" %>
+        <%= f.submit t('defaults.update'), class: "btn btn-primary", style: "width: 40%;" %>
       <% end %>
       <p>メールアドレスの変更をしたい方は<a href="#">こちら</a></p>
       <p>パスワードの変更をしたい方は<a href="#">こちら</a></p>

@@ -1,9 +1,9 @@
 <div class="card mb-4 mx-auto match-card">
   <div class="card-body">
     <div class="container d-flex flex-column align-items-center">
-      <h3>今日の試合</h3>
+      <h3 class="zen-maru">今日の試合</h3>
       <% if @matches.blank? %>
-        <h2>今日の試合はありません</h2>
+        <h2 class="zen-maru">今日の試合はありません</h2>
       <% else %>
         <% @matches.each do |match| %>
           <h1 class="mt-3">阪神 <span class="small-vs"> VS </span> <%= match.opponent %></h1>
@@ -17,12 +17,12 @@
         <div class="weather-info mt-3">
           <div class="row">
             <div class="col-12 col-sm-6 text-center">
-              <h6>
+              <h6 class="zen-maru">
                 天気: <img src="<%= @weather[:icon_url] %>" alt="<%= @weather[:description] %>">
               </h6>
             </div>
             <div class="col-12 col-sm-6 text-center">
-              <h6>
+              <h6 class="zen-maru">
                 気温: <%= @weather[:temp_celsius] %>℃
               </h6>
             </div>

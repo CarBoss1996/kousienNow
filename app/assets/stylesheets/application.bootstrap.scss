@@ -7,6 +7,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  font-family: 'Kosugi Maru', sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -126,6 +127,12 @@ footer {
 
 .fixed-bottom {
   margin-top: auto;
+}
+
+.zen-maru {
+  font-family: "Zen Maru Gothic", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @media (min-width: 700px) {
