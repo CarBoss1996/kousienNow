@@ -139,10 +139,22 @@ footer {
   font-weight: 400;
   font-style: normal;
 }
+@keyframes sparkle {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.sparkle {
+  animation: sparkle 1s linear infinite;
+}
 
 @media (min-width: 700px) {
   .match-card {
     width: 40%;
+  }
+  .icon-button {
+    font-size: 1.5em;
   }
 }
 

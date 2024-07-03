@@ -6,11 +6,14 @@
       </div>
       <div class="col-md-9">
     <% else %>
-      <div class="col-md-12">
+      <div class="col-md-12 ml-*">
     <% end %>
       <div class="card-body d-flex flex-column post-card">
         <div class="flex-grow-1">
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end icon-button">
+            <%= link_to post_path(post), id: "button-comment-#{post.id}" do %>
+              <i class="bi bi-chat-dots">_</i>
+            <% end %>
             <% if current_user&.own?(post) %>
               <div>
                 <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
@@ -21,16 +24,16 @@
                 <% end %>
               </div>
             <% else %>
-              <div style="display: flex; align-items: center;">
-                <turbo-frame id="like_message_for_post-<%= post.id %>"></turbo-frame>
-                <%= render 'posts/like_buttons', { post: post } %>
+              <div id="like-button-container">
+                <%= render 'posts/like_buttons', { post: post, on_click: 'showAndHideMessage(#{post.id})' } %>
               </div>
+              <turbo-frame id="like_message_for_post-<%= post.id %>"></turbo-frame>
             <% end %>
           </div>
-          <%= link_to post.body, post_path(post) %>
+          <p class="card-text"><%= post.body %></p>
         </div>
         <div class="mt-auto d-flex justify-content-end mt-auto">
-          <div><i class="bi bi-person"></i> <%= post.user.user_name %></div>
+          <div><i class="bi bi-person"></i> <%= post.user.user_name %>_</div>
           <div><i class="bi bi-calendar"></i> <%= l post.created_at, format: :short %></div>
         </div>
       </div>

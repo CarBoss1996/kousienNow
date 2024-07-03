@@ -4,5 +4,6 @@ import "@hotwired/turbo-rails"
 import * as bootstrap from "bootstrap/dist/js/bootstrap"
 import './user_location';
 import './post';
+import './like_post'
 
 Rails.start();
