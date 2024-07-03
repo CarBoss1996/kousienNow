@@ -2,13 +2,21 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @comment.save
-    flash.now[:success] = t('.success')
+    flash[:success] = t('.success')
+    respond_to do |format|
+      format.turbo_stream { render 'comments/create' }
+      format.html { redirect_to @comment }
+    end
   end
 
   def destroy
     @comment = current_user.comments.find(params[:id])
     @comment.destroy!
-    flash.now[:success] = t('.success')
+    flash[:success] = t('.success')
+    respond_to do |format|
+      format.turbo_stream { render 'comments/destroy' }
+      format.html { redirect_to comments_url }
+    end
   end
 
   private

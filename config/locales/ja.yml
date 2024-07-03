@@ -299,7 +299,7 @@ ja:
       success: いいねしました
     destroy:
       success: いいねを取り消しました
-  comment:
+  comments:
     create:
       success: コメントを作成しました
     edit:
