@@ -10,3 +10,8 @@
     <%= render 'comments/form', comment: Comment.new, post: @comment.post %>
   <% end %>
 <% end %>
+<turbo-stream action="replace" target="flash_messages">
+  <template>
+    <%= render 'shared/flash_message' %>
+  </template>
+</turbo-stream>

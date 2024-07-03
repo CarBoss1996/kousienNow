@@ -1,2 +1,7 @@
 <%= turbo_stream.remove "comment-#{@comment.id}" do %>
 <% end %>
+<turbo-stream action="replace" target="flash_messages">
+  <template>
+    <%= render 'shared/flash_message' %>
+  </template>
+</turbo-stream>
