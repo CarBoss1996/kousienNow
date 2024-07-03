@@ -1,5 +1,5 @@
 <div class='ms-auto'>
-  <% if current_user.like?(post) %>
+  <% if current_user && current_user.like?(post) %>
     <%= render 'posts/unlike', { post: post } %>
   <% else %>
     <%= render 'posts/like', { post: post } %>
