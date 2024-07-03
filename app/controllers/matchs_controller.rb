@@ -4,7 +4,7 @@ require 'uri'
 
 class MatchsController < ApplicationController
   def index
-    @matches = Match.where(match_date: Date.today.beginning_of_day..Date.today.end_of_day)
+    @matches = Match.where(match_date: Date.today.beginning_of_day..Date.today.end_of_day).order(match_date: :desc, created_at: :desc)
     @weather = fetch_weather
   end
 
