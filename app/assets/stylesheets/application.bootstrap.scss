@@ -120,7 +120,11 @@ main {
 .list-inline {
   margin-top: auto;
 }
-
+.post-card {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
 footer {
   margin-top: auto;
 }
