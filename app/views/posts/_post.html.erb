@@ -30,7 +30,7 @@
               <turbo-frame id="like_message_for_post-<%= post.id %>"></turbo-frame>
             <% end %>
           </div>
-          <p class="card-text"><%= post.body %></p>
+          <div class="card-text"><%= simple_format(post.body) %></div>
         </div>
         <div class="mt-auto d-flex justify-content-end mt-auto">
           <div><i class="bi bi-person"></i> <%= post.user.user_name %>_</div>
