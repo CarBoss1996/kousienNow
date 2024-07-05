@@ -108,6 +108,7 @@ matches = [
 ]
 
 matches.each do |match|
+  match[:match_date] = ActiveSupport::TimeZone['Tokyo'].parse(match[:match_date])
   Match.find_or_create_by!(match_date: match[:match_date], opponent: match[:opponent], stadium: match[:stadium]) do |m|
     m.attributes = match
   end
