@@ -1,9 +1,9 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to t('helpers.submit.user.new'), new_user_session_path %><br />
+  <%= link_to t('helpers.submit.user.new'), new_user_session_path, class: 'mb-1' %><br />
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to t('helpers.submit.user.create'), new_user_registration_path %><br />
+  <%= link_to t('helpers.submit.user.create'), new_user_registration_path, class: 'mb-1' %><br />
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
@@ -20,7 +20,7 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-light', data: { turbo: false } do %>
+    <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-light mt-2', data: { turbo: false } do %>
       <i class="bi bi-<%= provider %>">_</i><%= OmniAuth::Utils.camelize(provider) %>でログイン
     <% end %><br />
   <% end %>
