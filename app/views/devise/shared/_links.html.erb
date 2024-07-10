@@ -20,6 +20,8 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to t('devise.omniauth_callbacks.success', kind: OmniAuth::Utils.camelize(provider)), user_omniauth_authorize_path(provider), data: { turbo: false } %><br />
+    <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-light', data: { turbo: false } do %>
+      <i class="bi bi-<%= provider %>">_</i><%= OmniAuth::Utils.camelize(provider) %>でログイン
+    <% end %><br />
   <% end %>
 <% end %>

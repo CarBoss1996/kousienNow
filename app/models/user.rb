@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:facebook]
   has_one_attached :avatar
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
@@ -16,6 +16,14 @@ class User < ApplicationRecord
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.user_name = "#{auth.info.first_name} #{auth.info.last_name}"
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
 
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)
