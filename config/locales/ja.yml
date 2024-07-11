@@ -312,6 +312,11 @@ ja:
       success: コメントを編集しました
     destroy:
       success: コメントを削除しました
+  static_pages:
+    privacy_policy:
+      title: プライバシーポリシー
+    terms_of_service:
+      title: 利用規約
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
