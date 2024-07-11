@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   resources :like_posts, only: %i[create destroy]
   resources :user_locations
   resources :seats
+  resources :deactivations, only: %i[new create]
 
   root 'static_pages#top'
+  get 'privacy_policy', to: 'static_pages#privacy_policy'
+  get 'terms_of_service', to: 'static_pages#terms_of_service'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

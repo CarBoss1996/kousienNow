@@ -1,0 +1,18 @@
+<% content_for(:title, t('.title')) %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1 class="zen-maru text-center my-3"><%= t('.title') %></h1>
+        <h3 class="text-center">アカウントを削除する場合、以下のリンクを押してください</h3>
+
+        <div class="text-center mt-5">
+          <%= form_for :deactivation, url: deactivations_path do |f| %>
+            <%= f.submit '退会する' %>
+          <% end %>
+        </div>
+        <div class="text-center mt-2">
+          <%= link_to '退会しない',edit_profile_path %>
+        </div>
+    </div>
+  </div>
+</div>

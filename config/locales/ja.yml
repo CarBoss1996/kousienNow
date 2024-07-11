@@ -225,6 +225,8 @@ ja:
   profiles:
     show:
       title: マイページ
+    edit:
+      title: マイページ編集
   defaults:
     edit: 編集
     destroy: 削除
