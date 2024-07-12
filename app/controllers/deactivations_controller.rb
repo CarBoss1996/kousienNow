@@ -3,6 +3,6 @@ class DeactivationsController < ApplicationController
 
   def create
     current_user.destroy
-    redirect_to root_path, notice: 'Your account has been deleted.'
+    redirect_to root_path, notice: '退会が完了しました'
   end
 end
