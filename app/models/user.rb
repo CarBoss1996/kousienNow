@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:facebook]
+         :recoverable, :rememberable, :validatable, :omniauthable
   has_one_attached :avatar
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :like_posts, source: :post
   has_many :comments, dependent: :destroy
 
-
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
 
@@ -21,13 +20,20 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.user_name = "#{auth.info.first_name} #{auth.info.last_name}"
+      user.first_name = auth.info.first_name # 追加
+      user.last_name = auth.info.last_name # 追加
       user.password = Devise.friendly_token[0,20]
+      user.uid = create_unique_string if user.uid.blank?
     end
   end
 
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)
     user if user&.valid_password?(password)
+  end
+
+  def self.create_unique_string
+    SecureRandom.uuid
   end
 
   def full_name
