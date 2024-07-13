@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :user_locations
   resources :seats
   resources :deactivations, only: %i[new create]
-
+  namespace :api do
+    resources :seats, only: [:index]
+  end
   root 'static_pages#top'
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   get 'terms_of_service', to: 'static_pages#terms_of_service'
