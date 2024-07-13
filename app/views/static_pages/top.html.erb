@@ -8,6 +8,17 @@
       <%= link_to t('posts.create.submit'), new_post_path, class: 'btn btn-primary btn-block' %>
   </div>
 </div>
+      <div class="center">
+        <div class="btn-margin">
+            <button id="location-btn" class="btn btn-outline-primary btn-lg">
+                現在位置を取得する
+            </button>
+        </div>
+        <div class="txt-margin">
+            <p>緯度：<span id="latitude">???</span><span>度</span></p>
+            <p>経度：<span id="longitude">???</span><span>度</span></p>
+        </div>
+      </div>
   <% if @posts.present? %>
     <% @posts.each do |post| %>
       <div class="card-body mb-3 card-post">
