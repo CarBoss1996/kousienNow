@@ -1,0 +1,17 @@
+<%= month_calendar do |date| %>
+  <div><%= date.day %></div>
+  <% matches_on_date = @matches.select { |match| match.match_date.to_date == date } %>
+  <% matches_on_date.each do |match| %>
+    <div class='mb-1 text-center'>
+      <% if match.result %>
+        <%= match.result %><br>
+        <%= match.team_score %>：<%= match.away_team_score %><br>
+        vs <%= match.opponent %>
+      <% else %>
+        vs <%= match.opponent %><br>
+        <%= match.match_date.strftime('%H:%M') %><br>
+        <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

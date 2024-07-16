@@ -1,0 +1,13 @@
+<% content_for(:title, t('.title')) %>
+<div class='container'>
+  <div class='row justify-content-center'>
+    <div class='col-sm-10 shadow-sm text-main bg-sub-color-gray p-5 my-sm-5'>
+      <div class='mb-sm-5'>
+        <h3 class='col-auto'><span class='display-5'>| </span><%= t('activerecord.models.match') %></h3>
+      </div>
+      <div id='game-view'>
+        <%= render 'matches/match_calender' %>
+      </div>
+    </div>
+  </div>
+</div>
