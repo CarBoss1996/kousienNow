@@ -6,7 +6,7 @@
       <%= form_with model: @user_location, local: true do |form| %>
         <%= render 'shared/error_messages', object: @user_location %>
 
-        <div class="center">
+        <div class="center card p-3 mb-3">
           <div class="btn-margin">
             <button id="location-btn" class="btn btn-outline-primary btn-lg" type="button">
               現在位置を取得する
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div id="seat-select-popup" style="display: none;">
-          <p>この位置情報でよろしいですか？</p>
+          <p>この位置でよろしいですか？</p>
             <div class="my-1">
               <%= form.select :location_id, Location.location_types.map { |s, v| [I18n.t("user_location.seat.#{s}"), v] }, { prompt: I18n.t('user_location.seat.blank') }, { onchange: 'updateSelectedSeat()', id: 'location_id' } %>
             </div>
@@ -29,7 +29,7 @@
           <div id="seat-select" style="display: none;">
           </div>
         </div>
-        <div class="actions mt-5">
+        <div class="card actions my-5 p-3">
           <%= form.label :icon, I18n.t('user_location.seat.icon'), class: 'form-label' %>
           <div class="row icon-row icon-selection">
             <% UserLocation.icons.keys.each do |icon| %>
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-        <div class="text-center">
+        <div class="text-center mb-5">
           <%= form.submit I18n.t('user_location.seat.submit'), class: 'btn btn-primary', style: "width: 40%;" %>
         </div>
       <% end %>
