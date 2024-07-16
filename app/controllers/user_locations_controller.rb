@@ -11,6 +11,7 @@ class UserLocationsController < ApplicationController
 
   def new
     @user_location = UserLocation.new
+    @seat = Seat.find_by(params[:seat_id])
   end
 
   def create
