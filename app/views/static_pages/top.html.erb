@@ -8,6 +8,7 @@
       <%= link_to t('posts.create.submit'), new_post_path, class: 'btn btn-primary btn-block' %>
   </div>
 </div>
+
   <% if @posts.present? %>
     <% @posts.each do |post| %>
       <div class="card-body mb-3 card-post">

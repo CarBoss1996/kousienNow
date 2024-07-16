@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_154000) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_13_163329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,11 +114,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_154000) do
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "min_latitude"
-    t.float "max_latitude"
-    t.float "min_longitude"
-    t.float "max_longitude"
     t.integer "location_type", default: 0, null: false
+    t.jsonb "spots", default: []
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_seats_on_location_id"
     t.index ["seat_name"], name: "index_seats_on_seat_name", unique: true
   end
 
