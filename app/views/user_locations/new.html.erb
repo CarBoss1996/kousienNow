@@ -1,37 +1,57 @@
 <% content_for(:title, t('.title')) %>
 <div class="container d-flex justify-content-center align-items-center">
   <div class="row">
-    <div class="col-lg-8 offset-lg-2">
+    <div class="text-center">
       <h1 class="zen-maru mt-3 mb-3"><%= t('.title') %></h1>
       <%= form_with model: @user_location, local: true do |form| %>
         <%= render 'shared/error_messages', object: @user_location %>
 
-      <div class="md-3">
-        <%= form.label :location_id, I18n.t('user_location.seat.seat_id'), class: 'form-label' %>
-      </div>
-      <div class="mb-5">
-        <%= form.select :location_id, Location.location_types.map { |s, v| [I18n.t("user_location.seat.#{s}"), v] }, prompt: I18n.t('user_location.seat.blank') %>
-      </div>
-
-      <div class="actions">
-      <%= form.label :icon, I18n.t('user_location.seat.icon'), class: 'form-label' %>
-          <div class="row icon-selection">
+        <div class="center">
+          <div class="btn-margin">
+            <button id="location-btn" class="btn btn-outline-primary btn-lg" type="button">
+              現在位置を取得する
+            </button>
+            <div class="txt-margin" style="display: none;">
+              <p>緯度：<span id="latitude">???</span><span>度</span></p>
+              <p>経度：<span id="longitude">???</span><span>度</span></p>
+            </div>
+          </div>
+          <div class="txt-margin mt-3">
+            <h5>選択されたシート：<span id="selected-seat">???</span></h5>
+          </div>
+        </div>
+        <div id="seat-select-popup" style="display: none;">
+          <p>この位置情報でよろしいですか？</p>
+            <div class="my-1">
+              <%= form.select :location_id, Location.location_types.map { |s, v| [I18n.t("user_location.seat.#{s}"), v] }, { prompt: I18n.t('user_location.seat.blank') }, { onchange: 'updateSelectedSeat()', id: 'location_id' } %>
+            </div>
+          <button id="yes-btn" class="btn btn-outline-primary" type="button">登録</button>
+          <div id="seat-select" style="display: none;">
+          </div>
+        </div>
+        <div class="actions mt-5">
+          <%= form.label :icon, I18n.t('user_location.seat.icon'), class: 'form-label' %>
+          <div class="row icon-row icon-selection">
             <% UserLocation.icons.keys.each do |icon| %>
-              <div class="col icon-option pb-4">
+              <div class="col icon-option mb-3">
                 <%= form.radio_button :icon, UserLocation.icons[icon], id: "icon_#{icon}" %>
                 <%= label_tag "icon_#{icon}" do %>
-                  <img src="<%= image_path("icons/#{icon}.png") %>" alt="<%= icon %>">
-                  <%= I18n.t("user_location.icon.#{icon}") %>
+                  <div>
+                    <img src="<%= image_path("icons/#{icon}.png") %>" alt="<%= icon %>">
+                  </div>
+                  <div>
+                    <%= I18n.t("user_location.icon.#{icon}") %>
+                  </div>
                 <% end %>
               </div>
             <% end %>
           </div>
         </div>
-      <div class="text-center">
-        <%= form.submit I18n.t('user_location.seat.submit'), class: 'btn btn-primary', style: "width: 40%;" %>
       </div>
+        <div class="text-center">
+          <%= form.submit I18n.t('user_location.seat.submit'), class: 'btn btn-primary', style: "width: 40%;" %>
+        </div>
+      <% end %>
     </div>
-    </div>
-    <% end %>
   </div>
 </div>

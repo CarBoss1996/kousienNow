@@ -288,7 +288,7 @@ ja:
       right_outfield: "ライト外野席"
       left_outfield: "レフト外野席"
       home_cheering: "自宅から応援"
-      blank: 座席を登録してください
+      blank: 座席を変更する
       submit: 登録
       icon: アイコンを選択する
     icon:
@@ -317,6 +317,21 @@ ja:
       title: プライバシーポリシー
     terms_of_service:
       title: 利用規約
+  seats:
+    seat_id: 座席を選択する
+    backnet: "バックネット"
+    smbc_seat: "SMBCシート"
+    ivy_seat: "アイビーシート"
+    breeze_seat: "ブリーズシート"
+    first_base_alps: "1塁アルプス席"
+    third_base_alps: "3塁アルプス席"
+    right_outfield: "ライト外野席"
+    left_outfield: "レフト外野席"
+    home_cheering: "自宅から応援"
+    blank: 座席を変更する
+    submit: 登録
+    icon: アイコンを選択する
+
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"

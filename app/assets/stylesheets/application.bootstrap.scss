@@ -30,14 +30,17 @@ main {
 
 .icon-selection {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
+  width: auto;
 }
 
 .icon-option {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
   font-size: 0.8em;
 }
@@ -47,8 +50,8 @@ main {
 }
 
 .icon-option img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border: 2px solid transparent;
   transition: border-color 0.3s;
 }
@@ -180,5 +183,27 @@ footer {
   .seat-icon {
     width: 30px;
     height: 30px;
+  }
+  .icon-option img {
+    width: 70px;
+    height: 70px;
+  }
+  .icon-row {
+    --bs-gutter-x: 0rem; // 列間のスペースをなくす
+  }
+  .icon-selection {
+    width: 100%; // 幅を最大に設定
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  .icon-option {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin: 0;
   }
 }

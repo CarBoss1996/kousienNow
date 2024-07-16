@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   end
   resources :like_posts, only: %i[create destroy]
   resources :user_locations
-  resources :seats
   resources :deactivations, only: %i[new create]
   namespace :api do
     resources :seats, only: [:index]

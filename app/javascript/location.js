@@ -1,4 +1,46 @@
-// ユーザーの位置情報をチェックする関数
+window.onload = function() {
+  document.getElementById("location-btn").onclick = function() {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  };
+
+  function successCallback(position){
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    document.getElementById("latitude").innerHTML = latitude;
+    document.getElementById("longitude").innerHTML = longitude;
+
+    var userLocation = {
+      lat: latitude,
+      lng: longitude
+    };
+
+    getSeatsData(function(seats) {
+      seats.forEach(seat => {
+        if (seat.spots) {
+          seat.spots = JSON.parse(seat.spots); // spotsをJSONとしてパース
+        }
+      });
+      checkUserLocation(userLocation, seats);
+    });
+  };
+
+  function errorCallback(error){
+    alert("位置情報が取得できませんでした");
+  }
+}
+
+function getSeatsData(callback) {
+  fetch('/api/seats')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => callback(data))
+    .catch(error => console.error('Error:', error));
+}
+
 function checkUserLocation(userLocation, seats) {
   function isPointInPolygon(point, polygon) {
     var x = point.lng, y = point.lat;
@@ -16,62 +58,47 @@ function checkUserLocation(userLocation, seats) {
   };
 
   var userInSeat = false;
+  var seatName;
   for (var i = 0; i < seats.length; i++) {
-    if (isPointInPolygon(userLocation, seats[i].spots)) {
-      alert(`今日は${seats[i].seat_name}から応援ですか？`);
+    if (seats[i].spots && isPointInPolygon(userLocation, seats[i].spots)) {
+      location_id = seats[i].id;
+      seatName = seats[i].seat_name;
       userInSeat = true;
       break;
     }
   }
 
   if (!userInSeat) {
-    location_id = 9;
-    alert("今日は自宅から応援ですか？");
+    location_id = 9; // デフォルトのlocation_idを設定
+    for (var i = 0; i < seats.length; i++) {
+      if (seats[i].id === location_id) {
+        seatName = seats[i].seat_name;
+        break;
+      }
+    }
+  }
+
+  document.getElementById('selected-seat').textContent = seatName;
+
+  var seatSelectPopup = document.getElementById("seat-select-popup");
+  var seatSelect = document.getElementById("seat-select");
+
+  if (seatSelectPopup) {
+    seatSelectPopup.style.display = "block";
+    document.getElementById("seat-select").style.display = "block";
+    document.getElementById("yes-btn").onclick = function() {
+      updateSelectedSeat();
+        document.getElementById("seat-select").style.display = "none";
+        document.getElementById("seat-select-popup").style.display = "none";
+      };
+  } else {
+    console.error('Error: "seat-select-popup" element is not found.');
   }
 }
 
-// seatsテーブルからデータを取得する関数
-function getSeatsData(callback) {
-  // APIを呼び出してデータを取得
-  fetch('/api/seats')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => callback(data))
-    .catch(error => console.error('Error:', error));
-}
-
-window.onload = function() {
-  document.getElementById("location-btn").onclick = function() {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  };
-
-  // 取得に成功した場合の処理
-  function successCallback(position){
-    // 緯度を取得し画面に表示
-    var latitude = position.coords.latitude;
-    document.getElementById("latitude").innerHTML = latitude;
-    // 経度を取得し画面に表示
-    var longitude = position.coords.longitude;
-    document.getElementById("longitude").innerHTML = longitude;
-
-    // ユーザーの位置情報をチェック
-    var userLocation = {
-      lat: latitude,
-      lng: longitude
-    };
-
-    // seatsテーブルからデータを取得
-    getSeatsData(function(seats) {
-      checkUserLocation(userLocation, seats);
-    });
-  };
-
-  // 取得に失敗した場合の処理
-  function errorCallback(error){
-    alert("位置情報が取得できませんでした");
-  };
+function updateSelectedSeat() {
+  var selectBox = document.getElementById('location_id');
+  var selectedSeat = selectBox.options[selectBox.selectedIndex].text;
+  document.getElementById('selected-seat').textContent = selectedSeat;
+  location_id = selectBox.value;
 }
