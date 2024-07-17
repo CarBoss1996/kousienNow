@@ -15,7 +15,12 @@ Rails.application.routes.draw do
   namespace :api do
     resources :seats, only: [:index]
   end
-  resources :matches
+  resources :matches do
+    collection do
+      get :match_list
+      get :match_calendar
+    end
+  end
   get 'calendar/:month', to: 'calendars#show_month', as: :month_calendar
   root 'static_pages#top'
   get 'privacy_policy', to: 'static_pages#privacy_policy'

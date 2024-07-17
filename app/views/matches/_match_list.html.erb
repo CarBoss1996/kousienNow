@@ -1,0 +1,34 @@
+<% (3..10).each do |month| %>
+  <%= link_to month, matches_path(month: month), class: "p-1" %>
+<% end %>
+
+<% @month = @month.present? && @month.to_i.between?(1, 12) ? @month.to_i : Date.today.month %>
+<% (Date.new(Date.today.year, @month.to_i, 1)..Date.new(Date.today.year, @month.to_i, -1)).each do |date| %>
+  <table class="table table-bordered" style="background-color: white;">
+    <thead>
+      <tr>
+        <th colspan="4"><%= date.strftime('%m/%d(%a)') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% matches_on_date = @matches.select { |match| match.match_date.to_date == date } %>
+      <% matches_on_date.each do |match| %>
+        <tr>
+          <td>
+            <div class='mb-1 text-center'>
+              <% if match.result %>
+                <%= match.result %><br>
+                <%= match.team_score %> - <%= match.away_team_score %><br>
+                vs <%= match.opponent %>
+              <% else %>
+                vs <%= match.opponent %><br>
+                <%= match.match_date.strftime('%H:%M') %><br>
+                <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

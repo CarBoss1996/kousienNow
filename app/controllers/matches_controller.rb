@@ -8,10 +8,6 @@ class MatchesController < ApplicationController
     @matches = Match.order(match_date: :desc)
   end
 
-  def index_list; end
-
-  def index_calendar; end
-
   def show
     @match = Match.find(params[:id])
   end
@@ -20,7 +16,7 @@ class MatchesController < ApplicationController
     kelvin - 273.15
   end
 
-  def sho_month
+  def show_month
     @month = params[:month].to_i
   end
 

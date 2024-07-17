@@ -1,13 +1,20 @@
 <% content_for(:title, t('.title')) %>
 <div class='container'>
   <div class='row justify-content-center'>
-    <div class='col-sm-10 shadow-sm text-main bg-sub-color-gray p-5 my-sm-5'>
-      <div class='mb-sm-5'>
-        <h3 class='col-auto'><span class='display-5'>| </span><%= t('activerecord.models.match') %></h3>
-      </div>
+    <div class='col'>
+      <h3 class='text-center my-3'><%= t('activerecord.models.match') %></h3>
+      <%= turbo_frame_tag 'game-view' do %>
       <div id='game-view'>
-        <%= render 'matches/match_calender' %>
+        <!-- スマホサイズでは非表示、それ以上のサイズでは表示 -->
+        <div class="d-none d-sm-block">
+          <%= render 'matches/match_calendar' %>
+        </div>
+        <!-- スマホサイズでは表示、それ以上のサイズでは非表示 -->
+        <div class="d-block d-sm-none">
+          <%= render 'matches/match_list' %>
+        </div>
       </div>
+      <% end %>
     </div>
   </div>
 </div>

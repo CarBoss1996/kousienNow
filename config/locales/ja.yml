@@ -43,6 +43,7 @@ ja:
     models:
       user: ユーザー
       comment: コメント
+      match: 対戦カレンダー
     errors:
       models:
         user:
@@ -222,7 +223,7 @@ ja:
         post: 投稿一覧
         seat: 座席情報
         like_post: いいね一覧
-        calender: 対戦カレンダー
+        calendar: 対戦カレンダー
   profiles:
     show:
       title: マイページ

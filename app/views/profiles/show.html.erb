@@ -54,9 +54,9 @@
   <% else %>
     <div class="card text-bg-light mb-3 mx-auto" style="max-width: 18rem;">
       <p class="card-text mx-auto"><%= I18n.t('posts.no_result') %></p>
-      <div class="text-center">
-        <%= link_to '投稿してみる！', new_post_path, class: 'btn btn-primary', style: "width: 40%;" %>
-      </div>
+    </div>
+    <div class="text-center">
+      <%= link_to '投稿してみる！', new_post_path, class: 'btn btn-primary', style: "width: 40%;" %>
     </div>
   <% end %>
   </div>

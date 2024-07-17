@@ -1,7 +1,10 @@
 window.onload = function() {
-  document.getElementById("location-btn").onclick = function() {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  };
+  var locationBtn = document.getElementById("location-btn");
+  if (locationBtn) {
+    locationBtn.onclick = function() {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    };
+  }
 
   function successCallback(position){
     var latitude = position.coords.latitude;

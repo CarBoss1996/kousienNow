@@ -1,7 +1,7 @@
 <div class='simple-calendar'>
   <div class='calendar-heading'>
     <% (3..10).each do |month| %>
-      <%= link_to t('date.month_names')[month], month_calendar_path(month) %>
+      <%= link_to month, month_calendar_path(month) %>
     <% end %>
   </div>
 
