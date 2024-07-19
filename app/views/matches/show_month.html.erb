@@ -1,14 +1,20 @@
-<%# カレンダーの一覧ページ %>
-<% content_for(:title, t('.title')) %>
+<%# 月ごとのカレンダー表示 %>
 <div class='container'>
   <div class='row justify-content-center'>
     <div class='col'>
     <h3 class='text-center my-3'><%= t('activerecord.models.match') %></h3>
       <turbo-frame id="game-view">
-        <div>
+        <div id='game-view'>
           <!-- スマホサイズでは非表示、それ以上のサイズでは表示 -->
           <div class="d-none d-sm-block">
-            <%= render 'matches/match_calendar', matches: @matches, month: @month %>
+            <%= month_calendar start_date: @month do |date| %>
+              <%= date.day %>
+              <% @matches.each do |match| %>
+                <% if match.match_date == date %>
+                  <%= match.title %>
+                <% end %>
+              <% end %>
+            <% end %>
           </div>
           <!-- スマホサイズでは表示、それ以上のサイズでは非表示 -->
           <div class="d-block d-sm-none">

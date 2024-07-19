@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     collection do
       get :match_list
       get :match_calendar
+      get 'show_month/:month', to: 'matches#show_month', as: :show_month
     end
   end
   get 'calendar/:month', to: 'calendars#show_month', as: :month_calendar

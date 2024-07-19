@@ -1,34 +1,47 @@
-<% (3..10).each do |month| %>
-  <%= link_to month, matches_path(month: month), class: "p-1" %>
-<% end %>
+<%# カレンダーのリスト表示 %>
+<div class='simple-calendar'>
+  <div class='text-center'>
+    <% if @month %>
+      <h2><%= @month.strftime("%m月") %></h2>
+    <% end %>
+  </div>
+  <div class='d-flex justify-content-end'>
+    <% (3..10).each do |month| %>
+      <%= link_to month, show_month_matches_path(month: "#{Date.today.year}-#{month.to_s.rjust(2, '0')}"), data: { turbo_action: 'replace', turbo_frame: 'game-view' }, class: 'mx-2' %>
+    <% end %>
+  </div>
+</div>
 
-<% @month = @month.present? && @month.to_i.between?(1, 12) ? @month.to_i : Date.today.month %>
-<% (Date.new(Date.today.year, @month.to_i, 1)..Date.new(Date.today.year, @month.to_i, -1)).each do |date| %>
   <table class="table table-bordered" style="background-color: white;">
     <thead>
-      <tr>
-        <th colspan="4"><%= date.strftime('%m/%d(%a)') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% matches_on_date = @matches.select { |match| match.match_date.to_date == date } %>
-      <% matches_on_date.each do |match| %>
+      <% (@month.beginning_of_month..@month.end_of_month).each do |date| %>
         <tr>
-          <td>
-            <div class='mb-1 text-center'>
-              <% if match.result %>
-                <%= match.result %><br>
-                <%= match.team_score %> - <%= match.away_team_score %><br>
-                vs <%= match.opponent %>
-              <% else %>
-                vs <%= match.opponent %><br>
-                <%= match.match_date.strftime('%H:%M') %><br>
-                <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
-              <% end %>
-            </div>
-          </td>
+          <th colspan="4"><%= date.strftime('%m/%d(%a)') %></th>
         </tr>
+        <% matches_on_date = @matches.select { |match| match.match_date.present? && match.match_date.to_date == date } %>
+        <% if matches_on_date.empty? %>
+          <tr>
+            <td colspan="4">&nbsp;</td> <!-- 空白の行を追加 -->
+          </tr>
+        <% else %>
+          <% matches_on_date.each do |match| %>
+            <tr>
+              <td>
+                <div class='mb-1 text-center'>
+                  <% if match.result %>
+                    <%= match.result %><br>
+                    <%= match.team_score %> - <%= match.away_team_score %><br>
+                    vs <%= match.opponent %>
+                  <% else %>
+                    vs <%= match.opponent %><br>
+                    <%= match.match_date.strftime('%H:%M') %><br>
+                    <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
       <% end %>
-    </tbody>
+    </thead>
   </table>
-<% end %>

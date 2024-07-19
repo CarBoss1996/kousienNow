@@ -1,4 +1,5 @@
-<%= month_calendar do |date| %>
+<%# カレンダーの個別内容表示 %>
+<%= month_calendar start_date: @month do |date| %>
   <div><%= date.day %></div>
   <% matches_on_date = @matches.select { |match| match.match_date.to_date == date } %>
   <% matches_on_date.each do |match| %>

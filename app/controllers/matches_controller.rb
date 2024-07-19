@@ -3,7 +3,7 @@ require 'json'
 require 'uri'
 
 class MatchesController < ApplicationController
-  before_action :set_beginning_of_week, only: [:index]
+  before_action :set_beginning_of_week
   def index
     @matches = Match.order(match_date: :desc)
   end
@@ -17,10 +17,17 @@ class MatchesController < ApplicationController
   end
 
   def show_month
-    @month = params[:month].to_i
+    begin
+      @month = params[:month] ? Date.strptime(params[:month], "%Y-%m") : Date.today
+    rescue ArgumentError
+      @month = Date.today
+    end
+    @matches = Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
+    render 'index', layout: 'application'
   end
 
   private
+
   def set_beginning_of_week
     Date.beginning_of_week = :sunday
   end
