@@ -14,3 +14,12 @@
     font-size: 2rem;
   }
 }
+
+li.info.result {
+  list-style-type: none;
+}
+
+td.day {
+  height: 117px;
+  width: 14.28%; /* 100% / 7 days = 14.28% */
+}

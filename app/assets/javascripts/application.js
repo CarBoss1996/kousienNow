@@ -6,3 +6,4 @@
 //= require post
 //= require like_post
 //= require location
+//= require modal

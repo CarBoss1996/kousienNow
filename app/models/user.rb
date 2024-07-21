@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :like_posts, dependent: :destroy
   has_many :liked_posts, through: :like_posts, source: :post
   has_many :comments, dependent: :destroy
+  has_many :user_matches
+  has_many :matches, through: :user_matches
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_13_163329) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_16_134716) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_13_163329) do
     t.datetime "updated_at", null: false
     t.integer "opponent"
     t.string "stadium"
+    t.integer "result"
+    t.integer "team_score"
+    t.integer "away_team_score"
     t.index ["event_id"], name: "index_matches_on_event_id"
   end
 

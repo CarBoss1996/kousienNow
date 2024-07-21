@@ -1,0 +1,26 @@
+<%# カレンダーの一覧ページ %>
+<% content_for(:title, t('.title')) %>
+<div class='container'>
+  <div class='row justify-content-center'>
+    <div class='col'>
+    <h3 class='text-center zen-maru my-3'><%= t('activerecord.models.match') %></h3>
+    <div class='d-flex justify-content-end btn btn-success float-right'>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+        モーダルを開く
+      </button>
+    </div>
+      <turbo-frame id="game-view">
+        <div>
+          <!-- スマホサイズでは非表示、それ以上のサイズでは表示 -->
+          <div class="d-none d-sm-block">
+            <%= render 'matches/match_calendar', matches: @matches, month: @month %>
+          </div>
+          <!-- スマホサイズでは表示、それ以上のサイズでは非表示 -->
+          <div class="d-block d-sm-none">
+            <%= render 'matches/match_list', matches: @matches, month: @month %>
+          </div>
+        </div>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

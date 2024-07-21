@@ -48,8 +48,8 @@ seats = [
 ]
 
 seats.each do |seat|
-  Seat.find_or_create_by!(location_id: seat[:location_id], location_type: seat[:location_type], seat_name: seat[:seat_name]) do |sea|
-    sea.spots = seat[:spots].to_json
+  Seat.find_or_create_by!(location_id: seat[:location_id], location_type: seat[:location_type], seat_name: seat[:seat_name]) do |s|
+    s.spots = seat[:spots].to_json
   end
 end
 
@@ -122,7 +122,7 @@ matches = [
   { match_date: '2024-09-19 14:00', opponent: Match.opponents[:中日], stadium: "nagoya" },
   { match_date: '2024-09-20 18:00', opponent: Match.opponents[:DeNA], stadium: "yokohama" },
   { match_date: '2024-09-22 18:00', opponent: Match.opponents[:巨人] },
-  { match_date: '2024-09-23 14:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2024-09-23 14:00', opponent: Match.opponents[:巨人] }
 ]
 
 matches.each do |match|

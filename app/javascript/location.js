@@ -1,7 +1,10 @@
 window.onload = function() {
-  document.getElementById("location-btn").onclick = function() {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  };
+  var locationBtn = document.getElementById("location-btn");
+  if (locationBtn) {
+    locationBtn.onclick = function() {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    };
+  }
 
   function successCallback(position){
     var latitude = position.coords.latitude;
@@ -81,7 +84,12 @@ function checkUserLocation(userLocation, seats) {
   document.getElementById('selected-seat').textContent = seatName;
 
   var seatSelectPopup = document.getElementById("seat-select-popup");
-  var seatSelect = document.getElementById("seat-select");
+  var seatSelect = document.getElementById('location_id');
+  var selectBox = document.getElementById('location_id');
+
+  if (selectBox) {
+    selectBox.value = location_id; // セレクトボックスの初期値を設定
+  }
 
   if (seatSelectPopup) {
     seatSelectPopup.style.display = "block";
@@ -98,7 +106,17 @@ function checkUserLocation(userLocation, seats) {
 
 function updateSelectedSeat() {
   var selectBox = document.getElementById('location_id');
-  var selectedSeat = selectBox.options[selectBox.selectedIndex].text;
-  document.getElementById('selected-seat').textContent = selectedSeat;
-  location_id = selectBox.value;
+  var selectedSeat = selectBox ? selectBox.options[selectBox.selectedIndex].text : null;
+  var selectedSeatElement = document.getElementById('selected-seat');
+
+  if (selectedSeatElement) {
+    selectedSeatElement.textContent = selectedSeat;
+    selectedSeatElement.dataset.locationId = selectBox ? selectBox.value : null;
+
+    if (selectBox) {
+      selectBox.value = selectedSeatElement.dataset.locationId;
+    }
+  } else {
+    console.error('Error: "selected-seat" element is not found.');
+  }
 }
