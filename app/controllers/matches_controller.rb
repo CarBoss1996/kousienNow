@@ -5,10 +5,13 @@ require 'uri'
 class MatchesController < ApplicationController
   before_action :set_beginning_of_week
   def index
-    @matches = Match.order(match_date: :desc)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @month = @date.beginning_of_month
+    @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
   end
 
   def show
+    @user = User.find(params[:id])
     @match = Match.find(params[:id])
   end
 
@@ -24,6 +27,21 @@ class MatchesController < ApplicationController
     end
     @matches = Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
     render 'index', layout: 'application'
+  end
+
+  def add_to_schedule
+    @match = Match.find(params[:id])
+    date = params[:date]
+    schedule = current_user.schedules.build(date: date, match: @match)
+    if schedule.save
+      redirect_to matches_path, notice: '観戦予定を登録しました'
+    else
+      render :schedule
+    end
+  end
+
+  def schedule
+    @matches = Match.all
   end
 
   private

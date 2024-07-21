@@ -19,7 +19,12 @@ Rails.application.routes.draw do
     collection do
       get :match_list
       get :match_calendar
+      get :schedule
+      post :add_to_schedule
       get 'show_month/:month', to: 'matches#show_month', as: :show_month
+    end
+    member do
+      post 'schedule'
     end
   end
   get 'calendar/:month', to: 'calendars#show_month', as: :month_calendar
