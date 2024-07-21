@@ -48,7 +48,10 @@ seats = [
 ]
 
 seats.each do |seat|
-  Seat.find_or_create_by!(location_id: seat[:location_id], location_type: seat[:location_type], seat_name: seat[:seat_name]) do |s|
+  Seat.find_or_create_by!(id: seat[:id]) do |s|
+    s.location_id = seat[:location_id]
+    s.location_type = seat[:location_type]
+    s.seat_name = seat[:seat_name]
     s.spots = seat[:spots].to_json
   end
 end
