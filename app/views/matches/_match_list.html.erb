@@ -12,36 +12,62 @@
   </div>
 </div>
 
-  <table class="table table-bordered" style="background-color: white;">
-    <thead>
-      <% (@month.beginning_of_month..@month.end_of_month).each do |date| %>
-        <tr>
-          <th colspan="4"><%= date.strftime('%m/%d(%a)') %></th>
-        </tr>
-        <% matches_on_date = @matches.select { |match| match.match_date.present? && match.match_date.to_date == date } %>
-        <% if matches_on_date.empty? %>
-          <tr>
-            <td colspan="4">&nbsp;</td> <!-- 空白の行を追加 -->
-          </tr>
-        <% else %>
-          <% matches_on_date.each do |match| %>
-            <tr>
-              <td>
-                <div class='mb-1 text-center'>
-                  <% if match.result %>
-                    <%= match.result %><br>
-                    <%= match.team_score %> - <%= match.away_team_score %><br>
-                    vs <%= match.opponent %>
-                  <% else %>
-                    vs <%= match.opponent %><br>
-                    <%= match.match_date.strftime('%H:%M') %><br>
-                    <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
-                  <% end %>
+<table class="table table-bordered" style="background-color: white;">
+  <thead>
+    <% (@month.beginning_of_month..@month.end_of_month).each do |date| %>
+      <tr>
+        <td colspan="4">
+          <div class="d-flex justify-content-between">
+            <div>
+              <%= date.strftime('%m/%d(%a)') %>
+            </div>
+            <div>
+              <% user_match_on_date = @user_matches.find { |user_match| user_match.date == date } %>
+              <% user_location_on_date = @user_locations.find { |location| location.date == date } if @user_locations %>
+              <% if user_match_on_date && date > Date.today %>
+                <div class='user-match-show'>
+                  <div class='user-match-match'>
+                    _観戦予定_
+                  </div>
                 </div>
-              </td>
-            </tr>
-          <% end %>
+              <% elsif user_location_on_date && date <= Date.today %>
+                <div class='user-calendar-show'>
+                  <div class='calendar-icon'>
+                    <%= image_tag("icons/#{user_location_on_date.icon}", alt: user_location_on_date.icon) %>
+                  </div>
+                  <div class='calendar-seat'>
+                    <%= I18n.t("seats.#{user_location_on_date.location_type}") %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <% matches_on_date = @matches.select { |match| match.match_date.present? && match.match_date.to_date == date } %>
+      <% if matches_on_date.empty? %>
+        <tr>
+          <td colspan="4">&nbsp;</td> <!-- 空白の行を追加 -->
+        </tr>
+      <% else %>
+        <% matches_on_date.each do |match| %>
+          <tr>
+            <td>
+              <div class='mb-1 text-center'>
+                <% if match.result %>
+                  <%= match.result %><br>
+                  <%= match.team_score %> - <%= match.away_team_score %><br>
+                  vs <%= match.opponent %>
+                <% else %>
+                  vs <%= match.opponent %><br>
+                  <%= match.match_date.strftime('%H:%M') %><br>
+                  <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
         <% end %>
       <% end %>
-    </thead>
-  </table>
+    <% end %>
+  </thead>
+</table>

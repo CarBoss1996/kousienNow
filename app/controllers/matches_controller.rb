@@ -4,10 +4,17 @@ require 'uri'
 
 class MatchesController < ApplicationController
   before_action :set_beginning_of_week
+  before_action :authenticate_user!, only: [:add_to_schedule]
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @month = @date.beginning_of_month
     @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
+    @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
+    @user_locations = if current_user
+      current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
+    else
+      []
+    end
   end
 
   def show
@@ -26,22 +33,20 @@ class MatchesController < ApplicationController
       @month = Date.today
     end
     @matches = Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
+    @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
+    @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
     render 'index', layout: 'application'
   end
 
   def add_to_schedule
-    @match = Match.find(params[:id])
-    date = params[:date]
-    schedule = current_user.schedules.build(date: date, match: @match)
-    if schedule.save
+    date = Date.parse(params[:date])
+    @match = Match.where(match_date: date.beginning_of_day..date.end_of_day).first
+    user_match = current_user.user_matches.build(date: date, match: @match)
+    if user_match.save
       redirect_to matches_path, notice: '観戦予定を登録しました'
     else
-      render :schedule
+      redirect_to matches_path, alert: '観戦予定の登録に失敗しました'
     end
-  end
-
-  def schedule
-    @matches = Match.all
   end
 
   private
