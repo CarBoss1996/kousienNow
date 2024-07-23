@@ -8,7 +8,11 @@ class MatchesController < ApplicationController
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @month = @date.beginning_of_month
     @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
-    @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
+    @user_locations = if current_user
+      current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
+    else
+      []
+    end
   end
 
   def show
@@ -27,6 +31,7 @@ class MatchesController < ApplicationController
       @month = Date.today
     end
     @matches = Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
+    @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
     render 'index', layout: 'application'
   end
 
@@ -39,10 +44,6 @@ class MatchesController < ApplicationController
     else
       render :schedule
     end
-  end
-
-  def schedule
-    @matches = Match.all
   end
 
   private

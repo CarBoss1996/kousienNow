@@ -23,3 +23,24 @@ td.day {
   height: 117px;
   width: 14.28%; /* 100% / 7 days = 14.28% */
 }
+
+.match_calendar {
+  display: flex;
+  flex-direction: column;
+}
+.user-calendar-show {
+  background-color: #FFDE59;
+  display: flex;
+  justify-content: flex-start; /* テキストを中央に配置 */
+}
+.calendar-icon img {
+  width: 25px;
+  height: 25px;
+}
+.calendar-icon, .calendar-seat {
+  flex: auto;
+  min-width: 0;
+}
+.calendar-seat {
+  font-size: 0.8rem;
+}

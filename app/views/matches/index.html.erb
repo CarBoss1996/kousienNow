@@ -16,7 +16,7 @@
           </div>
           <div class="modal-body">
             <%= form_with(url: add_to_schedule_matches_path, method: :post) do |form| %>
-              <%= form.date_field :date, value: @date || Date.today %>
+              <%= form.date_field :date, value: @date || Date.today, min: Date.today %>
               <%= form.submit %>
             <% end %>
           </div>
@@ -25,7 +25,7 @@
     </div>
 
       <turbo-frame id="game-view">
-        <div>
+        <div class="mt-3">
           <!-- スマホサイズでは非表示、それ以上のサイズでは表示 -->
           <div class="d-none d-sm-block">
             <%= render 'matches/match_calendar', matches: @matches, month: @month %>

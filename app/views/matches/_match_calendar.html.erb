@@ -1,6 +1,7 @@
 <%# カレンダーの個別内容表示 %>
 <%= month_calendar start_date: @month do |date| %>
-  <div><%= date.day %></div>
+  <% day_classes = @user_locations.find { |location| location.date == date } ? 'attended-match' : '' %>
+  <div class="<%= day_classes %>"><%= date.day %></div>
   <% matches_on_date = @matches.select { |match| match.match_date.to_date == date } %>
   <% matches_on_date.each do |match| %>
     <div class='mb-1 text-center'>
@@ -14,5 +15,18 @@
         <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
       <% end %>
     </div>
+  <% end %>
+  <% if @user_locations %>
+    <% user_location_on_date = @user_locations.find { |location| location.date == date } %>
+    <% if user_location_on_date %>
+      <div class='user-calendar-show'>
+        <div class='calendar-icon'>
+          <%= image_tag("icons/#{user_location_on_date.icon}", alt: user_location_on_date.icon) %>
+        </div>
+        <div class='calendar-seat'>
+          <%= I18n.t("seats.#{user_location_on_date.location_type}") %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

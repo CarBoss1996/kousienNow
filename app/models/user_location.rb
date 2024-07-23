@@ -1,4 +1,6 @@
 class UserLocation < ApplicationRecord
+  after_create :set_date, :set_location_type
+
   belongs_to :user
   belongs_to :location
   belongs_to :seat, optional: true
@@ -15,9 +17,20 @@ class UserLocation < ApplicationRecord
       location = user_location.location
     else
       Rails.logger.error(user_location.errors.full_messages.join(", "))
-      raise "Failed to save UserLocation" 
+      raise "Failed to save UserLocation"
     end
 
     user_location
+  end
+
+  private
+
+  def set_date
+    self.update(date: self.created_at.to_date)
+  end
+
+  def set_location_type
+    location = Location.find(self.location_id)
+    self.update(location_type: location.location_type)
   end
 end

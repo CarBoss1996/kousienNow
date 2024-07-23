@@ -41,6 +41,23 @@
               </td>
             </tr>
           <% end %>
+          <% if @user_locations %>
+            <% user_location_on_date = @user_locations.find { |location| location.date == date } %>
+            <% if user_location_on_date %>
+              <tr>
+                <td colspan="4">
+                  <div class='user-calendar-show'>
+                    <div class='calendar-icon'>
+                      <%= image_tag("icons/#{user_location_on_date.icon}", alt: user_location_on_date.icon) %>
+                    </div>
+                    <div class='calendar-seat'>
+                      <%= I18n.t("seats.#{user_location_on_date.location_type}") %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     </thead>
