@@ -17,7 +17,7 @@
           <div class="modal-body">
             <%= form_with(url: add_to_schedule_matches_path, method: :post) do |form| %>
               <%= form.date_field :date, value: @date || Date.today, min: Date.today %>
-              <%= form.submit %>
+              <%= form.submit "登録する" %>
             <% end %>
           </div>
         </div>

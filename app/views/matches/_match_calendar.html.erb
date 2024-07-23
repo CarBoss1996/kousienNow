@@ -16,6 +16,14 @@
       <% end %>
     </div>
   <% end %>
+  <% user_match_on_date = @user_matches.find { |user_match| user_match.date == date } %>
+  <% if user_match_on_date && date <= Date.today %>
+    <div class='user-match-show'>
+      <div class='user-match-match'>
+        観戦予定
+      </div>
+    </div>
+  <% end %>
   <% if @user_locations %>
     <% user_location_on_date = @user_locations.find { |location| location.date == date } %>
     <% if user_location_on_date %>
