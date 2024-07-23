@@ -64,7 +64,6 @@ gem 'aws-sdk-s3', require: false
 gem 'image_processing', '~> 1.2'
 gem 'ruby-vips'
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.6'
 gem 'popper_js', '~> 1.16'
 gem 'annotate'
 gem 'font-awesome-sass', '~> 6.5.2'

@@ -8,6 +8,7 @@ class MatchesController < ApplicationController
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @month = @date.beginning_of_month
     @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
+    @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
   end
 
   def show
