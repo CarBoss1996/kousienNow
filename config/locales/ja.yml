@@ -245,6 +245,7 @@ ja:
       deleted: "%{item}を削除しました"
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
+    login: ログイン
   posts:
     no_result: 投稿がありません
     index:
@@ -338,7 +339,18 @@ ja:
     blank: 座席を変更する
     submit: 登録
     icon: アイコンを選択する
-
+  admin:
+    sessions:
+      new:
+        title: ログイン
+    create:
+      success: ログインしました
+      failure: ログインに失敗しました
+    destroy:
+      success: ログアウトしました
+    dashboards:
+      index:
+        title: ダッシュボード
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"

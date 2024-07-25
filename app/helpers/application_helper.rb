@@ -11,4 +11,20 @@ module ApplicationHelper
       flash_type.to_s
     end
   end
+
+  def page_title(title)
+    base_title = 'Article APP'
+
+    title.empty? ? base_title : title + " | " +  base_title
+  end
+
+  def page_title(title, admin = false)
+    base_title = if admin
+                    'Article APP（管理画面）'
+                 else
+                    'Article APP'
+                 end
+
+    title.empty? ? base_title : title + " | " +  base_title
+end
 end
