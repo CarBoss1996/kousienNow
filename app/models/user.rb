@@ -22,8 +22,8 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.user_name = "#{auth.info.first_name} #{auth.info.last_name}"
-      user.first_name = auth.info.first_name # 追加
-      user.last_name = auth.info.last_name # 追加
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
       user.uid = create_unique_string if user.uid.blank?
     end

@@ -238,6 +238,11 @@ ja:
     flash_message:
       updated: 更新しました
       not_updated: 更新できませんでした
+      created: "%{item}を作成しました"
+      not_created: "%{item}を作成出来ませんでした"
+      updated: "%{item}を更新しました"
+      not_updated: "%{item}を更新出来ませんでした"
+      deleted: "%{item}を削除しました"
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
   posts:

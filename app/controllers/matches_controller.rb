@@ -9,11 +9,12 @@ class MatchesController < ApplicationController
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @month = @date.beginning_of_month
     @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
-    @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
-    @user_locations = if current_user
-      current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
+    if current_user
+      @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
+      @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
     else
-      []
+      @user_matches = []
+      @user_locations = []
     end
   end
 
