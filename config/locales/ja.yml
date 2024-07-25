@@ -246,6 +246,7 @@ ja:
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
     login: ログイン
+    logout: ログアウト
   posts:
     no_result: 投稿がありません
     index:
@@ -351,6 +352,10 @@ ja:
     dashboards:
       index:
         title: ダッシュボード
+        post: 投稿
+        user: ユーザー
+        match: 試合情報
+        event: イベント
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"

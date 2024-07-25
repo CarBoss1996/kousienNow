@@ -1,61 +1,42 @@
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <%= image_tag 'AdminLTELogo.png', class: 'brand-image img-circle elevation-3' %>
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+<div class="flex-shrink-0 p-3">
+  <a href="#" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+    <span class="fs-5 fw-semibold"><%= current_user.user_name %></span>
   </a>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        <%= image_tag Current.user.profile.thumb.url, class: 'img-circle elevation-2' %>
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#post-collapse" aria-expanded="true">
+        <%= I18n.t('admin.dashboards.index.post') %>
+      </button>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="false">
+        <%= I18n.t('admin.dashboards.index.user') %>
+      </button>
+      <div class="collapse" id="user-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><%= link_to '#', class: "link-body-emphasis d-inline-flex text-decoration-none rounded" %></li>
+        </ul>
       </div>
-      <div class="info">
-        <a href="#" class="d-block"><%= Current.user.user_name %></a>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#match-collapse" aria-expanded="false">
+        <%= I18n.t('admin.dashboards.index.match') %>
+      </button>
+      <div class="collapse" id="match-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><%= link_to '#', class: "link-body-emphasis d-inline-flex text-decoration-none rounded" %></li>
+        </ul>
       </div>
-    </div>
-
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <%= link_to '#', class: "nav-link" do %>
-            <i class="nav-icon bi bi-file-earmark-text"></i>
-            <p>
-              投稿一覧
-            </p>
-          <% end %>
-
-        <li class="nav-item">
-          <%= link_to '#', class: "nav-link" do %>
-            <i class="nav-icon bi bi-people"></i>
-            <p>
-              ユーザ一一覧
-            </p>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to '#', class: "nav-link" do %>
-            <i class="nav-icon bi bi-graph-up"></i>
-            <p>
-              試合情報
-            </p>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to '#', class: "nav-link" do %>
-            <i class="nav-icon bi bi-calendar3"></i>
-            <p>
-              イベント一覧
-            </p>
-          <% end %>
-        </li>
-      </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
-  </div>
-  <!-- /.sidebar -->
-</aside>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#event-collapse" aria-expanded="false">
+        <%= I18n.t('admin.dashboards.index.event') %>
+      </button>
+      <div class="collapse" id="event-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><%= link_to '#', class: "link-body-emphasis d-inline-flex text-decoration-none rounded" %></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

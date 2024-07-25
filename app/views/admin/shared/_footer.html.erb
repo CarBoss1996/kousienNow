@@ -1,9 +1,24 @@
-<!-- Main Footer -->
-<footer class="main-footer">
-  <!-- To the right -->
-  <div class="float-right d-none d-sm-inline">
-    Anything you want
+<footer class="container-fluid bg-dark mt-auto text-white py-2">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div>
+      <p>Copyrigth © KoushienNow!</p>
+    </div>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScbP3PONP2gOcTN2tW_00XWHKzq72CnF0wYZ5H20yQ7Es9YoA/viewform?embedded=true" target="_blank">お問い合わせ</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to '利用規約', terms_of_service_path, class: 'nav-link link-secondary' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'プライバシーポリシー', privacy_policy_path, class: 'nav-link link-secondary' %>
+      </li>
+    </ul>
+    <div>
+      <a class="px-2 link-secondary" href="#"><span class="bi bi-instagram"></span></a>
+      <a class="px-2 link-secondary" href="#"><span class="bi bi-youtube"></span></a>
+      <a class="px-2 link-secondary" href="#"><span class="bi bi-twitter"></span></a>
+      <a class="px-2 link-secondary" href="#"><span class="bi bi-facebook"></span></a>
+    </div>
   </div>
-  <!-- Default to the left -->
-  <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
 </footer>

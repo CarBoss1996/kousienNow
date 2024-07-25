@@ -10,7 +10,7 @@ class Admin::BaseController < ApplicationController
   end
 
   def check_admin
-    unless Current.user&.email == 'ADMIN_EMAIL'
+    unless current_user&.email == ENV['ADMIN_EMAIL']
       render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
     end
   end
