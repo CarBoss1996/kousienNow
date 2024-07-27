@@ -1,0 +1,41 @@
+class Admin::MatchesController < Admin::BaseController
+  before_action :set_match, only: %i[show edit update destroy]
+
+  def index
+    params[:q] ||= {}
+    @q = Match.ransack(params[:q])
+    @matches = @q.result(distinct: true).includes(:event).page(params[:page]).order(match_date: :desc)
+  end
+
+  def show; end
+
+  def edit; end
+
+  def update
+    if @match.update(match_params)
+      redirect_to admin_match_path, success: I18n.t('matches.update.success')
+    else
+      Rails.logger.debug(@match.errors.full_messages.join(', '))
+      flash.now[:danger] = I18n.t('matches.update.failure')
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @match.destroy!
+    respond_to do |format|
+      format.turbo_stream { redirect_to admin_matches_path, success: I18n.t('defaults.flash_message.delete', item: Match.model_name.human), status: :see_other }
+      format.html { redirect_to admin_matches_path, success: I18n.t('defaults.flash_message.delete', item: Match.model_name.human) }
+    end
+  end
+
+  private
+
+  def set_match
+    @match = Match.find(params[:id])
+  end
+
+  def match_params
+    params.require(:match).permit(:match_date, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
+  end
+end

@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <%= post.id %>
+  </td>
+  <td>
+    <%= post.body %>
+  </td>
+  <td>
+    <%= post.user.full_name %>
+  </td>
+  <td>
+    <%= l post.created_at, format: :long %>
+  </td>
+  <td>
+    <%= link_to t('defaults.show'), admin_post_path(post), class: 'btn btn-info' %>
+    <%= link_to t('defaults.edit'), edit_admin_post_path(post), class: 'btn btn-success' %>
+    <%= link_to t('defaults.delete'), admin_post_path(post), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger' %>
+  </td>
+</tr>

@@ -1,0 +1,13 @@
+<%= search_form_for @q, url: admin_users_path do |f| %>
+  <div class="row">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="d-inline me-3">
+        <%= f.search_field :first_name_or_last_name_or_user_name_cont, class: 'form-control', placeholder: t('defaults.search_word') %>
+      </div>
+      <div class="d-inline me-3">
+        <%= f.select :role_eq, User.roles_i18n.map{|key, value| [key, User.roles[value]]}, { include_blank: t('defaults.unspecified') }, { class: 'form-control me-1' } %>
+      </div>
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

@@ -4,39 +4,28 @@
   </a>
   <ul class="list-unstyled ps-0">
     <li class="mb-1">
-      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#post-collapse" aria-expanded="true">
+      <%= link_to admin_posts_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_posts_path)}" do %>
+        <i class="bi bi-file-earmark-text"></i>
         <%= I18n.t('admin.dashboards.index.post') %>
-      </button>
+      <% end %>
     </li>
     <li class="mb-1">
-      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="false">
+      <%= link_to admin_users_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_users_path)}" do %>
+        <i class="bi bi-people"></i>
         <%= I18n.t('admin.dashboards.index.user') %>
-      </button>
-      <div class="collapse" id="user-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><%= link_to '#', class: "link-body-emphasis d-inline-flex text-decoration-none rounded" %></li>
-        </ul>
-      </div>
+      <% end %>
     </li>
     <li class="mb-1">
-      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#match-collapse" aria-expanded="false">
+      <%= link_to admin_matches_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_matches_path)}" do %>
+        <i class="bi bi-graph-up"></i>
         <%= I18n.t('admin.dashboards.index.match') %>
-      </button>
-      <div class="collapse" id="match-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><%= link_to '#', class: "link-body-emphasis d-inline-flex text-decoration-none rounded" %></li>
-        </ul>
-      </div>
+      <% end %>
     </li>
     <li class="mb-1">
-      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#event-collapse" aria-expanded="false">
+      <%= link_to admin_events_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_events_path)}" do %>
+        <i class="bi bi-calendar3"></i>
         <%= I18n.t('admin.dashboards.index.event') %>
-      </button>
-      <div class="collapse" id="event-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><%= link_to '#', class: "link-body-emphasis d-inline-flex text-decoration-none rounded" %></li>
-        </ul>
-      </div>
+      <% end %>
     </li>
   </ul>
 </div>

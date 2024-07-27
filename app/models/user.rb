@@ -72,4 +72,22 @@ class User < ApplicationRecord
   def like?(post)
     like_posts.exists?(post_id: post.id)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[first_name last_name role user_name]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[comments like_posts liked_posts]
+  end
+
+  def self.roles_i18n
+    roles.keys.map do |key|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.roles.#{key}"), key]
+    end.to_h
+  end
+
+  def role_i18n
+    I18n.t("activerecord.attributes.#{self.class.model_name.i18n_key}.roles.#{role}")
+  end
 end

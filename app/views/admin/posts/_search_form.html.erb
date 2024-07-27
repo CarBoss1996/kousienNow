@@ -1,0 +1,15 @@
+<%= search_form_for @q, url: admin_posts_path do |f| %>
+  <div class="row">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="d-inline me-3">
+        <%= f.search_field :body_cont, class: 'form-control', placeholder: t('defaults.search_word') %>
+      </div>
+      <div class="d-inline me-3">
+        <%= f.date_field :created_at_gteq, include_blank: true, placeholder: 'yyyy-mm-dd' %>
+        <span>~</span>
+        <%= f.date_field :created_at_lteq, include_blank: true, placeholder: 'yyyy-mm-dd' %>
+      </div>
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
