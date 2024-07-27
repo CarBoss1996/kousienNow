@@ -4,7 +4,7 @@ class Admin::MatchesController < Admin::BaseController
   def index
     params[:q] ||= {}
     @q = Match.ransack(params[:q])
-    @matches = @q.result(distinct: true).includes(:event).page(params[:page]).order(match_date: :desc)
+    @matches = @q.result(distinct: true).includes(:event).page(params[:page]).order(match_date: :asc)
   end
 
   def show; end
@@ -27,6 +27,16 @@ class Admin::MatchesController < Admin::BaseController
       format.turbo_stream { redirect_to admin_matches_path, success: I18n.t('defaults.flash_message.delete', item: Match.model_name.human), status: :see_other }
       format.html { redirect_to admin_matches_path, success: I18n.t('defaults.flash_message.delete', item: Match.model_name.human) }
     end
+  end
+
+  def show_month
+    year, month = params[:month].split('-').map(&:to_i)
+    start_date = Date.new(year, month)
+    end_date = start_date.end_of_month
+    @matches = Match.where(match_date: start_date..end_date).order(match_date: :asc)
+    @month = start_date
+    @q = Match.ransack(params[:q])
+    render 'admin/matches/show_month'
   end
 
   private

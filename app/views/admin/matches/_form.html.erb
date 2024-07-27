@@ -1,0 +1,55 @@
+<%= form_with(model: [:admin, @match], local: true) do |form| %>
+  <% if @match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+        <% @match.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :match_date %>
+    <%= form.date_field :match_date, class: 'date-select' %>
+
+    <%= form.label :match_time %>
+    <%= form.select :match_time, options_for_select((13..19).to_a.product([0, 15, 30, 45]).map { |h, m| "%02d:%02d" % [h, m] }, @match.match_date ? @match.match_date.strftime("%H:%M") : "18:00"), {}, class: 'time-select' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.collection_select :event_id, Event.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :opponent %>
+    <%= form.select :opponent, Match.opponents.keys.map { |opponent| [opponent, opponent] } %>
+</div>
+
+  <div class="field">
+    <%= form.label :stadium %>
+    <%= form.select :stadium, Match::STADIUM_NAMES.keys.map { |stadium| [Match::STADIUM_NAMES[stadium], stadium] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :result %>
+    <%= form.select :result, Match.results.keys.map { |result| [result, result] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_score %>
+    <%= form.number_field :team_score, min: 0, value: @match.team_score || 0 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :away_team_score %>
+    <%= form.number_field :away_team_score, min: 0, value: @match.away_team_score || 0 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

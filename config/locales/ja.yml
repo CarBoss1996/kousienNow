@@ -48,6 +48,18 @@ ja:
       user_location:
         seat: 座席
         icon: アイコン
+      match:
+        id: ID
+        match_date: 日時
+        event: イベント
+        opponent: 対戦相手
+        stadium: 会場
+        result: 勝敗
+        team_score: チームスコア
+        away_team_score: 相手スコア
+        match_time: 試合開始時間
+      event:
+        events: イベント
     models:
       user: ユーザー
       comment: コメント
@@ -238,6 +250,7 @@ ja:
     edit:
       title: マイページ編集
   defaults:
+    search: 検索
     edit: 編集
     destroy: 削除
     update: 更新
@@ -253,11 +266,13 @@ ja:
       not_created: "%{item}を作成出来ませんでした"
       updated: "%{item}を更新しました"
       not_updated: "%{item}を更新出来ませんでした"
-      deleted: "%{item}を削除しました"
+      delete: "%{item}を削除しました"
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
     login: ログイン
     logout: ログアウト
+    opponent: 対戦相手
+    back: 戻る
   posts:
     no_result: 投稿がありません
     index:
@@ -351,6 +366,9 @@ ja:
     blank: 座席を変更する
     submit: 登録
     icon: アイコンを選択する
+  matches:
+    update:
+      success: 更新に成功しました。
   admin:
     sessions:
       new:
@@ -373,6 +391,9 @@ ja:
     posts:
       index:
         title: 投稿一覧
+    matches:
+      index:
+        title: 試合一覧
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
@@ -387,3 +408,7 @@ ja:
     - 木
     - 金
     - 土
+    order:
+      - :year
+      - :month
+      - :day

@@ -1,0 +1,19 @@
+<%= search_form_for @q, url: admin_matches_path, method: :get, class: "form-inline" do |f| %>
+  <div class="row">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="d-inline me-3">
+        <%= f.date_field :match_date_gteq, class: "form-control", placeholder: 'From:' %>
+      </div>
+      <div class="d-inline me-1">
+        〜
+      </div>
+      <div class="d-inline me-3">
+        <%= f.date_field :match_date_lteq, class: "form-control", placeholder: 'To:' %>
+      </div>
+      <div class="d-inline me-3">
+        <%= f.select :opponent_eq, Match.opponents.keys.map { |opponent| [opponent, Match.opponents[opponent]] }, include_blank: t('defaults.opponent'), class: "form-control me-1" %>
+      </div>
+      <%= f.submit I18n.t('defaults.search'), class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

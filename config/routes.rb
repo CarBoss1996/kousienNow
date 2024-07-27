@@ -34,7 +34,11 @@ Rails.application.routes.draw do
     delete 'logout', to: 'sessions#destroy'
     resources :users
     resources :posts
-    resources :matches
+    resources :matches do
+      collection do
+        get 'show_month/:month', to: 'matches#show_month', as: :month
+      end
+    end
     resources :events
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
