@@ -17,6 +17,7 @@ ja:
         id: ID
         favorite_player: 推し選手
         favorite_viewing_block: いつもの場所
+        location_id: シート名
         avatar: プロフィール画像
         user_name: アカウント名
         encrypted_password: 暗号化パスワード
@@ -249,6 +250,8 @@ ja:
       title: マイページ
     edit:
       title: マイページ編集
+      success: 更新に成功しました
+      failure: 更新に失敗しました
   defaults:
     search: 検索
     edit: 編集
@@ -388,6 +391,8 @@ ja:
     users:
       index:
         title: ユーザー一覧
+      show:
+        title: ユーザー詳細
     posts:
       index:
         title: 投稿一覧
