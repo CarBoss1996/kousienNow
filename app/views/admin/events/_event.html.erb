@@ -1,0 +1,11 @@
+<tr>
+  <td><%= event.id %></td>
+  <td><%= event.title %></td>
+  <td><%= event.start_date.strftime('%m-%d') %>〜<%= event.end_date.strftime('%m-%d') %></td>
+  <td><%= event.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+  <td class="d-flex justify-content-end ">
+    <%= link_to t('admin.events.show'), admin_event_path(event), class: 'btn btn-primary mx-1' %>
+    <%= link_to t('admin.events.edit.label'), edit_admin_event_path(event), class: 'btn btn-secondary' %>
+    <%= link_to t('admin.events.delete'), admin_event_path(event), method: :delete, data: { confirm: t('admin.events.confirm_delete') }, class: 'btn btn-danger mx-1' %>
+  </td>
+</tr>

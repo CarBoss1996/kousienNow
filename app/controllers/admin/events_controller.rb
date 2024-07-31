@@ -9,11 +9,26 @@ class Admin::EventsController < Admin::BaseController
 
   def show; end
 
+  def new
+    @event = Event.new
+  end
+
+  def create
+    @event = Event.new(event_params)
+    if @event.save
+      redirect_to admin_event_path(@event), success: I18n.t('events.create.success')
+    else
+      Rails.logger.debug(@event.errors.full_messages.join(', '))
+      flash.now[:danger] = I18n.t('events.create.failure')
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit; end
 
   def update
     if @event.update(event_params)
-      redirect_to admin_event_path, success: I18n.t('events.update.success')
+      redirect_to admin_event_path(@event), success: I18n.t('events.update.success')
     else
       Rails.logger.debug(@event.errors.full_messages.join(', '))
       flash.now[:danger] = I18n.t('events.update.failure')
@@ -36,6 +51,6 @@ class Admin::EventsController < Admin::BaseController
   end
 
   def event_params
-    params.require(:event).permit(:title, :body, :event_date)
+    params.require(:event).permit(:title, :body, :event_date, :start_date, :end_date, :detail_url)
   end
 end

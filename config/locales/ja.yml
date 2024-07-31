@@ -61,6 +61,14 @@ ja:
         match_time: 試合開始時間
       event:
         events: イベント
+        title: イベント名
+        id: ID
+        body: イベント詳細
+        event_date: 日程
+        created_at: 作成日
+        start_date: 開始日
+        end_date: 終了日
+        detail_url: 詳細URL
     models:
       user: ユーザー
       comment: コメント
@@ -370,6 +378,13 @@ ja:
   matches:
     update:
       success: 更新に成功しました。
+  events:
+    create:
+      success: イベントの作成に成功しました
+      failure: イベントの作成に失敗しました
+    update:
+      success: イベントの更新に成功しました
+      failure: イベントの更新に失敗しました
   admin:
     sessions:
       new:
@@ -399,6 +414,16 @@ ja:
     matches:
       index:
         title: 試合一覧
+    events:
+      show: 詳細
+      index:
+        title: イベント一覧
+      edit:
+        label: 編集
+        title: イベント編集
+      new:
+        title: イベント作成
+      delete: 削除
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
