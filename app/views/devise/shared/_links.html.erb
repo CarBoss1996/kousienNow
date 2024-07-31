@@ -18,10 +18,19 @@
   <%= link_to t('devise.shared.links.didn_t_receive_unlock_instructions'), new_user_unlock_path %><br />
 <% end %>
 
+<%# <%- if devise_mapping.omniauthable? %>
+  <%# <%- resource_class.omniauth_providers.each do |provider| %>
+    <%# <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-light mt-2', style: "width: 250px;", data: { turbo: false } do %>
+      <%# <i class="bi <%= provider.to_s == 'google_oauth2' ? 'bi-google' : "bi-#{provider}""></i>_<%= provider.to_s == 'google_oauth2' ? 'Google' : OmniAuth::Utils.camelize(provider)でログイン %>
+    <%# <% end %>
+  <%# <% end %>
+<%# <% end %>
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-light mt-2', style: "width: 250px;", data: { turbo: false } do %>
-      <i class="bi <%= provider.to_s == 'google_oauth2' ? 'bi-google' : "bi-#{provider}" %>"></i>_<%= provider.to_s == 'google_oauth2' ? 'Google' : OmniAuth::Utils.camelize(provider) %>でログイン
+    <% if provider.to_s == 'google_oauth2' %>
+      <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-light mt-2', style: "width: 250px;", data: { turbo: false } do %>
+        <%= image_tag 'google_icon.png', class: 'google-icon' %>_<%= 'Google' %>でログイン
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

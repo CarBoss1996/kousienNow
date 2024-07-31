@@ -14,4 +14,8 @@ class Location < ApplicationRecord
     left_outfield: 8,
     home_cheering: 9
   }
+
+  def seat_name_ja
+    I18n.t("seats.#{seat_name}")
+  end
 end

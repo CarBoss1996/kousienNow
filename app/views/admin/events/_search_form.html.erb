@@ -1,0 +1,19 @@
+<%= search_form_for @q, url: admin_events_path, method: :get, class: "form-inline" do |f| %>
+  <div class="row">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="d-inline me-3">
+        <%= f.date_field :start_date_gteq, class: "form-control", placeholder: 'From:' %>
+      </div>
+      <div class="d-inline me-1">
+        〜
+      </div>
+      <div class="d-inline me-3">
+        <%= f.date_field :end_date_lteq, class: "form-control", placeholder: 'To:' %>
+      </div>
+      <div class="d-inline me-3">
+        <%= f.text_field :title_cont, class: "form-control", placeholder: t('defaults.search_word') %>
+      </div>
+      <%= f.submit I18n.t('defaults.search'), class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

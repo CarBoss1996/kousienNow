@@ -1,0 +1,6 @@
+<% content_for(:title, t('.title')) %>
+<div class="container mb-5 pt-2">
+  <h1 class="zen-maru mt-3"><%= t('.title') %></h1>
+  <%= render 'form' %>
+  <%= link_to '戻る', admin_events_path, class: 'btn btn-secondary' %>
+</div>

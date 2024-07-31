@@ -1,0 +1,19 @@
+<%= form_with(model: [:admin, @post], local: true) do |form| %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= form.label :body, class: 'form-label' %>
+        <%= form.text_area :body, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :image, class: 'form-label' %>
+        <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png', class: 'form-control-file' %>
+      </div>
+
+      <div class="actions my-3">
+        <%= form.submit t('defaults.update'), class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

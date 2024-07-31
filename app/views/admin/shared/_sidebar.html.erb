@@ -1,0 +1,31 @@
+<div class="flex-shrink-0 p-3">
+  <a href="#" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+    <span class="fs-5 fw-semibold"><%= current_user.user_name %></span>
+  </a>
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <%= link_to admin_posts_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_posts_path)}" do %>
+        <i class="bi bi-file-earmark-text"></i>
+        <%= I18n.t('admin.dashboards.index.post') %>
+      <% end %>
+    </li>
+    <li class="mb-1">
+      <%= link_to admin_users_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_users_path)}" do %>
+        <i class="bi bi-people"></i>
+        <%= I18n.t('admin.dashboards.index.user') %>
+      <% end %>
+    </li>
+    <li class="mb-1">
+      <%= link_to admin_matches_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_matches_path)}" do %>
+        <i class="bi bi-graph-up"></i>
+        <%= I18n.t('admin.dashboards.index.match') %>
+      <% end %>
+    </li>
+    <li class="mb-1">
+      <%= link_to admin_events_path, class: "btn btn-toggle d-inline-flex align-items-center rounded border-0 #{'active' if current_page?(admin_events_path)}" do %>
+        <i class="bi bi-calendar3"></i>
+        <%= I18n.t('admin.dashboards.index.event') %>
+      <% end %>
+    </li>
+  </ul>
+</div>

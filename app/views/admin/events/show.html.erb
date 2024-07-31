@@ -1,0 +1,29 @@
+<table class="table table-bordered mt-3" style="background-color: white;">
+  <tr>
+    <th><%= Event.human_attribute_name(:title) %>:</th>
+    <td><%= @event.title %></td>
+  </tr>
+
+  <tr>
+    <th><%= Event.human_attribute_name(:body) %></th>
+    <td><%= @event.body %></td>
+  </tr>
+
+  <tr>
+    <th><%= Event.human_attribute_name(:detail_url) %></th>
+    <td><%= link_to @event.detail_url, @event.detail_url, target: "_blank" %></td>
+  </tr>
+
+  <tr>
+    <th><%= Event.human_attribute_name(:start_date) %></th>
+    <td><%= @event.start_date %></td>
+  </tr>
+
+  <tr>
+    <th><%= Event.human_attribute_name(:end_date) %></th>
+    <td><%= @event.end_date %></td>
+  </tr>
+</table>
+
+<%= link_to '編集', edit_admin_event_path(@event) %> |
+<%= link_to '戻る', admin_events_path %>

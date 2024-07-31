@@ -1,0 +1,28 @@
+<%= content_for(:title, t('.title')) %>
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-5">
+      <h1 class="zen-maru text-center mt-3"><%= t('.title') %></h1>
+      <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">
+
+          <% devise_mapping = Devise.mappings[:user] %>
+          <% resource_class = devise_mapping.to %>
+
+          <%- if devise_mapping.omniauthable? %>
+            <%- resource_class.omniauth_providers.each do |provider| %>
+              <% if provider.to_s == 'google_oauth2' %>
+                <div class="social-auth-links text-center mt-2 mb-3">
+                  <%= button_to send("user_#{provider}_omniauth_authorize_path"), class: 'btn btn-block btn-outline-primary', data: { turbo: false } do %>
+                    <%= image_tag 'google_icon.png', class: 'google-icon' %> Googleでログイン
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

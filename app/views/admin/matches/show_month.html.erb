@@ -1,0 +1,37 @@
+<% content_for(:title, t('.title')) %>
+<div class="container mb-5 pt-2">
+  <h1><%= @month.strftime('%Y年%m月') %></h1>
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <%= render 'search_form' %>
+    </div>
+  </div>
+<div class='d-flex justify-content-end'>
+  <% (3..10).each do |month| %>
+    <%= link_to month, month_admin_matches_path(month: "#{Date.today.year}-#{month.to_s.rjust(2, '0')}"), class: 'mx-2' %>
+  <% end %>
+</div>
+<table class="table table-bordered" style="background-color: white;">
+  <thead>
+    <tr>
+      <th>日付</th>
+      <th>結果</th>
+      <th>スコア</th>
+      <th>対戦相手</th>
+      <th>試合時間</th>
+      <th>スタジアム</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= match.match_date.strftime('%m/%d(%a)') %></td>
+        <td><%= match.result %></td>
+        <td><%= match.team_score %> - <%= match.away_team_score %></td>
+        <td><%= match.opponent %></td>
+        <td><%= match.match_date.strftime('%H:%M') %></td>
+        <td><%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

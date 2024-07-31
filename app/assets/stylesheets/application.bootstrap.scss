@@ -137,6 +137,19 @@ footer {
   width: 100%;
 }
 
+.google-icon {
+  height: 1em;
+  vertical-align: middle;
+}
+
+.btn.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.admin.post-body {
+  width: 600px;
+  overflow: auto;
+}
+
 .zen-maru {
   font-family: "Zen Maru Gothic", serif;
   font-weight: 400;

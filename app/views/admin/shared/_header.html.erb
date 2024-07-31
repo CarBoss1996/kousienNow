@@ -1,0 +1,28 @@
+<header>
+  <nav class='fixed-top navbar navbar-expand navigation navbar-dark bg-dark'>
+  <%= link_to '/', class: 'navbar-brand' do %>
+  <h4>甲子園NOW!</h4>
+  <% end %>
+    <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+      <ul class='navbar-nav ms-auto main-nav align-items-center'>
+        <li class='nav-item dropdown dropdown-slide'>
+        <div class="dropdown">
+          <div class="dropdown-toggle" type="button"
+              id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">メニュー </div>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            <a class='dropdown-item' href='/'>トップページ</a>
+            <%= link_to t('helpers.submit.user.post'), posts_path, class: 'dropdown-item' %>
+            <%= link_to t('helpers.submit.user.seat'), 'https://koshien.hanshin.co.jp/stadium_seat/', class: 'dropdown-item', target: "_blank", data: { confirm: '外部サイトへリンクします。よろしいですか？' } %>
+            <%= link_to t('helpers.submit.user.calendar'), matches_path(date: Date.today), class: 'dropdown-item' %>
+            <%= link_to t('helpers.submit.user.profile'), profile_path, class: 'dropdown-item' %>
+            <%= link_to t('helpers.submit.user.like_post'), like_posts_posts_path, class: 'dropdown-item' %>
+            <%= link_to t('defaults.logout'), admin_logout_path, method: :delete, class: 'dropdown-item' %>
+          </ul>
+        </div>
+          <div class='dropdown-menu dropdown-menu-end'>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

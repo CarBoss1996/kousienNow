@@ -1,0 +1,21 @@
+<tr>
+  <td>
+    <%= post.id %>
+  </td>
+  <td class="admin post-body">
+    <%= post.body %>
+  </td>
+  <td>
+    <%= image_tag post.image.variant(resize_to_limit: [50, 50]) if post.image.attached? %>
+  </td>
+  <td>
+    <%= post.user.full_name %>
+  </td>
+  <td>
+    <%= l post.created_at, format: :long %>
+  </td>
+  <td>
+    <%= link_to t('defaults.edit'), edit_admin_post_path(post), class: 'btn btn-secondary' %>
+    <%= link_to t('defaults.delete'), admin_post_path(post), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger' %>
+  </td>
+</tr>

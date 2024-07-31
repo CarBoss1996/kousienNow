@@ -13,8 +13,11 @@ ja:
         last_name: 姓
         first_name: 名
         full_name: 名前
+        role: 権限
+        id: ID
         favorite_player: 推し選手
         favorite_viewing_block: いつもの場所
+        location_id: シート名
         avatar: プロフィール画像
         user_name: アカウント名
         encrypted_password: 暗号化パスワード
@@ -32,14 +35,40 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+        roles:
+          general: 一般
+          admin: 管理者
       post:
         body: 本文
         image: 画像
+        id: ID
+        user_name: ユーザー名
+        created_at: 作成日
       comment:
         body: コメント
       user_location:
         seat: 座席
         icon: アイコン
+      match:
+        id: ID
+        match_date: 日時
+        event: イベント
+        opponent: 対戦相手
+        stadium: 会場
+        result: 勝敗
+        team_score: チームスコア
+        away_team_score: 相手スコア
+        match_time: 試合開始時間
+      event:
+        events: イベント
+        title: イベント名
+        id: ID
+        body: イベント詳細
+        event_date: 日程
+        created_at: 作成日
+        start_date: 開始日
+        end_date: 終了日
+        detail_url: 詳細URL
     models:
       user: ユーザー
       comment: コメント
@@ -229,17 +258,30 @@ ja:
       title: マイページ
     edit:
       title: マイページ編集
+      success: 更新に成功しました
+      failure: 更新に失敗しました
   defaults:
+    search: 検索
     edit: 編集
     destroy: 削除
     update: 更新
     submit: 送信
     post: 投稿
+    show: 詳細
+    delete: 削除
+    unspecified: 選択する
     flash_message:
-      updated: 更新しました
-      not_updated: 更新できませんでした
+      created: "作成しました"
+      not_created: "作成出来ませんでした"
+      updated: "更新しました"
+      not_updated: "更新出来ませんでした"
+      delete: "削除しました"
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
+    login: ログイン
+    logout: ログアウト
+    opponent: 対戦相手
+    back: 戻る
   posts:
     no_result: 投稿がありません
     index:
@@ -333,11 +375,62 @@ ja:
     blank: 座席を変更する
     submit: 登録
     icon: アイコンを選択する
-
+  matches:
+    update:
+      success: 更新に成功しました。
+  events:
+    create:
+      success: イベントの作成に成功しました
+      failure: イベントの作成に失敗しました
+    update:
+      success: イベントの更新に成功しました
+      failure: イベントの更新に失敗しました
+  admin:
+    sessions:
+      new:
+        title: ログイン
+    create:
+      success: ログインしました
+      failure: ログインに失敗しました
+    destroy:
+      success: ログアウトしました
+    dashboards:
+      index:
+        title: ダッシュボード
+        post: 投稿
+        user: ユーザー
+        match: 試合情報
+        event: イベント
+    users:
+      index:
+        title: ユーザー一覧
+      show:
+        title: ユーザー詳細
+    posts:
+      index:
+        title: 投稿一覧
+      edit:
+        title: 投稿編集
+    matches:
+      index:
+        title: 試合一覧
+      new:
+        title: 試合情報作成
+    events:
+      show: 詳細
+      index:
+        title: イベント一覧
+      edit:
+        label: 編集
+        title: イベント編集
+      new:
+        title: イベント作成
+      delete: 削除
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
       short: "%m/%d %H:%M"
+      long: "%Y年%m月%d日 %H時%M分%S秒"
   date:
     abbr_day_names:
     - 日
@@ -347,3 +440,7 @@ ja:
     - 木
     - 金
     - 土
+    order:
+      - :year
+      - :month
+      - :day

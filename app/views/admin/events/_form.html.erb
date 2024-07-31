@@ -1,0 +1,32 @@
+<%= form_for [:admin, @event] do |f| %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :body %>
+        <%= f.text_area :body, class: 'form-control', rows: 10 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :detail_url %>
+        <%= f.text_field :detail_url, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :start_date %>
+        <%= f.date_field :start_date, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :end_date %>
+        <%= f.date_field :end_date, class: 'form-control' %>
+      </div>
+
+      <%= f.submit @event.new_record? ? 'イベント作成' : '更新', class: 'btn btn-primary my-2' %>
+    </div>
+  </div>
+<% end %>

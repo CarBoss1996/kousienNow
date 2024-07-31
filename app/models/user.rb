@@ -17,15 +17,16 @@ class User < ApplicationRecord
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
-
+  enum role: { general: 0, admin: 1 }
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.user_name = "#{auth.info.first_name} #{auth.info.last_name}"
-      user.first_name = auth.info.first_name # 追加
-      user.last_name = auth.info.last_name # 追加
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
       user.uid = create_unique_string if user.uid.blank?
+      user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
   end
 
@@ -70,5 +71,23 @@ class User < ApplicationRecord
 
   def like?(post)
     like_posts.exists?(post_id: post.id)
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[first_name last_name role user_name]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[comments like_posts liked_posts]
+  end
+
+  def self.roles_i18n
+    roles.keys.map do |key|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.roles.#{key}"), key]
+    end.to_h
+  end
+
+  def role_i18n
+    I18n.t("activerecord.attributes.#{self.class.model_name.i18n_key}.roles.#{role}")
   end
 end
