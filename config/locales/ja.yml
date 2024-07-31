@@ -263,13 +263,11 @@ ja:
     delete: 削除
     unspecified: 選択する
     flash_message:
-      updated: 更新しました
-      not_updated: 更新できませんでした
-      created: "%{item}を作成しました"
-      not_created: "%{item}を作成出来ませんでした"
-      updated: "%{item}を更新しました"
-      not_updated: "%{item}を更新出来ませんでした"
-      delete: "%{item}を削除しました"
+      created: "作成しました"
+      not_created: "作成出来ませんでした"
+      updated: "更新しました"
+      not_updated: "更新出来ませんでした"
+      delete: "削除しました"
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
     login: ログイン
@@ -396,6 +394,8 @@ ja:
     posts:
       index:
         title: 投稿一覧
+      edit:
+        title: 投稿編集
     matches:
       index:
         title: 試合一覧

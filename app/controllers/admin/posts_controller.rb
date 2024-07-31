@@ -15,10 +15,11 @@ class Admin::PostsController < Admin::BaseController
 
   def update
     if @post.update(post_params)
-      redirect_to admin_post_path, success: I18n.t('posts.update.success')
+      flash[:success] = I18n.t('defaults.flash_message.updated')
+      redirect_to admin_posts_path
     else
       Rails.logger.debug(@post.errors.full_messages.join(', '))
-      flash.now[:danger] = I18n.t('posts.update.failure')
+      flash.now[:danger] = I18n.t('defaults.flash_message.not_updated')
       render :edit, status: :unprocessable_entity
     end
   end
