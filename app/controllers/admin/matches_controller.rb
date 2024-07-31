@@ -9,6 +9,20 @@ class Admin::MatchesController < Admin::BaseController
 
   def show; end
 
+  def new
+    @match = Match.new
+  end
+
+  def create
+    @match = Match.new(match_params)
+
+    if @match.save
+      redirect_to admin_matches_path, notice: I18n.t('dafaults.flash_mesage.created')
+    else
+      render :new
+    end
+  end
+
   def edit; end
 
   def update

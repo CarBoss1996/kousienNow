@@ -11,9 +11,9 @@
   <td>
     <%= l user.created_at, format: :long %>
   </td>
-  <td>
-    <%= link_to t('defaults.show'), admin_user_path(user), class: 'btn btn-info' %>
-    <%= link_to t('defaults.edit'), edit_admin_user_path(user), class: 'btn btn-success' %>
-    <%= link_to t('defaults.delete'), admin_user_path(user), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger' %>
+  <td class="d-flex justify-content-end">
+    <%= link_to t('defaults.show'), admin_user_path(user), class: 'btn btn-primary mx-1' %>
+    <%= link_to t('defaults.edit'), edit_admin_user_path(user), class: 'btn btn-secondary' %>
+    <%= link_to t('defaults.delete'), admin_user_path(user), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger mx-1' %>
   </td>
 </tr>

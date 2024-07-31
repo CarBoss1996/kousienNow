@@ -414,6 +414,8 @@ ja:
     matches:
       index:
         title: 試合一覧
+      new:
+        title: 試合情報作成
     events:
       show: 詳細
       index:

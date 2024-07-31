@@ -7,9 +7,9 @@
   <td><%= match.result %></td>
   <td><%= match.team_score %></td>
   <td><%= match.away_team_score %></td>
-  <td>
-    <%= link_to t('defaults.show'), admin_match_path(match), class: 'btn btn-info' %>
-    <%= link_to t('defaults.edit'), edit_admin_match_path(match), class: 'btn btn-success' %>
-    <%= link_to t('defaults.delete'), admin_match_path(match), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger' %>
+  <td class="d-flex justify-content-end">
+    <%= link_to t('defaults.show'), admin_match_path(match), class: 'btn btn-primary mx-1' %>
+    <%= link_to t('defaults.edit'), edit_admin_match_path(match), class: 'btn btn-secondary' %>
+    <%= link_to t('defaults.delete'), admin_match_path(match), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger mx-1' %>
   </td>
 </tr>

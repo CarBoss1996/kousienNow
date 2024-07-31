@@ -2,7 +2,7 @@
   <td>
     <%= post.id %>
   </td>
-  <td>
+  <td class="admin post-body">
     <%= post.body %>
   </td>
   <td>
@@ -15,7 +15,7 @@
     <%= l post.created_at, format: :long %>
   </td>
   <td>
-    <%= link_to t('defaults.edit'), edit_admin_post_path(post), class: 'btn btn-success' %>
+    <%= link_to t('defaults.edit'), edit_admin_post_path(post), class: 'btn btn-secondary' %>
     <%= link_to t('defaults.delete'), admin_post_path(post), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger' %>
   </td>
 </tr>
