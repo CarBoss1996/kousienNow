@@ -376,6 +376,8 @@ ja:
     submit: 登録
     icon: アイコンを選択する
   matches:
+    index:
+      title: 対戦カレンダー
     update:
       success: 更新に成功しました。
   events:
