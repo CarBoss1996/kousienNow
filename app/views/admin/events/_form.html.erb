@@ -18,12 +18,12 @@
 
       <div class="form-group">
         <%= f.label :start_date %>
-        <%= f.date_field :start_date, class: 'form-control' %>
+        <%= f.date_field :start_date, value: (@event.event_dates.first.start_date if @event.event_dates.first), class: 'form-control' %>
       </div>
 
       <div class="form-group">
         <%= f.label :end_date %>
-        <%= f.date_field :end_date, class: 'form-control' %>
+        <%= f.date_field :end_date, value: (@event.event_dates.first.end_date if @event.event_dates.first), class: 'form-control' %>
       </div>
 
       <%= f.submit @event.new_record? ? 'イベント作成' : '更新', class: 'btn btn-primary my-2' %>
