@@ -9,6 +9,8 @@ class MatchesController < ApplicationController
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @month = @date.beginning_of_month
     @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
+    @events = Event.eager_load(:event_dates).where(event_dates: { start_date: @month.beginning_of_month..@month.end_of_month }).or(Event.eager_load(:event_dates).where(event_dates: { end_date: @month.beginning_of_month..@month.end_of_month }))
+    logger.debug @events.inspect
     if current_user
       @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
       @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@date.end_of_month)
@@ -36,6 +38,8 @@ class MatchesController < ApplicationController
     @matches = Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
     @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
     @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
+    @events = Event.eager_load(:event_dates).where(event_dates: { start_date: @month.beginning_of_month..@month.end_of_month }).or(Event.eager_load(:event_dates).where(event_dates: { end_date: @month.beginning_of_month..@month.end_of_month }))
+    logger.debug @events.inspect
     render 'index', layout: 'application'
   end
 

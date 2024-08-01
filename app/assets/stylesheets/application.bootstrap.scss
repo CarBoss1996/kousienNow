@@ -1,7 +1,7 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
-@import "top";
 
+// アプリ全体
 body {
   background-color: #FFDE59;
   background-repeat: no-repeat;
@@ -16,18 +16,27 @@ body {
 main {
   flex: 1;
 }
+.zen-maru {
+  font-family: "Zen Maru Gothic", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
+
+// ヘッダー画像
 .header-image {
   width: 100%;
   object-fit: cover; // 画像がコンテナにフィットするように調整
   object-position: center; // 画像を中央に配置
 }
 
+// ドロップダウンメニュー
 #dropdownMenuButton1 {
   color: white;
   margin-right: 10px;
 }
 
+// user_location icon
 .icon-selection {
   display: flex;
   justify-content: space-between;
@@ -60,6 +69,7 @@ main {
   border-color: #007bff;
 }
 
+// user_locationの表示
 .stadium-link {
   position: absolute;
 }
@@ -95,83 +105,10 @@ main {
 .btn-block {
   font-size: 1.25rem; /* パディングを2倍に */
   padding: 1.25rem; /* パディングを2倍に */
-  width: 100%; /* 幅を100%に */
+  width: 100%;
 }
 #stadium-image {
   pointer-events: none;
-}
-
-.small-vs {
-  font-size: 0.5em; /* 必要に応じてサイズを調整 */
-}
-
-.show-card {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-}
-.text-show-body {
-  text-align: left;
-  padding: 10px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-.flex-grow-1 {
-  flex-grow: 1;
-}
-.list-inline {
-  margin-top: auto;
-}
-.post-card {
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-}
-footer {
-  margin-top: auto;
-}
-
-.fixed-bottom {
-  margin-top: auto;
-  width: 100%;
-}
-
-.google-icon {
-  height: 1em;
-  vertical-align: middle;
-}
-
-.btn.active {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.admin.post-body {
-  width: 600px;
-  overflow: auto;
-}
-
-.zen-maru {
-  font-family: "Zen Maru Gothic", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-@keyframes sparkle {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.sparkle {
-  animation: sparkle 1s linear infinite;
-}
-
-@media (min-width: 700px) {
-  .match-card {
-    width: 40%;
-  }
-  .icon-button {
-    font-size: 1.5em;
-  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -183,7 +120,6 @@ footer {
     height: 45px;
   }
 }
-
 @media (max-width: 480px) and (max-width: 767px) {
   .icon-option img {
     width: 30px;
@@ -219,4 +155,126 @@ footer {
     font-size: 0.8em;
     margin: 0;
   }
+}
+
+// matchの表示
+.small-vs {
+  font-size: 0.5em;
+}
+@media (min-width: 700px) {
+  .match-card {
+    width: 40%;
+  }
+  .icon-button {
+    font-size: 1.5em;
+  }
+}
+
+// postの表示
+.show-card {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.text-show-body {
+  text-align: left;
+  padding: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+.list-inline {
+  margin-top: auto;
+}
+.post-card {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+// footer
+footer {
+  margin-top: auto;
+}
+
+.fixed-bottom {
+  margin-top: auto;
+  width: 100%;
+}
+
+// Googleアイコン
+.google-icon {
+  height: 1em;
+  vertical-align: middle;
+}
+
+// adminページ
+.btn.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.admin.post-body {
+  width: 600px;
+  overflow: auto;
+}
+
+// 観戦カレンダー
+li.info.result {
+  list-style-type: none;
+}
+
+td.day {
+  height: 117px;
+  width: 14.28%; /* 100% / 7 days = 14.28% */
+}
+
+.match_calendar {
+  display: flex;
+  flex-direction: column;
+}
+.user-calendar-show {
+  background-color: #FFDE59;
+  display: flex;
+  justify-content: flex-start; /* テキストを中央に配置 */
+}
+.calendar-icon img {
+  width: 25px;
+  height: 25px;
+}
+.calendar-icon, .calendar-seat {
+  flex: auto;
+  min-width: 0;
+}
+.calendar-seat {
+  font-size: 0.8rem;
+}
+.user-match-match {
+  background-color: #FF6347; /* Tomato color */
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.event-show {
+  background-color: #03b603;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    font-size: 0.8em;
+  }
+}
+
+// いずれやりたいアニメーション
+@keyframes sparkle {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.sparkle {
+  animation: sparkle 1s linear infinite;
 }

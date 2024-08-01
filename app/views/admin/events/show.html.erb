@@ -11,19 +11,31 @@
 
   <tr>
     <th><%= Event.human_attribute_name(:detail_url) %></th>
-    <td><%= link_to @event.detail_url, @event.detail_url, target: "_blank" %></td>
+    <td>
+      <% if @event.detail_url.present? %>
+        <%= link_to @event.detail_url, @event.detail_url, target: "_blank" %>
+      <% end %>
+    </td>
   </tr>
 
   <tr>
     <th><%= Event.human_attribute_name(:start_date) %></th>
-    <td><%= @event.start_date %></td>
+    <td>
+      <% if @event.event_dates.first.start_date.present? %>
+        <%= @event.event_dates.first.start_date.strftime('%m-%d') %>
+      <% end %>
+    </td>
   </tr>
 
   <tr>
     <th><%= Event.human_attribute_name(:end_date) %></th>
-    <td><%= @event.end_date %></td>
+    <td>
+      <% if @event.event_dates.first.end_date.present? && @event.event_dates.first.start_date != @event.event_dates.first.end_date %>
+        <%= @event.event_dates.first.end_date.strftime('%m-%d') %>
+      <% end %>
+    </td>
   </tr>
-</table>
+  </table>
 
 <%= link_to '編集', edit_admin_event_path(@event) %> |
 <%= link_to '戻る', admin_events_path %>

@@ -57,29 +57,28 @@ seats.each do |seat|
 end
 
 matches = [
-  { match_date: '2024-07-01 18:00', opponent: Match.opponents[:広島], stadium: "mazda" },
-  { match_date: '2024-07-02 18:00', opponent: Match.opponents[:広島], stadium: "mazda" },
-  { match_date: '2024-07-03 18:00', opponent: Match.opponents[:広島], stadium: "mazda" },
-  { match_date: '2024-07-04 18:00', opponent: Match.opponents[:広島], stadium: "mazda" },
-  { match_date: '2024-07-05 18:00', opponent: Match.opponents[:DeNA] },
-  { match_date: '2024-07-06 18:00', opponent: Match.opponents[:DeNA] },
-  { match_date: '2024-07-07 18:00', opponent: Match.opponents[:DeNA] },
-  { match_date: '2024-07-09 18:00', opponent: Match.opponents[:ヤクルト] },
-  { match_date: '2024-07-10 18:00', opponent: Match.opponents[:ヤクルト] },
-  { match_date: '2024-07-12 18:00', opponent: Match.opponents[:中日], stadium: "nagoya" },
-  { match_date: '2024-07-13 14:00', opponent: Match.opponents[:中日], stadium: "nagoya" },
-  { match_date: '2024-07-14 13:30', opponent: Match.opponents[:中日], stadium: "nagoya" },
-  { match_date: '2024-07-15 14:00', opponent: Match.opponents[:巨人], stadium: "tokyo" },
-  { match_date: '2024-07-16 18:00', opponent: Match.opponents[:巨人], stadium: "tokyo" },
-  { match_date: '2024-07-17 18:00', opponent: Match.opponents[:巨人], stadium: "tokyo" },
-  { match_date: '2024-07-19 18:00', opponent: Match.opponents[:広島] },
-  { match_date: '2024-07-20 18:00', opponent: Match.opponents[:広島] },
-  { match_date: '2024-07-21 18:00', opponent: Match.opponents[:広島] },
-  { match_date: '2024-07-26 18:00', opponent: Match.opponents[:中日] },
-  { match_date: '2024-07-27 18:00', opponent: Match.opponents[:中日] },
-  { match_date: '2024-07-28 18:00', opponent: Match.opponents[:中日] },
-  { match_date: '2024-07-30 18:00', opponent: Match.opponents[:巨人] },
-  { match_date: '2024-07-31 18:00', opponent: Match.opponents[:巨人] },
+  { match_date: '2024-07-02 18:00', opponent: Match.opponents[:広島], stadium: "mazda", result: 0, team_score: 3, away_team_score: 0 },
+  { match_date: '2024-07-03 18:00', opponent: Match.opponents[:広島], stadium: "mazda", result: 0, team_score: 2, away_team_score: 1 },
+  { match_date: '2024-07-04 18:00', opponent: Match.opponents[:広島], stadium: "mazda", result: 1, team_score: 5, away_team_score: 7 },
+  { match_date: '2024-07-05 18:00', opponent: Match.opponents[:DeNA], result: 1, team_score: 1, away_team_score: 2 },
+  { match_date: '2024-07-06 18:00', opponent: Match.opponents[:DeNA], result: 0, team_score: 2, away_team_score: 1 },
+  { match_date: '2024-07-07 18:00', opponent: Match.opponents[:DeNA], result: 0, team_score: 6, away_team_score: 5 },
+  { match_date: '2024-07-09 18:00', opponent: Match.opponents[:ヤクルト], result: 0, team_score: 2, away_team_score: 1 },
+  { match_date: '2024-07-10 18:00', opponent: Match.opponents[:ヤクルト], result: 0, team_score: 4, away_team_score: 1 },
+  { match_date: '2024-07-12 18:00', opponent: Match.opponents[:中日], stadium: "nagoya", result: 1, team_score: 0, away_team_score: 3 },
+  { match_date: '2024-07-13 14:00', opponent: Match.opponents[:中日], stadium: "nagoya", result: 1, team_score: 8, away_team_score: 10 },
+  { match_date: '2024-07-14 13:30', opponent: Match.opponents[:中日], stadium: "nagoya", result: 0, team_score: 6, away_team_score: 2 },
+  { match_date: '2024-07-15 14:00', opponent: Match.opponents[:巨人], stadium: "tokyo", result: 0, team_score: 2, away_team_score: 0 },
+  { match_date: '2024-07-16 18:00', opponent: Match.opponents[:巨人], stadium: "tokyo", result: 1, team_score: 1, away_team_score: 2 },
+  { match_date: '2024-07-17 18:00', opponent: Match.opponents[:巨人], stadium: "tokyo", result: 1, team_score: 3, away_team_score: 4 },
+  { match_date: '2024-07-19 18:00', opponent: Match.opponents[:広島], result: 1, team_score: 0, away_team_score: 1 },
+  { match_date: '2024-07-20 18:00', opponent: Match.opponents[:広島], result: 1, team_score: 0, away_team_score: 1 },
+  { match_date: '2024-07-21 18:00', opponent: Match.opponents[:広島], result: 0, team_score: 12, away_team_score: 3 },
+  { match_date: '2024-07-26 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 5, away_team_score: 1 },
+  { match_date: '2024-07-27 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 7, away_team_score: 3 },
+  { match_date: '2024-07-28 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 4, away_team_score: 3 },
+  { match_date: '2024-07-30 18:00', opponent: Match.opponents[:巨人], result: 0, team_score: 5, away_team_score: 1 },
+  { match_date: '2024-07-31 18:00', opponent: Match.opponents[:巨人], result: 0, team_score: 9, away_team_score: 6 },
   { match_date: '2024-08-01 18:00', opponent: Match.opponents[:巨人] },
   { match_date: '2024-08-02 18:00', opponent: Match.opponents[:DeNA], stadium: "yokohama" },
   { match_date: '2024-08-03 18:00', opponent: Match.opponents[:DeNA], stadium: "yokohama" },
@@ -135,5 +134,48 @@ matches.each do |match|
     existing_match.update!(match)
   else
     Match.create!(match)
+  end
+
+  events = [
+    { event_title: "からあげ祭", start_date: '2024-04-16', end_date: '2024-04-21' },
+    { event_title: "からあげ祭", start_date: '2024-09-10', end_date: '2024-09-13' },
+    { event_title: "からあげ祭", start_date: '2024-09-15', end_date: '2024-09-16' },
+    { event_title: "KIDSスペシャルデー", body: "入場券をお持ちの小学生以下のお子様先着5,000名様に「KIDSレッスンバッグ」をプレゼント！", start_date: '2024-04-20', end_date: '2024-04-20' },
+    { event_title: "KIDSスペシャルデー", body: "入場券をお持ちの小学生以下のお子様先着5,000名様に「KIDSレッスンバッグ」をプレゼント！", start_date: '2024-06-08', end_date: '2024-06-08' },
+    { event_title: "KIDSスペシャルデー", body: "入場券をお持ちの小学生以下のお子様先着5,000名様に「KIDSレッスンバッグ」をプレゼント！", start_date: '2024-08-21', end_date: '2024-08-21' },
+    { event_title: "肉祭", start_date: '2024-07-19', end_date: '2024-07-21' },
+    { event_title: "Family with Tigers Day", body: "監督・コーチ・選手がイベント限定ユニフォームを着用し、試合に臨みます！来場者プレゼントあり", start_date: '2024-08-09', end_date: '2024-08-11', detail_url: "https://hanshintigers.jp/lp/event_family_with_tigers2024/" },
+    { event_title: "Family with Tigers Day", body: "監督・コーチ・選手がイベント限定ユニフォームを着用し、試合に臨みます！来場者プレゼントあり", start_date: '2024-09-01', end_date: '2024-09-01', detail_url: "https://hanshintigers.jp/lp/event_family_with_tigers2024/" },
+    { event_title: "TORACO DAY", start_date: '2024-08-20', end_date: '2024-08-20', detail_url: "https://hanshintigers.jp/toraco/" },
+    { event_title: "Family with Tigers Day", body: "監督・コーチ・選手がイベント限定ユニフォームを着用し、試合に臨みます！来場者プレゼントあり", start_date: '2024-08-09', end_date: '2024-08-11' },
+    { event_title: "伝統の一戦", body: "伝統の一戦座布団※5月25日(土)、5月26日(日)の入場者プレゼントの実施はございません。", start_date: '2024-05-24', end_date: '2024-05-26', detail_url: "https://hanshintigers.jp/news/topics/info_9278.html" },
+    { event_title: "生ビールワンコインナイター", start_date: '2024-06-07', end_date: '2024-06-07' },
+    { event_title: "生ビールワンコインナイター", start_date: '2024-07-10', end_date: '2024-07-10' },
+    { event_title: "甲子園ビアフェスタ", start_date: '2024-06-21', end_date: '2024-06-23' },
+    { event_title: "甲子園ビアフェスタ", start_date: '2024-08-30', end_date: '2024-09-01' },
+    { event_title: "トラフェス", body: "観戦×フェスのイベント！当日「トラフェスフードタオル」をプレゼント！", start_date: '2024-06-22', end_date: '2024-06-22' },
+    { event_title: "トラフェス", body: "観戦×フェスのイベント！当日「トラフェスTシャツ」をプレゼント！", start_date: '2024-06-23', end_date: '2024-06-23' },
+    { event_title: "夏のこどもまつり", body: "入場券をお持ちの小学生以下のお子様先着7,000名様に「KIDSハッピ」をプレゼント！
+    夏休みの思い出にご家族みなさまで楽しんでいただけるような演出・イベントを予定しております！
+    この夏最初の思い出は阪神甲子園球場で！", start_date: '2024-07-05', end_date: '2024-07-07', detail_url: "https://hanshintigers.jp/lp/summer_kidsfes_2024/" },
+    { event_title: "チーズ祭り", start_date: '2024-07-05', end_date: '2024-07-07' },
+    { event_title: "ウル虎の夏2024", start_date: '2024-04-16', end_date: '2024-04-18', detail_url: "https://hanshintigers.jp/news/topics/info_9164.html" },
+    { event_title: "ウル虎の夏2024", start_date: '2024-07-19', end_date: '2024-07-21', detail_url: "https://hanshintigers.jp/news/topics/info_9164.html" },
+    { event_title: "ウル虎の夏2024", start_date: '2024-07-26', end_date: '2024-07-28', detail_url: "https://hanshintigers.jp/news/topics/info_9164.html" },
+    { event_title: "粉もん祭", start_date: '2024-07-26', end_date: '2024-07-28' },
+    { event_title: "KOSHIEN CLASSIC SERIES 100TH ANNIVERSARY", body: "阪神甲子園球場開場100周年の特別シリーズ！各種イベントに加え、「超満員プロジェクト」として1・3塁の両アルプス席を座席幅が狭い仕様(2019年シーズンまでの座席幅)に変更し、販売座席数を拡大します！来たる100周年をより多くの野球ファンの皆様と迎えたいという想いから、47,000人規模のお客様にご来場いただけるよう準備を整えて開催いたします！超満員のスタンドで記念すべき節目を盛り上げましょう！
+    ※甲子園100周年記念ボール（硬式球）は、先着10,000名様の小学生以下のお子様限定となります。", start_date: '2024-07-30', end_date: '2024-08-01', datail_url: "https://koshien.hanshin.co.jp/classic_series_2024/" },
+    { event_title: "「選手なりきりお面」をプレゼント！", start_date: '2024-09-14', end_date: '2024-09-14' },
+    { event_title: "「トラフェスTシャツ」をプレゼント！", start_date: '2024-09-29', end_date: '2024-09-29' }
+  ]
+  events.each do |event|
+    puts "start_date: #{event[:start_date]}, end_date: #{event[:end_date]}"
+    existing_event = Event.find_by(title: event[:event_title])
+    if existing_event
+      existing_event.update!(title: event[:event_title], body: event[:body], detail_url: event[:detail_url])
+    else
+      existing_event = Event.create!(title: event[:event_title], body: event[:body], detail_url: event[:detail_url])
+    end
+    EventDate.create!(event_id: existing_event.id, start_date: event[:start_date], end_date: event[:end_date])
   end
 end
