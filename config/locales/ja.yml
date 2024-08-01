@@ -270,6 +270,7 @@ ja:
     show: 詳細
     delete: 削除
     unspecified: 選択する
+    back: 戻る
     flash_message:
       created: "作成しました"
       not_created: "作成出来ませんでした"
@@ -387,6 +388,9 @@ ja:
     update:
       success: イベントの更新に成功しました
       failure: イベントの更新に失敗しました
+  notifications:
+    index:
+      title: 通知設定
   admin:
     sessions:
       new:
