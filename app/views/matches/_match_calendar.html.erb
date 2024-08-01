@@ -5,19 +5,30 @@
   <% matches_on_date.each do |match| %>
     <div class='mb-1 text-center'>
       <% if match.result %>
-        <%= match.result %><br>
-        <%= match.team_score %> - <%= match.away_team_score %><br>
-        vs <%= match.opponent %>
+        <% match_color = if match.result == '勝ち'
+                           'rgba(255, 60, 0, 0.3)' # 透明の赤色
+                         elsif match.result == '負け'
+                           'rgba(0, 160, 255, 0.3)' # 透明の青色
+                         else
+                           'transparent' # 透明（引き分けまたは未定の場合）
+                         end %>
+        <div style="background-color: <%= match_color %>;">
+          <div style="box-shadow: 0 0 10px <%= match_color %>;">
+          <%= match.team_score %> - <%= match.away_team_score %><br>
+          vs <%= match.opponent %>
+        </div>
       <% else %>
-        vs <%= match.opponent %><br>
-        <%= match.match_date.strftime('%H:%M') %><br>
-        <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+        <div>
+          vs <%= match.opponent %><br>
+          <%= match.match_date.strftime('%H:%M') %><br>
+          <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+        </div>
       <% end %>
     </div>
   <% end %>
-  <% user_match_on_date = @user_matches.find { |user_match| user_match.date == date } %>
+    <% user_match_on_date = @user_matches.find { |user_match| user_match.date == date } %>
   <% if user_match_on_date %>
-    <div class='user-match-show'>
+    <div class='user-match-show mt-1'>
       <div class='user-match-match'>
         観戦予定
       </div>
@@ -26,7 +37,7 @@
   <% if @user_locations %>
     <% user_location_on_date = @user_locations.find { |location| location.date == date } %>
     <% if user_location_on_date %>
-      <div class='user-calendar-show'>
+      <div class='user-calendar-show mt-1'>
         <div class='calendar-icon'>
           <%= image_tag("icons/#{user_location_on_date.icon}", alt: user_location_on_date.icon) %>
         </div>
@@ -38,7 +49,7 @@
   <% end %>
   <% event_on_date = @events.find { |event| event.event_dates.any? { |event_date| date >= event_date.start_date && date <= event_date.end_date } } %>
   <% if event_on_date %>
-    <div class='event-show'>
+    <div class='event-show mt-1'>
       <%= event_on_date.title %>
     </div>
   <% end %>
