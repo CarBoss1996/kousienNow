@@ -89,36 +89,28 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def handle_follow_event(event)
+  def handle_message_event(event)
     line_user_id = event['source']['userId']
-    
-    # line_user_idをuser_idに変換するロジックを追加
-    user = User.find_by(line_user_id: line_user_id)
-    return unless user  # ユーザーが見つからない場合は何もしない
+    received_text = event['message']['text']
 
-    unique_code = generate_unique_code(user.id)
+    if received_text == '通知設定'
+      user = User.find_by(line_user_id: line_user_id)
+      return unless user  # ユーザーが見つからない場合は何もしない
 
-    message = {
-      type: 'text',
-      text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
-    }
+      unique_code = generate_unique_code(user.id)
 
-    client.reply_message(event['replyToken'], message)
-  end
+      message = {
+        type: 'text',
+        text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
+      }
 
-  def generate_unique_code(user_id)
-    # 一意の識別コードを生成するロジック...
-    # 1000から9999の間のランダムな整数を生成します：
-    code = rand(1000..9999)
-
-    # 有効期限を設定します。この例では、コードの有効期限を10分後に設定します：
-    expires_at = 10.minutes.from_now
-
-    # 一意のコードとその有効期限をデータベースに保存します：
-    # 例: 10分後に有効期限が切れるOneTimeCodeを作成する場合
-    OneTimeCode.create(user_id: user_id, code: code, expires_at: Time.current + 10.minutes)
-
-    code
+      client.reply_message(event['replyToken'], message)
+    else
+      message = {
+        type: 'text',
+        text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
+      }
+    end
   end
 
   def client
