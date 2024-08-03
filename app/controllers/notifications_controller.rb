@@ -8,6 +8,7 @@ class NotificationsController < ApplicationController
   def callback
     body = request.body.read
     events = client.parse_events_from(body)
+    Rails.logger.info("Parsed events: #{events.inspect}")
 
     events.each do |event|
       case event
@@ -15,16 +16,19 @@ class NotificationsController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           if event.message['text'] == "通知設定"
-            user = User.find_by(line_user_id: event['source']['userId'])
-            if user
-              password = generate_unique_code(user)
-              message = {
-                type: 'text',
-                text: "あなたのワンタイムパスワードは #{password} です。アプリケーションでこのパスワードを入力してください。"
-              }
-              client.reply_message(event['replyToken'], message)
-            end
+            password = generate_unique_code
+            redirect_url = "https://kousiennow.onrender.com/notifications/link_line_account"
+            message = {
+              type: 'text',
+              text: "あなたのワンタイムパスワードは #{password} です。以下のリンクからアプリケーションにアクセスしてこのパスワードを入力してください。 #{redirect_url}"
+            }
+          else
+            message = {
+              type: 'text',
+              text: '「通知設定」とメッセージを送ってもらえるとワンタイムコードを生成します'
+            }
           end
+          client.reply_message(event['replyToken'], message)
         end
       end
     end
@@ -67,7 +71,7 @@ class NotificationsController < ApplicationController
     params.require(:user).permit(:unique_code)
   end
 
-  def generate_unique_code(user)
+  def generate_unique_code
     # 一意の識別コードを生成するロジック...
     # 1000から9999の間のランダムな整数を生成します：
     code = rand(1000..9999)
