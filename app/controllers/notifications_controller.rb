@@ -7,27 +7,20 @@ class NotificationsController < ApplicationController
 
   def callback
     body = request.body.read
-    events = client.parse_events_from(body)
+    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    unless client.validate_signature(body, signature)
+      return head :bad_request
+    end
 
+    events = client.parse_events_from(body)
     events.each do |event|
       case event
       when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
-          if event.message['text'] == "通知設定"
-            user = User.find_by(line_user_id: event['source']['userId'])
-            if user
-              password = generate_unique_code(user)
-              message = {
-                type: 'text',
-                text: "あなたのワンタイムパスワードは #{password} です。アプリケーションでこのパスワードを入力してください。"
-              }
-              client.reply_message(event['replyToken'], message)
-            end
-          end
-        end
+        handle_message_event(event)
       end
     end
+
+    head :ok
   end
 
   def link_line_account
@@ -67,7 +60,66 @@ class NotificationsController < ApplicationController
     params.require(:user).permit(:unique_code)
   end
 
-  def generate_unique_code(user)
+  def send_link_message(user_id, link_token)
+    uri = URI.parse("https://api.line.me/v2/bot/message/push")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
+    request.body = JSON.dump({
+      "to" => user_id,
+      "messages" => [
+        {
+          "type" => "template",
+          "altText" => "Account Link",
+          "template" => {
+            "type" => "buttons",
+            "text" => "Account Link",
+            "actions" => [
+              {
+                "type" => "uri",
+                "label" => "Account Link",
+                "uri" => "#{Rails.env.production? ? 'https://kousiennow.onrender.com' : 'http://localhost:3000'}/notifications/index?linkToken=#{link_token}"
+              }
+            ]
+          }
+        }
+      ]
+    })
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+  end
+
+  def handle_message_event(event)
+    line_user_id = event['source']['userId']
+    received_text = event['message']['text']
+
+    if received_text == '通知設定'
+      user = User.find_by(line_user_id: line_user_id)
+      return unless user  # ユーザーが見つからない場合は何もしない
+
+      unique_code = generate_unique_code(user.id)
+
+      message = {
+        type: 'text',
+        text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
+      }
+
+      client.reply_message(event['replyToken'], message)
+    else
+      message = {
+        type: 'text',
+        text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
+      }
+    end
+  end
+
+  def generate_unique_code(user_id)
     # 一意の識別コードを生成するロジック...
     # 1000から9999の間のランダムな整数を生成します：
     code = rand(1000..9999)
