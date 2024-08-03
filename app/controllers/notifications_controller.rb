@@ -17,6 +17,8 @@ class NotificationsController < ApplicationController
       case event
       when Line::Bot::Event::Follow
         handle_follow_event(event)
+      when Line::Bot::Event::Message
+        handle_message_event(event)
       end
     end
 
