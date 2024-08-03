@@ -6,7 +6,6 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
     @posts = @user.posts
-    @line_bot_link = line_bot_link
   end
 
   def edit
@@ -27,9 +26,5 @@ class ProfilesController < ApplicationController
 
   def user_params
     params.require(:user).permit(:user_name, :last_name, :first_name, :avatar, :favorite_player, :favorite_viewing_block)
-  end
-
-  def line_bot_link
-    "https://line.me/R/ti/p/#{ENV['LINE_CHANNEL_ID']}"
   end
 end

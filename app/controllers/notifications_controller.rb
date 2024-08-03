@@ -91,7 +91,12 @@ class NotificationsController < ApplicationController
 
   def handle_follow_event(event)
     line_user_id = event['source']['userId']
-    unique_code = generate_unique_code(line_user_id)
+    
+    # line_user_idをuser_idに変換するロジックを追加
+    user = User.find_by(line_user_id: line_user_id)
+    return unless user  # ユーザーが見つからない場合は何もしない
+
+    unique_code = generate_unique_code(user.id)
 
     message = {
       type: 'text',
@@ -101,7 +106,7 @@ class NotificationsController < ApplicationController
     client.reply_message(event['replyToken'], message)
   end
 
-  def generate_unique_code(user)
+  def generate_unique_code(user_id)
     # 一意の識別コードを生成するロジック...
     # 1000から9999の間のランダムな整数を生成します：
     code = rand(1000..9999)
