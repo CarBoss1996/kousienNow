@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       get :like_posts
     end
   end
-  resources :notifications, only: %i[index]
+  resources :notifications, only: %i[index] do
+    match 'link_line_account', via: [:get, :post], on: :collection
+  end
   post '/callback' => 'notifications#callback'
   resources :like_posts, only: %i[create destroy]
   resources :user_locations

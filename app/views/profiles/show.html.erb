@@ -29,6 +29,10 @@
           <td><%= current_user.favorite_viewing_block %></td>
         </tr>
         <tr>
+          <th scope="row">通知設定</th>
+          <td><%= current_user.line_user_id.present? ? '設定済み' : '未設定' %></td>
+        </tr>
+        <tr>
           <th scope="row"><%= User.human_attribute_name(:avatar) %></th>
           <td>
             <% if current_user.avatar.attached? %>

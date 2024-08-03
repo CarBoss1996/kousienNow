@@ -4,4 +4,12 @@
   <p>通知設定を有効にするために、以下のQRコードをスキャンしてLINEの公式アカウントを追加してください。</p>
   <%= image_tag 'koushienNowQR.png', alt: 'LINE QR Code' %>
   <%= link_to t('defaults.back'), profile_path, class: 'btn btn-secondary mt-5' %>
+
+  <%= form_with url: link_line_account_notifications_path, local: true do |f| %>
+    <%= f.fields_for :user do |u| %>
+      <%= u.label :unique_code, '一意の識別コード' %>
+      <%= u.text_field :unique_code %>
+    <% end %>
+    <%= f.submit 'LINEアカウントをリンク' %>
+  <% end %>
 </div>
