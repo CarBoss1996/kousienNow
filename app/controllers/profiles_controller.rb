@@ -29,7 +29,15 @@ class ProfilesController < ApplicationController
     params.require(:user).permit(:user_name, :last_name, :first_name, :avatar, :favorite_player, :favorite_viewing_block)
   end
 
-  def line_bot_link
-    "https://line.me/R/ti/p/#{ENV['LINE_CHANNEL_ID']}"
+  def line_bot_link(user)
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    }
+
+    response = client.get_link_token
+    link_token = JSON.parse(response.body)["linkToken"]
+
+    "https://line.me/R/nv/recommendOA/#{link_token}"
   end
 end
