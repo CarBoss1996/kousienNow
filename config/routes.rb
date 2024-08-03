@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
   resources :notifications, only: %i[index]
-  post '/callback' => 'notificationst#callback'
+  post '/callback' => 'notifications#callback'
   resources :like_posts, only: %i[create destroy]
   resources :user_locations
   resources :deactivations, only: %i[new create]
