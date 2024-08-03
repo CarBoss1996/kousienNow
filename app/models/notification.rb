@@ -14,7 +14,25 @@ class Notification < ApplicationRecord
 
   private
 
-  def self.send_line_notification(message)
-    # 先ほど示した関数の内容をここにコピー
+  def self.send_line_notification(message, line_user_id)
+    # LINE bot APIのクライアントを初期化
+    client = Line::Bot::Client.new do |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    end
+
+    # メッセージを作成
+    message = {
+      type: 'text',
+      text: message
+    }
+
+    # メッセージを送信
+    response = client.push_message(line_user_id, message)
+
+    # エラーハンドリング
+    unless Net::HTTPSuccess === response
+      Rails.logger.error("Error sending LINE message: #{response.message}")
+    end
   end
 end
