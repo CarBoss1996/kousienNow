@@ -169,7 +169,6 @@ matches.each do |match|
     { event_title: "「トラフェスTシャツ」をプレゼント！", start_date: '2024-09-29', end_date: '2024-09-29' }
   ]
   events.each do |event|
-    puts "start_date: #{event[:start_date]}, end_date: #{event[:end_date]}"
     existing_event = Event.find_by(title: event[:event_title])
     if existing_event
       existing_event.update!(title: event[:event_title], body: event[:body], detail_url: event[:detail_url])

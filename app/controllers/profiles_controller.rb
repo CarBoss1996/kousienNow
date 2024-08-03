@@ -30,14 +30,8 @@ class ProfilesController < ApplicationController
   end
 
   def line_bot_link(user)
-    client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
-
-    response = client.get_link_token
-    link_token = JSON.parse(response.body)["linkToken"]
-
+    user_id = current_user.id
+    link_token = self.get_link_token(user_id)
     "https://line.me/R/nv/recommendOA/#{link_token}"
   end
 end

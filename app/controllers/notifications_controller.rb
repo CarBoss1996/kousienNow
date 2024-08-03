@@ -54,22 +54,6 @@ class NotificationsController < ApplicationController
     params.require(:user).permit(:unique_code)
   end
 
-  def get_link_token(user_id)
-    uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/linkToken")
-    request = Net::HTTP::Post.new(uri)
-    request["Authorization"] = "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
-
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
-
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
-
-    JSON.parse(response.body)["linkToken"]
-  end
-
   def send_link_message(user_id, link_token)
     uri = URI.parse("https://api.line.me/v2/bot/message/push")
     request = Net::HTTP::Post.new(uri)

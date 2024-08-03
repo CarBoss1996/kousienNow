@@ -36,4 +36,20 @@ class ApplicationController < ActionController::Base
     # 必要な情報をハッシュとして返す
     { description: description, temp_celsius: temp_celsius, icon_url: icon_url }
   end
+
+  def get_link_token(user_id)
+    uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/linkToken")
+    request = Net::HTTP::Post.new(uri)
+    request["Authorization"] = "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    JSON.parse(response.body)["linkToken"]
+  end
 end
