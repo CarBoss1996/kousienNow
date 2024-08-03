@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       get :like_posts
     end
   end
+  resources :notifications, only: %i[index]
+  post '/callback' => 'notificationst#callback'
   resources :like_posts, only: %i[create destroy]
   resources :user_locations
   resources :deactivations, only: %i[new create]

@@ -1,0 +1,7 @@
+<% content_for(:title, t('.title')) %>
+<div class='container d-flex flex-column align-items-center'>
+  <h1 class="zen-maru my-3"><%= t('.title') %></h1>
+  <p>通知設定を有効にするために、以下のQRコードをスキャンしてLINEの公式アカウントを追加してください。</p>
+  <%= image_tag 'koushienNowQR.png', alt: 'LINE QR Code' %>
+  <%= link_to t('defaults.back'), profile_path, class: 'btn btn-secondary mt-5' %>
+</div>

@@ -12,4 +12,8 @@ class Post < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     %w[comments image_attachment image_blob like_posts user]
   end
+
+  def line_user_id
+    user.line_user_id
+  end
 end
