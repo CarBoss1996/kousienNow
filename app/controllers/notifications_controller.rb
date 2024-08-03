@@ -15,8 +15,6 @@ class NotificationsController < ApplicationController
     events = client.parse_events_from(body)
     events.each do |event|
       case event
-      when Line::Bot::Event::Follow
-        handle_follow_event(event)
       when Line::Bot::Event::Message
         handle_message_event(event)
       end
@@ -121,7 +119,7 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def generate_unique_code(user)
+  def generate_unique_code(user_id)
     # 一意の識別コードを生成するロジック...
     # 1000から9999の間のランダムな整数を生成します：
     code = rand(1000..9999)
