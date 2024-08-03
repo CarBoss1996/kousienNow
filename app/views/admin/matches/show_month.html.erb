@@ -25,12 +25,17 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= match.match_date.strftime('%m/%d(%a)') %></td>
-        <td><%= match.result %></td>
-        <td><%= match.team_score %> - <%= match.away_team_score %></td>
-        <td><%= match.opponent %></td>
-        <td><%= match.match_date.strftime('%H:%M') %></td>
-        <td><%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %></td>
+        <th><%= match.match_date.strftime('%m/%d(%a)') %></th>
+        <th><%= match.result %></th>
+        <th><%= match.team_score %> - <%= match.away_team_score %></th>
+        <th><%= match.opponent %></th>
+        <th><%= match.match_date.strftime('%H:%M') %></th>
+        <th><%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %></th>
+        <th class="d-flex justify-content-end">
+          <%= link_to t('defaults.show'), admin_match_path(match), class: 'btn btn-primary mx-1' %>
+          <%= link_to t('defaults.edit'), edit_admin_match_path(match), class: 'btn btn-secondary' %>
+          <%= link_to t('defaults.delete'), admin_match_path(match), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: 'btn btn-danger mx-1' %>
+        </th>
       </tr>
     <% end %>
   </tbody>
