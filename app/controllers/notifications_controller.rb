@@ -46,9 +46,19 @@ class NotificationsController < ApplicationController
       end
 
       if @one_time_code.code == params[:user][:unique_code].to_i && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
-        @user.line_user_id = params[:line_user_id]
-        @user.save
-        redirect_to profile_path, success: 'LINEアカウントが正常にリンクされました。'
+        if @user.line_user_id.nil?
+          @user.line_user_id = params[:line_user_id]
+          if @user.save
+            flash[:notice] = 'LINEアカウントが正常にリンクされました。'
+            redirect_to profile_path
+          else
+            flash[:alert] = 'LINEアカウントのリンクに失敗しました。'
+            render 'notifications/link_line_account'
+          end
+        else
+          flash[:notice] = 'LINEアカウントは既にリンクされています。'
+          redirect_to profile_path
+        end
       elsif @one_time_code.expires_at.nil? || @one_time_code.expires_at <= Time.now
         flash.now['danger'] = 'ワンタイムコードの有効期限が切れています。'
         render 'notifications/link_line_account', status: :unprocessable_entity
