@@ -7,7 +7,7 @@ class Admin::SessionsController < Admin::BaseController
 
   def create
     @user = User.find_by(email: params[:email])
-    if @user.present? && @user.authenticate(params[:password])
+    if @user.present?
       if @user.email == ENV['ADMIN_EMAIL']
         session[:user_id] = @user.id
         flash[:success] = t('.success')
@@ -20,8 +20,8 @@ class Admin::SessionsController < Admin::BaseController
         redirect_to root_path
       end
     else
-      flash[:danger] = t('defaults.message.not_authorized')
-      redirect_to root_path
+      flash[:danger] = t('.email_not_found')
+      render :new
     end
   end
 
