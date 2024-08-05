@@ -7,7 +7,7 @@ class Notification < ApplicationRecord
     notification = self.create(user: user, post: post)
 
     # LINEへの通知を送信
-    send_line_notification(message)
+    send_line_notification(message, user.line_user_id)
 
     notification
   end

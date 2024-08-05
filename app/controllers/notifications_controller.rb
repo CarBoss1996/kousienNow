@@ -28,6 +28,8 @@ class NotificationsController < ApplicationController
 
     if request.get?
       @one_time_code = OneTimeCode.new
+      @line_user_id = params[:line_user_id]
+      @unique_code = params[:unique_code]
     elsif request.post?
       unless params[:user]
         flash[:alert] = 'フォームを正しく送信してください。'
@@ -43,6 +45,7 @@ class NotificationsController < ApplicationController
       end
 
       if @one_time_code && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
+        @user.update(line_user_id: @line_user_id)
         link_token = get_link_token(@user.line_user_id)
 
         send_link_message(@user.line_user_id, link_token)
@@ -96,26 +99,38 @@ class NotificationsController < ApplicationController
   end
 
   def handle_message_event(event)
-    line_user_id = event['source']['userId']
     received_text = event['message']['text']
+    line_user_id = event['source']['userId']
 
-    if received_text == '通知設定'
-      user = User.find_by(line_user_id: line_user_id)
-      return unless user  # ユーザーが見つからない場合は何もしない
+    case received_text
+    when '通知設定'
+      user = User.find_by(line_user_id: nil)
 
-      unique_code = generate_unique_code(user.id)
+      if user
+        unique_code = generate_unique_code(user.id)
 
-      message = {
-        type: 'text',
-        text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
-      }
+        redirect_url = "https://kousiennow.onrender.com/notifications/link_line_account?line_user_id=#{line_user_id}&unique_code=#{unique_code}"
 
-      client.reply_message(event['replyToken'], message)
+        messages = [
+          {
+            type: 'text',
+            text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
+          },
+          {
+            type: 'text',
+            text: "認証を完了するには、次のリンクをクリックしてください：#{redirect_url}"
+          }
+        ]
+
+        client.reply_message(event['replyToken'], messages)
+      end
     else
       message = {
         type: 'text',
         text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
       }
+
+      client.reply_message(event['replyToken'], message)
     end
   end
 
