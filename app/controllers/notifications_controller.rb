@@ -4,6 +4,7 @@ require 'json'
 
 class NotificationsController < ApplicationController
   protect_from_forgery except: :callback
+  before_action :authenticate_user!, only: [:link_line_account]
 
   def callback
     body = request.body.read
