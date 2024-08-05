@@ -42,14 +42,10 @@ class NotificationsController < ApplicationController
 
       if @one_time_code.nil?
         @one_time_code = OneTimeCode.new(code: params[:user][:unique_code])
-        @one_time_code.code_presence # This will generate the errors
       end
 
       if @one_time_code && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
         @user.update(line_user_id: @line_user_id)
-        link_token = get_link_token(@user.line_user_id)
-
-        send_link_message(@user.line_user_id, link_token)
         redirect_to profile_path, success: 'LINEアカウントが正常にリンクされました。'
       else
         flash.now['danger'] = '無効な一意の識別コードです。'
@@ -64,74 +60,45 @@ class NotificationsController < ApplicationController
     params.require(:user).permit(:unique_code)
   end
 
-  def send_link_message(user_id, link_token)
-    uri = URI.parse("https://api.line.me/v2/bot/message/push")
-    request = Net::HTTP::Post.new(uri)
-    request.content_type = "application/json"
-    request["Authorization"] = "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
-    request.body = JSON.dump({
-      "to" => user_id,
-      "messages" => [
-        {
-          "type" => "template",
-          "altText" => "Account Link",
-          "template" => {
-            "type" => "buttons",
-            "text" => "Account Link",
-            "actions" => [
-              {
-                "type" => "uri",
-                "label" => "Account Link",
-                "uri" => "#{Rails.env.production? ? 'https://kousiennow.onrender.com' : 'http://localhost:3000'}/notifications/index?linkToken=#{link_token}"
-              }
-            ]
-          }
-        }
-      ]
-    })
-
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
-
-    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
-  end
-
   def handle_message_event(event)
     received_text = event['message']['text']
     line_user_id = event['source']['userId']
 
     case received_text
     when '通知設定'
-      user = User.find_by(line_user_id: nil)
+      user = User.find_by(line_user_id: line_user_id)
 
       if user
-        unique_code = generate_unique_code(user.id)
+        message = {
+          type: 'text',
+          text: "通知設定は完了しています。"
+        }
+      else
+        user = User.find_by(line_user_id: nil)
+        if user
+          unique_code = generate_unique_code(user.id)
 
-        redirect_url = "https://kousiennow.onrender.com/notifications/link_line_account?line_user_id=#{line_user_id}&unique_code=#{unique_code}"
+          redirect_url = "https://kousiennow.onrender.com/notifications/link_line_account?line_user_id=#{line_user_id}&unique_code=#{unique_code}"
 
-        messages = [
-          {
+          messages = [
+            {
+              type: 'text',
+              text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
+            },
+            {
+              type: 'text',
+              text: "認証を完了するには、次のリンクをクリックしてください：#{redirect_url}"
+            }
+          ]
+        else
+          message = {
             type: 'text',
-            text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
-          },
-          {
-            type: 'text',
-            text: "認証を完了するには、次のリンクをクリックしてください：#{redirect_url}"
+            text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
           }
-        ]
-
-        client.reply_message(event['replyToken'], messages)
+        end
       end
-    else
-      message = {
-        type: 'text',
-        text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
-      }
 
-      client.reply_message(event['replyToken'], message)
+      client.reply_message(event['replyToken'], messages || message)
     end
   end
 
