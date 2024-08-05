@@ -391,6 +391,8 @@ ja:
   notifications:
     index:
       title: 通知設定
+    link_line_account:
+      title: コード入力画面
   admin:
     sessions:
       new:

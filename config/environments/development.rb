@@ -86,3 +86,4 @@ Rails.application.configure do
 
   config.hosts.clear
 end
+Rails.application.config.hosts.clear
