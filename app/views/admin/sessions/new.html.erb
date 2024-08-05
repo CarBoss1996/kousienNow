@@ -11,9 +11,13 @@
             <div class="form-group text-center">
               <%= f.label :email %>
               <%= f.email_field :email, class: 'form-control' %>
-            <%= f.submit "ログイン", class: 'btn btn-primary my-2' %>
-          <% end %>
+
+              <%= f.label :password %>
+              <%= f.password_field :password, class: 'form-control' %>
+
+              <%= f.submit "ログイン", class: 'btn btn-primary my-2' %>
             </div>
+          <% end %>
 
           <% devise_mapping = Devise.mappings[:user] %>
           <% resource_class = devise_mapping.to %>

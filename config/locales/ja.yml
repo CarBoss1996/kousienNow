@@ -278,6 +278,7 @@ ja:
       updated: "更新しました"
       not_updated: "更新出来ませんでした"
       delete: "削除しました"
+      not_authorized: "許可されていない操作です"
     delete_confirm: 本当に削除しますか？
     search_word: 検索ワード
     login: ログイン
