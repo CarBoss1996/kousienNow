@@ -41,14 +41,16 @@ class NotificationsController < ApplicationController
       @one_time_code = OneTimeCode.find_by(code: params[:user][:unique_code].to_i, user_id: @user.id)
 
       if @one_time_code.nil?
-        @one_time_code = OneTimeCode.new(code: params[:user][:unique_code].to_i)
+        flash.now['danger'] = 'ワンタイムコードが見つかりません。'
+        render 'notifications/link_line_account', status: :unprocessable_entity
+        return
       end
 
-      if @one_time_code && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
+      if @one_time_code.code == params[:user][:unique_code].to_i && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
         @user.update(line_user_id: @line_user_id)
         redirect_to profile_path, success: 'LINEアカウントが正常にリンクされました。'
-      else
-        flash.now['danger'] = '無効な一意の識別コードです。'
+      elsif @one_time_code.expires_at.nil? || @one_time_code.expires_at <= Time.now
+        flash.now['danger'] = 'ワンタイムコードの有効期限が切れています。'
         render 'notifications/link_line_account', status: :unprocessable_entity
       end
     end
