@@ -28,7 +28,7 @@ class NotificationsController < ApplicationController
     @user = User.find(current_user.id)
 
     if request.get?
-      @one_time_code = OneTimeCode.new
+      @one_time_code = OneTimeCode.find_by(code: params[:unique_code].to_i)
       @line_user_id = params[:line_user_id]
       @unique_code = params[:unique_code]
     elsif request.post?
@@ -38,7 +38,7 @@ class NotificationsController < ApplicationController
         return
       end
 
-      @one_time_code = OneTimeCode.find_by(code: params[:user][:unique_code].to_i, user_id: @user.id)
+      @one_time_code = OneTimeCode.find_by(code: params[:user][:unique_code].to_i)
 
       if @one_time_code.nil?
         flash.now['danger'] = 'ワンタイムコードが見つかりません。'
