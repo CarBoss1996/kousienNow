@@ -2,6 +2,8 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
+  validates :code, numericality: { only_integer: true, message: 'は半角数字で入力してください' }
+
   def self.create_and_send_line_notification(user, post, message)
     # 通知をデータベースに保存
     notification = self.create(user: user, post: post)
