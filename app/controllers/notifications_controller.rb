@@ -38,10 +38,10 @@ class NotificationsController < ApplicationController
         return
       end
 
-      @one_time_code = OneTimeCode.find_by(code: params[:user][:unique_code], user_id: @user.id)
+      @one_time_code = OneTimeCode.find_by(code: params[:user][:unique_code].to_i, user_id: @user.id)
 
       if @one_time_code.nil?
-        @one_time_code = OneTimeCode.new(code: params[:user][:unique_code])
+        @one_time_code = OneTimeCode.new(code: params[:user][:unique_code].to_i)
       end
 
       if @one_time_code && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
@@ -83,7 +83,7 @@ class NotificationsController < ApplicationController
           messages = [
             {
               type: 'text',
-              text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。"
+              text: "あなたの一意の識別コードは #{unique_code} です。アプリケーションでこのコードを入力してください。このコードの有効期限は１０分です。"
             },
             {
               type: 'text',

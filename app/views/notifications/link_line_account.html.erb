@@ -4,7 +4,7 @@
   <%= form_with url: link_line_account_notifications_path, method: :post, local: true do |f| %>
     <%= f.fields_for :user do |u| %>
       <%= u.label :unique_code, '一意の識別コード' %>
-      <%= u.text_field :unique_code %>
+      <%= u.text_field :unique_code, pattern: "\\d*", title: "半角の数字で入力してください", pattern: "\\d*", title: "半角の数字で入力してください" %>
     <% end %>
     <%= f.submit 'LINEアカウントをリンク', class: 'btn btn-success' %>
   <% end %>
