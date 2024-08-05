@@ -35,18 +35,17 @@
       </article>
     </div>
   </div>
+  <div class="text-center">
+    <p><%= link_to t('helpers.submit.user.post'), posts_path %> | <%= link_to 'トップに戻る', root_path %></p>
+  </div>
   <%= render 'comments/form', comment: @comment, post: @post %>
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
-      <table class="table">
+      <table class="table mt-4">
         <tbody id="table-comment">
           <%= render @comments %>
         </tbody>
       </table>
-      <div class="text-center">
-        <p><%= link_to t('helpers.submit.user.post'), posts_path %></p>
-        <p><%= link_to 'トップに戻る', root_path %></p>
-      </div>
     </div>
   </div>
 </div>
