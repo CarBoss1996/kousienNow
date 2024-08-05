@@ -5,10 +5,23 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   add_flash_types :success, :danger
 
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      session[:user_return_to] = request.fullpath
+      redirect_to new_user_session_path, :notice => 'ログインしてください。'
+    end
+  end
+
   private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[last_name first_name user_name])
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:user_return_to] || root_path
   end
 
   def after_sign_out_path_for(_resource_or_scope)
@@ -31,7 +44,7 @@ class ApplicationController < ActionController::Base
     temp_celsius = data['main']['temp'].round(1)
 
     # アイコンのURLを生成
-  icon_url = "http://openweathermap.org/img/w/#{icon_id}.png"
+    icon_url = "http://openweathermap.org/img/w/#{icon_id}.png"
 
     # 必要な情報をハッシュとして返す
     { description: description, temp_celsius: temp_celsius, icon_url: icon_url }
