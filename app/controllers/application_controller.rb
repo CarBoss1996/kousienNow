@@ -20,8 +20,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[last_name first_name user_name])
   end
 
-  def after_sign_in_path_for(resource)
-    session[:user_return_to] || root_path
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      store_location  # ユーザーがログインしていない場合に現在のURLを保存します
+      session[:user_return_to] = request.fullpath
+      redirect_to new_user_session_path, :notice => 'ログインしてください。'
+    end
   end
 
   def after_sign_out_path_for(_resource_or_scope)
