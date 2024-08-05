@@ -20,6 +20,7 @@ ja:
         location_id: シート名
         avatar: プロフィール画像
         user_name: アカウント名
+        line_user_id: LINEユーザーID
         encrypted_password: 暗号化パスワード
         failed_attempts: 失敗したログイン試行回数
         last_sign_in_at: 最終ログイン時刻

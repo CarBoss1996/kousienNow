@@ -8,12 +8,12 @@
         <div class="card-body login-card-body">
 
           <%= form_with url: admin_login_path, local: true do |f| %>
-            <div class="form-group">
+            <div class="form-group text-center">
               <%= f.label :email %>
               <%= f.email_field :email, class: 'form-control' %>
-            </div>
-            <%= f.submit "ログイン", class: 'btn btn-primary' %>
+            <%= f.submit "ログイン", class: 'btn btn-primary my-2' %>
           <% end %>
+            </div>
 
           <% devise_mapping = Devise.mappings[:user] %>
           <% resource_class = devise_mapping.to %>
