@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  protect_from_forgery
   # callback for facebook
   # def facebook
   #   callback_for(:facebook)
