@@ -6,7 +6,7 @@ class Notification < ApplicationRecord
 
   validates :code, numericality: { only_integer: true, message: 'は半角数字で入力してください' }
 
-  def self.create_and_send_line_notification(user, post, message)
+  def self.create_and_send_line_notification(user, message)
     # LINEへの通知を送信
     send_line_notification(message, user.line_user_id)
   end
