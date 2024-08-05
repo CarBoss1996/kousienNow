@@ -29,7 +29,6 @@ class NotificationsController < ApplicationController
 
     if request.get?
       @one_time_code = OneTimeCode.find_by(code: params[:unique_code].to_i)
-      @line_user_id = params[:line_user_id]
       @unique_code = params[:unique_code]
     elsif request.post?
       unless params[:user]
@@ -47,7 +46,8 @@ class NotificationsController < ApplicationController
       end
 
       if @one_time_code.code == params[:user][:unique_code].to_i && @one_time_code.expires_at && @one_time_code.expires_at > Time.now
-        @user.update(line_user_id: @line_user_id)
+        @user.line_user_id = params[:line_user_id]
+        @user.save
         redirect_to profile_path, success: 'LINEアカウントが正常にリンクされました。'
       elsif @one_time_code.expires_at.nil? || @one_time_code.expires_at <= Time.now
         flash.now['danger'] = 'ワンタイムコードの有効期限が切れています。'

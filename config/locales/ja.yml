@@ -436,6 +436,11 @@ ja:
       new:
         title: イベント作成
       delete: 削除
+    sessions:
+      create:
+        success: ログインに成功しました
+      danger: 管理者ではありません
+      invalid_credentials: メールアドレスまたはパスワードが間違っています
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
