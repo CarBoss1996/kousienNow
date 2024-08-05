@@ -3,10 +3,12 @@
   <h1 class="zen-maru my-3"><%= t('.title') %></h1>
   <%= form_with url: link_line_account_notifications_path, method: :post, local: true do |f| %>
     <%= f.fields_for :user do |u| %>
-      <%= u.label :unique_code, '一意の識別コード' %>
+      <%= u.label :unique_code, 'コード入力' %>
       <%= u.text_field :unique_code, pattern: "\\d*", title: "半角の数字で入力してください", pattern: "\\d*", title: "半角の数字で入力してください" %>
     <% end %>
-    <%= f.submit 'LINEアカウントをリンク', class: 'btn btn-success' %>
+    <div class="d-flex flex-column align-items-center mt-3">
+      <%= f.submit 'LINEアカウントをリンク', class: 'btn btn-success mb-3' %>
+      <%= link_to t('defaults.back'), profile_path, class: 'btn btn-secondary' %>
+    </div>
   <% end %>
-  <%= link_to t('defaults.back'), profile_path, class: 'btn btn-secondary mt-5' %>
 </div>

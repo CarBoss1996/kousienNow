@@ -7,6 +7,14 @@
       <div class="card">
         <div class="card-body login-card-body">
 
+          <%= form_with url: admin_login_path, local: true do |f| %>
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.email_field :email, class: 'form-control' %>
+            </div>
+            <%= f.submit "ログイン", class: 'btn btn-primary' %>
+          <% end %>
+
           <% devise_mapping = Devise.mappings[:user] %>
           <% resource_class = devise_mapping.to %>
 
