@@ -4,7 +4,8 @@
   <%= form_with url: link_line_account_notifications_path, method: :post, local: true do |f| %>
     <%= f.fields_for :user do |u| %>
       <%= u.label :unique_code, 'コード入力' %>
-      <%= u.text_field :unique_code, pattern: "\\d*", title: "半角の数字で入力してください", pattern: "\\d*", title: "半角の数字で入力してください" %>
+      <%= u.text_field :unique_code, pattern: "\\d*", title: "半角の数字で入力してください" %>
+      <%= f.hidden_field :line_user_id, value: params[:line_user_id] %>
     <% end %>
     <div class="d-flex flex-column align-items-center mt-3">
       <%= f.submit 'LINEアカウントをリンク', class: 'btn btn-success mb-3' %>

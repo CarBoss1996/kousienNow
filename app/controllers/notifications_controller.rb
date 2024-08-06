@@ -25,6 +25,7 @@ class NotificationsController < ApplicationController
   end
 
   def link_line_account
+    Rails.logger.info("Received line_user_id: #{params[:line_user_id]}")
     @user = User.find(current_user.id)
 
     if request.get?
@@ -102,15 +103,16 @@ class NotificationsController < ApplicationController
               text: "認証を完了するには、次のリンクをクリックしてください：#{redirect_url}"
             }
           ]
-        else
-          message = {
-            type: 'text',
-            text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
-          }
         end
       end
 
       client.reply_message(event['replyToken'], messages || message)
+    else
+      message = {
+        type: 'text',
+        text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
+      }
+      client.reply_message(event['replyToken'], message)
     end
   end
 
