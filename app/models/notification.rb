@@ -8,7 +8,7 @@ class Notification < ApplicationRecord
 
   def self.create_and_send_line_notification(user, message)
     # LINEへの通知を送信
-    send_line_notification(message, user.line_user_id)
+    send_line_notification(user.line_user_id, message)
   end
 
   private
