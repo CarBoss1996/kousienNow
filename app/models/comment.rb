@@ -12,7 +12,7 @@ class Comment < ApplicationRecord
 
     # line_user_idが存在する場合のみ、LINE通知を送信
     if line_user_id
-      message = "#{self.user.name}さんがあなたの投稿にコメントしました：#{self.content}"
+      message = "#{self.user.user_name}さんがあなたの投稿にコメントしました：#{self.body}"
       Notification.create_and_send_line_notification(self.user, self.post, message, line_user_id)
     end
   end
