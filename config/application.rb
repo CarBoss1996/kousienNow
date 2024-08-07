@@ -33,7 +33,7 @@ module Myapp
     # config.eager_load_paths << Rails.root.join("extras")
     config.generators do |g|
       g.helper false
-      g.test_framework false
+      g.test_framework :rspec, fixture: false
       g.skip_routes true
     end
   end

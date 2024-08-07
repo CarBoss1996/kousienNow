@@ -13,7 +13,7 @@ class Notification < ApplicationRecord
 
   private
 
-  def self.send_line_notification(message, line_user_id)
+  def self.send_line_notification(line_user_id, message)
     # LINE bot APIのクライアントを初期化
     client = Line::Bot::Client.new do |config|
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
