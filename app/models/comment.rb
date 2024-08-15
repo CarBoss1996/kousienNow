@@ -15,7 +15,8 @@ class Comment < ApplicationRecord
 
     # line_user_idが存在する場合のみ、LINE通知を送信
     if line_user_id.present? && line_user_id.is_a?(String)
-      message = "#{self.post.user.user_name}さん、あなたの投稿に#{self.user.user_name}さんからコメントがあります。\n\"#{self.body}\""
+      post_url = "https://kousiennow.onrender.com/post/#{self.post.id}"
+      message = "#{self.post.user.user_name}さん、あなたの投稿に#{self.user.user_name}さんからコメントがあります。\n\"#{self.body}\" \n#{post_url}"
       Notification.create_and_send_line_notification(line_user_id, message)
     end
   end
