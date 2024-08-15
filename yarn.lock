@@ -381,10 +381,15 @@ bootstrap4-duallistbox@^4.0.2:
   resolved "https://registry.yarnpkg.com/bootstrap4-duallistbox/-/bootstrap4-duallistbox-4.0.2.tgz#c6942e34a39d0d05e436d51ebaf31c9349f119d3"
   integrity sha512-vQdANVE2NN0HMaZO9qWJy0C7u04uTpAmtUGO3KLq3xAZKCboJweQ437hDTszI6pbYV2olJCGZMbdhvIkBNGeGQ==
 
-bootstrap@>=4.0, bootstrap@^5.3.3:
+bootstrap@>=4.0:
   version "5.3.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.3.tgz#de35e1a765c897ac940021900fcbb831602bac38"
   integrity sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==
+
+bootstrap@^3.1.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.1.tgz#c3a347d419e289ad11f4033e3c4132b87c081d72"
+  integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
 
 bootstrap@^4.6.1:
   version "4.6.2"
@@ -1322,7 +1327,7 @@ minimatch@^3.1.2:
   dependencies:
     brace-expansion "^1.1.7"
 
-moment-timezone@^0.5.34:
+moment-timezone@^0.5.31, moment-timezone@^0.5.34:
   version "0.5.45"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.45.tgz#cb685acd56bac10e69d93c536366eb65aa6bcf5c"
   integrity sha512-HIWmqA86KcmCAhnMAN0wuDOARV/525R2+lOLotuGFzn4HO+FH+/645z2wx0Dt3iDv6/p61SIvKnDstISainhLQ==
@@ -1333,6 +1338,11 @@ moment@^2.10.2, moment@^2.29.1, moment@^2.29.2, moment@^2.29.4, moment@^2.9.0:
   version "2.30.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
   integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
+
+moment@~2.29.2:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@2.1.2:
   version "2.1.2"
@@ -1710,6 +1720,15 @@ tempusdominus-bootstrap-4@^5.39.0:
     moment "^2.29.2"
     moment-timezone "^0.5.34"
     popper.js "^1.16.1"
+
+tempusdominus-core@5.19.3:
+  version "5.19.3"
+  resolved "https://registry.yarnpkg.com/tempusdominus-core/-/tempusdominus-core-5.19.3.tgz#7dba3e9d40f9d9753b92361619532425813c40b8"
+  integrity sha512-WXBVXcBG/hErB6u9gdUs+vzANvCU1kd1ykzL4kolPB3h1OEv20OKUW5qz1iynxyqRFPa1NWY9gwRu5d+MjXEuQ==
+  dependencies:
+    jquery "^3.6.0"
+    moment "~2.29.2"
+    moment-timezone "^0.5.34"
 
 thenby@^1.3.4:
   version "1.3.4"

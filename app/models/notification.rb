@@ -6,14 +6,14 @@ class Notification < ApplicationRecord
 
   validates :code, numericality: { only_integer: true, message: 'は半角数字で入力してください' }
 
-  def create_and_send_line_notification(line_user_id, message)
+  def self.create_and_send_line_notification(line_user_id, message)
     # LINEへの通知を送信
     send_line_notification(line_user_id, message)
   end
 
   private
 
-  def send_line_notification(line_user_id, message)
+  def self.send_line_notification(line_user_id, message)
     # LINE bot APIのクライアントを初期化
     client = Line::Bot::Client.new do |config|
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
