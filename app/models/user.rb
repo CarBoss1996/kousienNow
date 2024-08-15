@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_many :sns_credential, dependent: :destroy
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[google_oauth2]
   has_one_attached :avatar
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
@@ -18,15 +20,59 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
   enum role: { general: 0, admin: 1 }
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.user_name = "#{auth.info.first_name} #{auth.info.last_name}"
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.password = Devise.friendly_token[0,20]
-      user.uid = create_unique_string if user.uid.blank?
-      user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+
+  class << self
+    def without_sns_data(auth)
+      user = User.where(email: auth.info.email).first
+
+      if user.present?
+        sns = SnsCredential.create(
+          uid: auth.uid,
+          provider: auth.provider,
+          user_id: user.id
+        )
+      else
+        user = User.create(
+          name: auth.info.name,
+          email: auth.info.email,
+          profile_image: auth.info.image,
+          password: Devise.friendly_token[0,20]
+        )
+        sns = SnsCredential.create(
+          user_id: user.id,
+          uid: auth.uid,
+          provider: auth.provider
+        )
+      end
+      { user: user, sns: sns }
+    end
+
+    def with_sns_data(auth, snscredential)
+      user = User.where(id: snscredential.user_id).first
+      if user.blank?
+        user = User.create(
+          name: auth.info.name,
+          email: auth.info.email,
+          profile_image: auth.info.image,
+          password: Devise.friendly_token[0,20]
+        )
+      end
+      { user: user }
+    end
+
+    def find_oauth(auth)
+      uid = auth.uid
+      provider = auth.provider
+      snscredential = SnsCredential.where(uid: uid, provider: provider).first
+      if snscredential.present?
+        user = with_sns_data(auth, snscredential)[:user]
+        sns = snscredential
+      else
+        result = without_sns_data(auth)
+        user = result[:user]
+        sns = result[:sns]
+      end
+      { user: user, sns: sns }
     end
   end
 
