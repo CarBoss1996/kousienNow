@@ -9,7 +9,6 @@ class Comment < ApplicationRecord
   def send_line_notification
     # postの所有者のline_user_idを取得
     line_user_id = self.post.user.line_user_id
-
     # line_user_idが存在する場合のみ、LINE通知を送信
     if line_user_id
       message = "#{self.post.user.user_name}さん、あなたの投稿に#{self.user.user_name}さんからコメントがあります。#{self.body}"
