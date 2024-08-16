@@ -4,17 +4,19 @@ document.addEventListener('turbo:load', function() {
     icon.addEventListener('click', function(event) {
       const tooltip = this.nextElementSibling;
 
+      if (tooltip) {
       // すべてのツールチップを非表示にする
-      const allTooltips = document.querySelectorAll('.tooltip');
-      allTooltips.forEach(tooltip => {
-        tooltip.style.display = 'none';
-      });
-      const allIcons = document.querySelectorAll('.seat-icon');
-      allIcons.forEach(icon => {
-        icon.style.width = '';
-        icon.style.height = '';
-        icon.dataset.enlarged = 'false'; // アイコンが拡大されていないことを示す
-      });
+        const allTooltips = document.querySelectorAll('.tooltip');
+        allTooltips.forEach(tooltip => {
+          tooltip.style.display = 'none';
+        });
+        const allIcons = document.querySelectorAll('.seat-icon');
+        allIcons.forEach(icon => {
+          icon.style.width = '';
+          icon.style.height = '';
+          icon.dataset.enlarged = 'false'; // アイコンが拡大されていないことを示す
+        });
+      }
 
       // アイコンの位置を取得
       const iconTop = parseFloat(icon.style.top);

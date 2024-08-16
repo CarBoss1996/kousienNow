@@ -195,6 +195,19 @@ main {
   flex-direction: column;
 }
 
+.post-link {
+  color: inherit; /* リンクの色をデフォルトの色に戻す */
+  text-decoration: none; /* 下線を削除 */
+}
+
+.like-button {
+  color: inherit;
+}
+
+.unlike-button {
+  color: #FF6347;
+}
+
 // footer
 footer {
   margin-top: auto;
