@@ -9,7 +9,7 @@
     <%= image_tag post.image.variant(resize_to_limit: [50, 50]) if post.image.attached? %>
   </td>
   <td>
-    <%= post.user.full_name %>
+    <%= post.user.decorate.full_name %>
   </td>
   <td>
     <%= l post.created_at, format: :long %>
