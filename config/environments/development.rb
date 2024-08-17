@@ -85,5 +85,15 @@ Rails.application.configure do
   config.web_console.permissions = ['127.0.0.1', '192.168.65.1']
 
   config.hosts.clear
+
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins 'http://localhost:3000' # 開発環境のオリジンを許可
+      resource '*',
+        headers: :any,
+        methods: [:get, :post, :put, :patch, :delete, :options, :head],
+        credentials: true
+    end
+  end
 end
 Rails.application.config.hosts.clear

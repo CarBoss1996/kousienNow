@@ -1,49 +1,36 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protect_from_forgery
-  # callback for facebook
-  # def facebook
-  #   callback_for(:facebook)
-  # end
-
-  # # callback for twitter
-  # def twitter
-  #   callback_for(:twitter)
-  # end
-
   # callback for google
   def google_oauth2
     callback_for(:google)
   end
-
-  # def instagram
-  #   callback_for(:instagram)
-  # end
 
   # # callback for line
   # def line
   #   callback_for(:line)
   # end
 
-  private
-
-  # common callback method
   def callback_for(provider)
-    @omniauth = request.env["omniauth.auth"]
-    info = User.find_oauth(@omniauth)
-    @user = info[:user]
-    if @user.persisted?    # persisted?は保存が完了しているかを評価するメソッド
-      sign_in_and_redirect @user, event: :authentication
-      # is_navigational_formatはフラッシュメッセージを発行する必要があるかどうかを確認する
-      # capitalizeは文字列の先頭を大文字に、それ以外は小文字に変更して返すメソッド
-      set_flash_message(:notice, :success, kind: provider.to_s.capitalize) if is_navigational_format?
-    else
-      @sns = info[:sns]
-      render template: "devise/registrations/new"
+    provider = provider.to_s
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+
+    unless @user.persisted?
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
+      redirect_to new_user_registration_url
+      return
     end
+
+    if @user.email == ENV['ADMIN_EMAIL']
+      sign_in_and_redirect @user, event: :authentication, location: admin_root_path
+    else
+      sign_in_and_redirect @user, event: :authentication
+    end
+
+    set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
   end
 
   def failure
-    redirect_to root_path and return
+    redirect_to root_path
   end
 
   private
