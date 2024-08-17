@@ -25,7 +25,8 @@ class User < ApplicationRecord
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
-      user.uid = create_unique_string if user.uid.blank?
+      # user.uid = create_unique_string if user.uid.blank?
+      user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
   end
@@ -35,13 +36,9 @@ class User < ApplicationRecord
     user if user&.valid_password?(password)
   end
 
-  def self.create_unique_string
-    SecureRandom.uuid
-  end
-
-  def full_name
-    "#{last_name} #{first_name}"
-  end
+  # def self.create_unique_string
+  #   SecureRandom.uuid
+  # end
 
   def avatar_type
     if avatar.attached? && !avatar.content_type.in?(%w(image/jpeg image/png))

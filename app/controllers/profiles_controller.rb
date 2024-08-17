@@ -4,16 +4,16 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @user = current_user
+    @user = current_user.decorate
     @posts = @user.posts
   end
 
   def edit
-    @user = current_user
+    @user = current_user.decorate
   end
 
   def update
-    @user = current_user
+    @user = current_user.decorate
     if current_user.update(user_params)
       redirect_to profile_path, success: t('defaults.flash_message.updated', item: User.model_name.human)
     else

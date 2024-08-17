@@ -1,14 +1,14 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, expect: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   def index
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def show
-    @post = Post.find(params[:id])
     unless @post
-        redirect_to root_path, alert: t('posts.show.failure')
+      redirect_to root_path, alert: t('posts.show.failure')
     end
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
@@ -29,12 +29,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-    @post = current_user.posts.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to posts_path, success: t('posts.update.success')
     else
@@ -44,13 +41,12 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy!
     redirect_to posts_path, success: t('posts.destroy.success')
   end
 
   def latest
-    @user = User.find_by(user_name: params[:user_name])
+    @user = User.find_by(user_name: params[:user_name]).decorate
     @latest_post = @user.posts.order(created_at: :desc).first
     render json: @latest_post
   end
@@ -64,5 +60,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:body, :image)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end

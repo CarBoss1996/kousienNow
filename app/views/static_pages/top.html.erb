@@ -14,7 +14,9 @@
       <div class="card-body mb-3 card-post">
         <div class="row">
           <div class="col-8 col-md-5 mx-auto">
-            <%= render post %>
+            <%= link_to post_path(post) do %>
+              <%= render post %>
+            <% end %>
           </div>
         </div>
       </div>
