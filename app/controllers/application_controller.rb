@@ -55,7 +55,15 @@ class ApplicationController < ActionController::Base
     { description: description, temp_celsius: temp_celsius, icon_url: icon_url }
   end
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  class ApplicationController < ActionController::Base
+    # ...
+
+    private
+
+    def current_user
+      if session[:user_id]
+        @current_user ||= User.find(session[:user_id])
+      end
+    end
   end
 end
