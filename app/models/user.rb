@@ -20,12 +20,17 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
-    Rails.logger.debug auth.inspect
+    Rails.logger.debug "Auth object: #{auth.inspect}"
+    Rails.logger.debug "Provider: #{auth.provider}"
+    Rails.logger.debug "UID: #{auth.uid}"
+    Rails.logger.debug "Info: #{auth.info.inspect}"
+    Rails.logger.debug "Email: #{auth.info.email}"
+    Rails.logger.debug "User name: #{auth.info.name}"
+    Rails.logger.debug "Image: #{auth.info.image}"
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.user_name = auth.info.name
       user.password = Devise.friendly_token[0,20]
-      # user.uid = create_unique_string if user.uid.blank?
       user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
       user.avatar = auth.info.image if auth.info.image
