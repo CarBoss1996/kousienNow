@@ -26,7 +26,9 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
       user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
-      user.save!
+      unless user.save
+        Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
+      end
     end
   end
 
