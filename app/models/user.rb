@@ -30,7 +30,7 @@ class User < ApplicationRecord
       user.avatar = auth.info.image if auth.info.image
       Rails.logger.debug "After setting attributes"
     end
-  end  end
+  end
 
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)
