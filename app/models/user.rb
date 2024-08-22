@@ -20,12 +20,13 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       user.email = auth.info.email
       user.user_name = auth.info.name
       user.password = Devise.friendly_token[0,20]
       user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+      user.save!
     end
   end
 
