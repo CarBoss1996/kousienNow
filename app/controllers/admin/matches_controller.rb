@@ -2,9 +2,9 @@ class Admin::MatchesController < Admin::BaseController
   before_action :set_match, only: %i[show edit update destroy]
 
   def index
-    params[:q] ||= {}
+    params[:q] ||= { match_date_gteq: Date.today.beginning_of_month, match_date_lteq: Date.today.end_of_month }
     @q = Match.ransack(params[:q])
-    @matches = @q.result(distinct: true).includes(:event).page(params[:page]).order(match_date: :asc)
+    @matches = @q.result(distinct: true).includes(:event).order(match_date: :asc)
   end
 
   def show; end

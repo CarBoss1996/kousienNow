@@ -439,6 +439,8 @@ ja:
     sessions:
       create:
         success: ログインに成功しました
+      destroy:
+        success: ログアウトしました
       danger: 管理者ではありません
       invalid_credentials: メールアドレスまたはパスワードが間違っています
   time:
