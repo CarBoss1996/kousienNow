@@ -16,6 +16,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     Rails.logger.debug "OmniAuth auth hash: #{request.env['omniauth.auth'].inspect}"
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
+    Rails.logger.info "Session data: #{session.to_hash}"
+
     unless @user.persisted?
       Rails.logger.debug "OmniAuth auth hash: #{request.env['omniauth.auth'].inspect}"
       session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
