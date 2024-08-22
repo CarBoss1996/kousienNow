@@ -101,8 +101,7 @@ Rails.application.configure do
     end
   end
 
-  config.secret_key_base = ENV['SECRET_KEY_BASE']
-
+  Rails.application.config.secret_key_base = Rails.application.credentials.secret_key_base
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
