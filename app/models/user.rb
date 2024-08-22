@@ -36,6 +36,7 @@ class User < ApplicationRecord
         user.user_name = auth.info.name
         user.password = Devise.friendly_token[0,20]
         user.uid = auth.uid
+        user.email = "#{user.uid}@line.example.com" 
       end
       unless user.save
         Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
