@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
   validate :name_fields, on: :create
   validate :avatar_type
+  validates :password, presence: true, length: { minimum: 6 }, confirmation: true, if: :password_required?
+  validates :email, presence: true, if: :email_required?
   has_many :posts, dependent: :destroy
   has_many :user_locations
   has_many :locations, through: :user_locations
@@ -21,13 +23,20 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
-      user.email = auth.info.email
-      user.user_name = auth.info.name
-      user.password = Devise.friendly_token[0,20]
-      user.uid = auth.uid
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+      case auth.provider
+      when 'google_oauth2'
+        user.email = auth.info.email
+        user.user_name = auth.info.name
+        user.password = Devise.friendly_token[0,20]
+        user.uid = auth.uid
+        user.first_name = auth.info.first_name
+        user.last_name = auth.info.last_name
+        user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+      when 'line'
+        user.user_name = auth.info.name
+        user.password = Devise.friendly_token[0,20]
+        user.uid = auth.uid
+      end
       unless user.save
         Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
       end
@@ -97,5 +106,15 @@ class User < ApplicationRecord
       errors.add(:last_name, "を入力してください") if last_name.blank?
       errors.add(:user_name, "を入力してください") if user_name.blank?
     end
+  end
+
+  def email_required?
+    provider.blank?
+  end
+
+  private
+
+  def password_required?
+    provider.blank? && super
   end
 end
