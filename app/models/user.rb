@@ -25,7 +25,6 @@ class User < ApplicationRecord
       user.user_name = auth.info.name
       user.password = Devise.friendly_token[0,20]
       user.uid = auth.uid
-      user.avatar = auth.info.image if auth.info.image
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
   end
