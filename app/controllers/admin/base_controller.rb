@@ -6,7 +6,7 @@ class Admin::BaseController < ApplicationController
   private
 
   def login_required
-    flash.now[:danger] = t('defaults.message.require_login')
+    flash[:danger] = t('defaults.message.require_login')
     redirect_to admin_login_path unless current_user
   end
 
