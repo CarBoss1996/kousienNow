@@ -28,7 +28,6 @@ class User < ApplicationRecord
       user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
       user.avatar = auth.info.image
-      user.skip_confirmation!
     end
   end
 
