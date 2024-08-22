@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :line]
   has_one_attached :avatar
-  validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
+  validate :name_fields, on: :create
   validate :avatar_type
   has_many :posts, dependent: :destroy
   has_many :user_locations
@@ -89,5 +89,13 @@ class User < ApplicationRecord
 
   def role_i18n
     I18n.t("activerecord.attributes.#{self.class.model_name.i18n_key}.roles.#{role}")
+  end
+
+  def name_fields
+    if provider.blank? # providerが空（つまり、通常の登録）の場合
+      errors.add(:first_name, "を入力してください") if first_name.blank?
+      errors.add(:last_name, "を入力してください") if last_name.blank?
+      errors.add(:user_name, "を入力してください") if user_name.blank?
+    end
   end
 end
