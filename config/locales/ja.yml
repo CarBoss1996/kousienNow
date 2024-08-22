@@ -208,6 +208,7 @@ ja:
         update: 更新
         we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
       new:
+        title: アカウント登録
         sign_up: アカウント登録
         submit: 登録
       signed_up: アカウント登録が完了しました。

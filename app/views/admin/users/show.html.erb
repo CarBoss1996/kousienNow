@@ -51,6 +51,16 @@
           <th><%= User.human_attribute_name(:line_user_id) %></th>
           <td><%= @user.line_user_id %></td>
         </tr>
+
+        <tr>
+          <th><%= User.human_attribute_name(:provider) %></th>
+          <td><%= @user.provider %></td>
+        </tr>
+
+        <tr>
+          <th><%= User.human_attribute_name(:uid) %></th>
+          <td><%= @user.uid %></td>
+        </tr>
       </table>
     </div>
   </div>
