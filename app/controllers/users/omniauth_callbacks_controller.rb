@@ -13,9 +13,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def callback_for(provider)
     provider = provider.to_s
+    Rails.logger.debug "OmniAuth auth hash: #{request.env['omniauth.auth'].inspect}"
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     unless @user.persisted?
+      Rails.logger.debug "OmniAuth auth hash: #{request.env['omniauth.auth'].inspect}"
       session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
       redirect_to new_user_registration_url
       return
