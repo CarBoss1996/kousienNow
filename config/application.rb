@@ -24,6 +24,8 @@ module Myapp
 
     config.autoload_paths += %W[#{config.root}/app/uploaders]
 
+    config.secret_key_base = ENV['SECRET_KEY_BASE']
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

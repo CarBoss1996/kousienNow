@@ -95,5 +95,7 @@ Rails.application.configure do
         credentials: true
     end
   end
+
+  config.secret_key_base = ENV['SECRET_KEY_BASE']
 end
 Rails.application.config.hosts.clear
