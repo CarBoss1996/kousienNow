@@ -20,6 +20,7 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
+    Rails.logger.debug "Auth object: #{auth.inspect}"
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       Rails.logger.debug "Before setting attributes"
       user.email = auth.info.email
