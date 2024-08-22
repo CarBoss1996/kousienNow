@@ -54,10 +54,4 @@ class ApplicationController < ActionController::Base
     # 必要な情報をハッシュとして返す
     { description: description, temp_celsius: temp_celsius, icon_url: icon_url }
   end
-
-  def current_user
-    if session[:user_id]
-      @current_user ||= User.find(session[:user_id])
-    end
-  end
 end
