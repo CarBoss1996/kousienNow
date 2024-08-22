@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :line]
   has_one_attached :avatar
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
