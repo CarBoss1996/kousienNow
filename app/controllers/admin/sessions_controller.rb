@@ -10,7 +10,7 @@ class Admin::SessionsController < Admin::BaseController
     @user = User.find_by(email: params[:email])
     if @user&.valid_password?(params[:password])
       if @user.email == ENV['ADMIN_EMAIL']
-        session[:user_id] = @user.id
+        sign_in @user
         flash[:success] = t('.success')
         redirect_to admin_root_path
       elsif @user.admin?
