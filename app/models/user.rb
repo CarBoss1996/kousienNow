@@ -34,9 +34,9 @@ class User < ApplicationRecord
     user if user&.valid_password?(password)
   end
 
-  # def self.create_unique_string
-  #   SecureRandom.uuid
-  # end
+  def self.create_unique_string
+    SecureRandom.uuid
+  end
 
   def avatar_type
     if avatar.attached? && !avatar.content_type.in?(%w(image/jpeg image/png))
