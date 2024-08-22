@@ -27,7 +27,7 @@ class User < ApplicationRecord
       # user.uid = create_unique_string if user.uid.blank?
       user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
-      user.avatar = auth.info.image
+      user.avatar = auth.info.image if auth.info.image
     end
   end
 
