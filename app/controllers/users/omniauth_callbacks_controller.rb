@@ -1,14 +1,15 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protect_from_forgery
+  skip_before_action :verify_authenticity_token, only: :google_oauth2
   # callback for google
   def google_oauth2
     callback_for(:google)
   end
 
-  # # callback for line
-  # def line
-  #   callback_for(:line)
-  # end
+  # callback for line
+  def line
+    callback_for(:line)
+  end
 
   def callback_for(provider)
     provider = provider.to_s
@@ -30,7 +31,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to root_path
+    redirect_to new_user_session_path, alert: 'ログインに失敗しました'
   end
 
   private

@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
   has_one_attached :avatar
   validates :first_name, :last_name, :user_name, presence: true, length: { maximum: 255 }
   validate :avatar_type
@@ -21,13 +21,13 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
-      user.user_name = "#{auth.info.first_name} #{auth.info.last_name}"
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
+      user.user_name = auth.info.name
       user.password = Devise.friendly_token[0,20]
       # user.uid = create_unique_string if user.uid.blank?
       user.uid = auth.uid
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+      user.avatar = auth.info.image
+      user.skip_confirmation!
     end
   end
 

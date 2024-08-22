@@ -31,6 +31,10 @@
       <%= button_to omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'btn btn-light mt-2', style: "width: 250px;", data: { turbo: false } do %>
         <%= image_tag 'google_icon.png', class: 'google-icon' %>_<%= 'Google' %>でログイン
       <% end %>
+    <% elsif provider.to_s == 'line' %>
+      <%= button_to omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'btn btn-light mt-2', style: "width: 250px;", data: { turbo: false } do %>
+        <%= image_tag 'line_icon.png', class: 'line-icon' %>_<%= 'LINE' %>でログイン
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

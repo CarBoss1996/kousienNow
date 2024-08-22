@@ -88,7 +88,7 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'http://localhost:3000' # 開発環境のオリジンを許可
+      origins 'http://localhost:3000', 'https://accounts.google.com' # 開発環境のオリジンを許可
       resource '*',
         headers: :any,
         methods: [:get, :post, :put, :patch, :delete, :options, :head],
