@@ -1,6 +1,5 @@
 class Admin::SessionsController < Admin::BaseController
   skip_before_action :check_admin, only: %i[new create]
-  skip_before_action :login_required, only: [:new, :create]
   layout 'admin/layouts/admin_login'
 
   def new

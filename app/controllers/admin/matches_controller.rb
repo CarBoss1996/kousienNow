@@ -60,6 +60,6 @@ class Admin::MatchesController < Admin::BaseController
   end
 
   def match_params
-    params.require(:match).permit(:match_date, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
+    params.require(:match).permit(:match_date, :match_time, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
   end
 end

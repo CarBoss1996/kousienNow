@@ -7,5 +7,6 @@ import './user_location';
 import './post';
 import './like_post';
 import './location';
+import './guide.js';
 
 Rails.start();

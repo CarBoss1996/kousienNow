@@ -57,24 +57,33 @@
             <td>
               <div class='mb-1 text-center'>
                 <% if match.result %>
-                  <%= match.team_score %> - <%= match.away_team_score %><br>
-                  vs <%= match.opponent %>
+                  <% match_color = if match.result == '勝ち'
+                                    'rgba(255, 60, 0, 0.3)' # 透明の赤色
+                                  elsif match.result == '負け'
+                                    'rgba(0, 160, 255, 0.3)' # 透明の青色
+                                  else
+                                    'transparent' # 透明（引き分けまたは未定の場合）
+                                  end %>
+                  <div style="background-color: <%= match_color %>;">
+                    <div style="box-shadow: 0 0 10px <%= match_color %>;">
+                      <%= match.team_score %> - <%= match.away_team_score %><br>
+                      vs <%= match.opponent %>
+                    </div>
+                  </div>
                 <% else %>
-                  vs <%= match.opponent %><br>
-                  <%= match.match_date.strftime('%H:%M') %><br>
-                  <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+                  <div>
+                    vs <%= match.opponent %><br>
+                    <%= match.match_date.strftime('%H:%M') %><br>
+                    <%= Match::STADIUM_NAMES[match.stadium] || "甲子園" %>
+                  </div>
                 <% end %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        <% if event_on_date %>
-          <tr>
-            <td colspan="4">
-              <div class='event-show'>
-                <div class='event-title'>
-                  <%= event_on_date.title %>
-                </div>
+                <% if event_on_date %>
+                  <div class='event-show'>
+                    <div class='event-title'>
+                      <%= event_on_date.title %>
+                    </div>
+                  </div>
+                <% end %>
               </div>
             </td>
           </tr>

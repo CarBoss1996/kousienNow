@@ -18,7 +18,20 @@ class Match < ApplicationRecord
   }
   enum result: { 勝ち: 0, 負け: 1, 引き分け: 2 }
 
+  attr_accessor :match_time
+
+  before_save :merge_date_and_time
+
   def self.ransackable_attributes(auth_object = nil)
     %w[match_date opponent]
+  end
+
+  private
+
+  def merge_date_and_time
+    if match_date && match_time
+      time_parts = match_time.split(':').map(&:to_i)
+      self.match_date = match_date.change(hour: time_parts[0], min: time_parts[1])
+    end
   end
 end
