@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[edit update]
 
   def show
-    @user = current_user.decorate
+    @user = User.find(params[:id])
     @posts = @user.posts
+    if @user == current_user
+      render 'show_current_user'
+    else
+      render 'show'
+    end
   end
 
   def edit

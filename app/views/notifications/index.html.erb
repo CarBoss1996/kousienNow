@@ -5,5 +5,5 @@
   <p>アカウント未認証のため、パソコンやお友達のスマホでQRコードを表示していただき、読み込んでいただくようにお願いいたします。</p>
   <%= image_tag 'koushienNowQR.png', alt: 'LINE QR Code' %>
   <%= link_to '次へ', link_line_account_notifications_path, class: 'btn btn-primary mt-5' %>
-  <%= link_to t('defaults.back'), profile_path, class: 'btn btn-secondary mt-5' %>
+  <%= link_to t('defaults.back'), profile_path(current_user), class: 'btn btn-secondary mt-5' %>
 </div>

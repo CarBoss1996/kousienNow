@@ -256,12 +256,14 @@ ja:
         like_post: いいね一覧
         calendar: 対戦カレンダー
   profiles:
-    show:
+    show_current_user:
       title: マイページ
     edit:
       title: マイページ編集
       success: 更新に成功しました
       failure: 更新に失敗しました
+    show:
+      title: プロフィール
   defaults:
     search: 検索
     edit: 編集
