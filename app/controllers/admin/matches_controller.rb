@@ -27,7 +27,7 @@ class Admin::MatchesController < Admin::BaseController
 
   def update
     if @match.update(match_params)
-      redirect_to admin_match_path, success: I18n.t('matches.update.success')
+      redirect_to admin_matches_path, success: I18n.t('matches.update.success')
     else
       Rails.logger.debug(@match.errors.full_messages.join(', '))
       flash.now[:danger] = I18n.t('matches.update.failure')
@@ -60,6 +60,6 @@ class Admin::MatchesController < Admin::BaseController
   end
 
   def match_params
-    params.require(:match).permit(:match_date, :match_time, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
+    params.require(:match).permit(:match_date, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
   end
 end
