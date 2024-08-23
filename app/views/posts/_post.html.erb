@@ -1,41 +1,40 @@
-<%= link_to post_path(post), class: "post-link", id: "button-comment-#{post.id}" do %>
 <div class="card mb-3">
-  <div class="row g-0 mx-0 justify-content-center">
-    <% if post.image.present? %>
-      <div class='col-11 col-md-3 d-flex align-items-center'>
-        <%= image_tag post.image.url, class: 'card-img-top img-fluid', style: 'width: 100%;' %>
-      </div>
-      <div class="col-md-9">
-    <% else %>
-      <div class="col-md-12 ml-*">
-    <% end %>
-      <div class="card-body d-flex flex-column post-card">
-        <div class="flex-grow-1">
-          <div class="d-flex justify-content-end icon-button">
-              <i class="bi bi-chat-dots">_</i>
-            <% if current_user&.own?(post) %>
-              <div>
-                <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
-                  <i class="bi bi-pencil-fill"></i>
-                <% end %>
-                <%= link_to post_path(post), id: "button-delete-#{post.id}", data: { turbo_method: :delete, confirm: I18n.t('defaults.delete_confirm') } do %>
-                  <i class="bi bi-trash-fill"></i>
-                <% end %>
-              </div>
-            <% else %>
-              <div id="like-button-container">
-                <%= render 'posts/like_buttons', { post: post, on_click: 'showAndHideMessage(#{post.id})' } %>
-              </div>
-              <turbo-frame id="like_message_for_post-<%= post.id %>"></turbo-frame>
+  <div class="row g-0">
+    <div class="card-body">
+      <div class="d-flex justify-content-end icon-button">
+        <i class="bi bi-chat-dots">_</i>
+        <% if current_user&.own?(post) %>
+          <div>
+            <%= link_to edit_post_path(post), id: "button-edit-#{post.id}" do %>
+              <i class="bi bi-pencil-fill"></i>
+            <% end %>
+            <%= link_to post_path(post), id: "button-delete-#{post.id}", data: { turbo_method: :delete, confirm: I18n.t('defaults.delete_confirm') } do %>
+              <i class="bi bi-trash-fill"></i>
             <% end %>
           </div>
+        <% else %>
+          <div id="like-button-container">
+            <%= render 'posts/like_buttons', { post: post, on_click: 'showAndHideMessage(#{post.id})' } %>
+          </div>
+          <turbo-frame id="like_message_for_post-<%= post.id %>"></turbo-frame>
+        <% end %>
+      </div>
+      <div class="row" data-url="<%= post_path(post) %>" onclick="window.location = this.dataset.url;">
+        <% if post.image.present? %>
+          <div class='col-md-4'>
+            <%= image_tag post.image.url, class: 'img-fluid rounded-start' %>
+          </div>
+          <div class="col-md-8">
+        <% else %>
+          <div class="col-md-12">
+        <% end %>
           <div class="card-text"><%= simple_format(post.body) %></div>
         </div>
-        <div class="mt-auto d-flex justify-content-end mt-auto">
-          <div><i class="bi bi-person"></i> <%= post.user.user_name %>_</div>
-          <div><i class="bi bi-calendar"></i> <%= l post.created_at, format: :short %></div>
-        </div>
       </div>
+      <div class="mt-auto d-flex justify-content-end mt-auto">
+        <div><i class="bi bi-person"></i> <%= post.user.user_name %>_</div>
+        <div><i class="bi bi-calendar"></i> <%= l post.created_at, format: :short %></div>
+      </div>
+    </div>
   </div>
 </div>
-<% end %>
