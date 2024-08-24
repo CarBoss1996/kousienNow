@@ -1,7 +1,3 @@
-<% if session[:new_user] %>
-  <%= javascript_include_tag 'guide' %>
-  <% session.delete(:new_user) %>
-<% end %>
 <div class="modal fade" id="guideModal" tabindex="-1" aria-labelledby="guideModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -16,7 +12,11 @@
   </div>
 </div>
 <%= image_tag 'header.png', class: 'header-image' %>
-
+<div class="d-flex justify-content-center mt-2">
+  <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#guideModal" style="font-size: 0.75rem;">
+    🔰アプリの使い方🔰
+  </button>
+</div>
 <div class="center d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
   <%= render 'matches/matches', matches: @matches %>
   <%= render 'user_locations/location' %>

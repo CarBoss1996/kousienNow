@@ -5,3 +5,4 @@
 //= link application.css
 //= link user_location.js
 //= link post.js
+//= link guide.js

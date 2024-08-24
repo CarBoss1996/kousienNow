@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
     @posts = Post.all.order(created_at: :desc)
     @weather = fetch_weather
     @matches = Match.where(match_date: Date.today.beginning_of_day..Date.today.end_of_day)
+    @set_new_user_in_session_storage = session.delete(:new_user)
   end
 
   def privacy_policy; end
