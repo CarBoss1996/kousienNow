@@ -5,6 +5,7 @@ class SeatsController < ApplicationController
   end
 
   private
+
   def seat_params
     params.require(:seat).permit(:id, :name, :seat)
   end
