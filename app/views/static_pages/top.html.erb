@@ -13,11 +13,10 @@
 </div>
 <%= image_tag 'header.png', class: 'header-image' %>
 <div class="d-flex justify-content-center mt-2">
-  <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#guideModal" style="font-size: 0.75rem;">
+  <button type="button" class="btn btn-light btn-sm btn-lg-md-up" data-bs-toggle="modal" data-bs-target="#guideModal" style="font-size: 0.75rem;">
     🔰アプリの使い方🔰
   </button>
-</div>
-<div class="center d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+</div><div class="center d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
   <%= render 'matches/matches', matches: @matches %>
   <%= render 'user_locations/location' %>
   <div class="d-grid gap-2 col-11 col-md-5 mx-auto mt-2 mb-4">

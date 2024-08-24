@@ -52,6 +52,15 @@ main {
   }
 }
 
+@media (min-width: 768px) { /* Bootstrapのmdブレークポイント */
+  .btn-lg-md-up {
+    padding: .5rem 1rem; /* 2倍のパディング */
+    font-size: 1.5rem !important; /* 2倍のフォントサイズを強制適用 */
+    line-height: 3; /* 2倍の行の高さ */
+    border-radius: .6rem; /* 2倍のボーダーラジウス */
+  }
+}
+
 // user_location icon
 .icon-selection {
   display: flex;
