@@ -1,5 +1,6 @@
 class UserLocation < ApplicationRecord
   after_create :set_date, :set_location_type
+  before_save :update_offset_x_and_offset_y
 
   belongs_to :user
   belongs_to :location
@@ -21,6 +22,19 @@ class UserLocation < ApplicationRecord
     end
 
     user_location
+  end
+
+  def calculate_offset(index)
+    points = JSON.parse(location.points)
+    return [0, 0] unless points.present?
+
+    top = points.sum { |point| point["y"].to_i } / points.size
+    left = points.sum { |point| point["x"].to_i } / points.size
+    width = points.max_by { |point| point["x"].to_i }["x"].to_i - points.min_by { |point| point["x"].to_i }["x"].to_i
+    height = points.max_by { |point| point["y"].to_i }["y"].to_i - points.min_by { |point| point["y"].to_i }["y"].to_i
+    offset_x = (index % 3) * (width / 3.0) - (width / 3.0)
+    offset_y = (index / 3 % 3) * (height / 3.0) - (height / 3.0)
+    [left + offset_x, top + offset_y]
   end
 
   private

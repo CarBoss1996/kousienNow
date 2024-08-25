@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_25_071634) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_25_080449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -162,6 +162,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_071634) do
     t.integer "icon"
     t.bigint "location_id"
     t.integer "location_type"
+    t.integer "offset_x"
+    t.integer "offset_y"
     t.index ["location_id"], name: "index_user_locations_on_location_id"
     t.index ["user_id"], name: "index_user_locations_on_user_id"
   end
