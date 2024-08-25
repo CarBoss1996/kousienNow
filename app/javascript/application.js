@@ -8,5 +8,6 @@ import './post';
 import './like_post';
 import './location';
 import './guide.js';
+import './location_modal.js';
 
 Rails.start();

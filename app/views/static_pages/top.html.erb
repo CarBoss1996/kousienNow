@@ -1,17 +1,6 @@
-<div class="modal fade" id="guideModal" tabindex="-1" aria-labelledby="guideModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="guideModalLabel">アプリの使い方</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= render 'shared/guide' %>
-      </div>
-    </div>
-  </div>
-</div>
 <%= image_tag 'header.png', class: 'header-image' %>
+<%= render 'shared/guide_modal' %>
+<%= render 'shared/location_modal' %>
 <div class="d-flex justify-content-center mt-2">
   <button type="button" class="btn btn-light btn-sm btn-lg-md-up" data-bs-toggle="modal" data-bs-target="#guideModal" style="font-size: 0.75rem;">
     🔰アプリの使い方🔰

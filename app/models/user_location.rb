@@ -1,6 +1,7 @@
 class UserLocation < ApplicationRecord
   after_create :set_date, :set_location_type
-  before_save :update_offset_x_and_offset_y
+  before_create :set_index
+  after_create :calculate_offset
 
   belongs_to :user
   belongs_to :location
@@ -24,7 +25,7 @@ class UserLocation < ApplicationRecord
     user_location
   end
 
-  def calculate_offset(index)
+  def calculate_offset
     points = JSON.parse(location.points)
     return [0, 0] unless points.present?
 
@@ -46,5 +47,10 @@ class UserLocation < ApplicationRecord
   def set_location_type
     location = Location.find(self.location_id)
     self.update(location_type: location.location_type)
+  end
+
+  def set_index
+    last_index = UserLocation.order(index: :desc).first&.index || -1
+    self.index = last_index + 1
   end
 end
