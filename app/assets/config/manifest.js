@@ -6,3 +6,4 @@
 //= link user_location.js
 //= link post.js
 //= link guide.js
+//= link location_modal.js

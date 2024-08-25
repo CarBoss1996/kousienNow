@@ -13,7 +13,8 @@
         <% users.each_with_index do |user, index| %>
           <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
           <% if user_location.present? %>
-            <% left, top = user_location.calculate_offset(index) %>
+          <% user_location.index = index %>
+            <% left, top = user_location.calculate_offset %>
             <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
             <% if user.latest_post %>
               <div class="tooltip">

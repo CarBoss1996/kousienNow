@@ -19,7 +19,7 @@ class UserLocationsController < ApplicationController
     last_user_location = current_user.user_locations.order(created_at: :desc).first
     if last_user_location && last_user_location.created_at.to_date == Date.today
       flash[:danger] = t('user_locations.create.already')
-      redirect_to root_path
+      redirect_to root_path(show_modal: true)
     else
       @user_location = UserLocation.create_with_seat(user_location_params.merge(icon: user_location_params[:icon].to_i), current_user)
       if @user_location.persisted?
