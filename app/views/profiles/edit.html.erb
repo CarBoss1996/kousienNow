@@ -41,8 +41,7 @@
       <% end %>
         <div class="text-center mt-3">
       </div>
-      <p>メールアドレスの変更をしたい方は<a href="#">こちら</a></p>
-      <p>パスワードの変更をしたい方は<a href="#">こちら</a></p>
+      <p>メールアドレス、パスワードの変更をしたい方は<%= link_to 'こちら', edit_user_registration_path %></p>
       <p class="mb-5">退会したい方は<%= link_to 'こちら', new_deactivation_path %></p>
     </div>
   </div>

@@ -2,7 +2,8 @@
 
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
-  resources :profiles, only: %i[show edit update destroy]
+  resource :profile, only: [:show, :edit, :update, :destroy]
+  get 'profiles/:id', to: 'profiles#show_other_user', as: :other_profile
   resources :posts do
     resources :comments, only: %i[create edit destroy], shallow: true
     collection do

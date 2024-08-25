@@ -7,6 +7,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    email_changed = resource.email != params[:user][:email]
+    super do |resource|
+      if email_changed
+        resource.unconfirmed_email = resource.email
+        resource.email = resource.email_was
+        resource.send_confirmation_instructions
+      end
+    end
+  end
+
   protected
 
   def build_resource(hash = {})
