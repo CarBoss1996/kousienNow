@@ -10,4 +10,7 @@ import './location';
 import './guide.js';
 import './location_modal.js';
 
+window.bootstrap = bootstrap;
+
 Rails.start();
+console.log('JavaScript is running');

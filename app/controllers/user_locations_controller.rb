@@ -19,11 +19,12 @@ class UserLocationsController < ApplicationController
     last_user_location = current_user.user_locations.order(created_at: :desc).first
     if last_user_location && last_user_location.created_at.to_date == Date.today
       flash[:danger] = t('user_locations.create.already')
-      redirect_to root_path(show_modal: true)
+      redirect_to root_path
     else
       @user_location = UserLocation.create_with_seat(user_location_params.merge(icon: user_location_params[:icon].to_i), current_user)
       if @user_location.persisted?
-        redirect_to root_path, success: t('user_locations.create.success')
+        Rails.logger.info "ここを見て！！！！show_modal: #{params[:show_modal]}"
+        redirect_to root_path(show_modal: true)
       else
         flash.now[:danger] = t('user_locations.create.failure')
         render :new, status: :unprocessable_entity

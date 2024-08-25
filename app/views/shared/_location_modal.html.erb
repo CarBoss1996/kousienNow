@@ -1,16 +1,25 @@
-<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="locationModalLabel">位置情報の登録が完了しました！</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>🎉🎉🎉</p>
-        <p>位置情報の登録が完了しました！</p>
-        <p>この素晴らしいニュースをXでシェアしませんか？</p>
-        <button type="button" class="btn btn-dark">Xでシェアする</button>
+<% if current_user %>
+  <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="locationModalLabel">位置情報の登録が完了しました！</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>🎉🎉🎉</p>
+          <p>位置情報の登録が完了しました！</p>
+          <p>この素晴らしいニュースをXでシェアしませんか？</p>
+          <% if current_user.user_locations.where('created_at >= ?', Date.today).exists? %>
+            <% user_location = current_user.user_locations.where('created_at >= ?', Date.today).first %>
+            <% if Seat.exists?(user_location.location_id) %>
+              <% location_id = user_location.location_id %>
+              <% location_name = I18n.t("user_location.seat.#{Seat.find(location_id).seat_name}") %>
+              <%= link_to "Xでシェアする", "https://twitter.com/intent/tweet?text=#{CGI.escape("今日は#{location_name}から応援します！！")}&url=#{CGI.escape(request.original_url)}", class: "btn btn-dark", target: "_blank" %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
