@@ -5,16 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   add_flash_types :success, :danger
 
-  def authenticate_user!
-    if user_signed_in?
-      super
-    else
-      store_location
-      session[:user_return_to] = request.fullpath
-      redirect_to new_user_session_path, :notice => 'ログインしてください。'
-    end
-  end
-
   private
 
   def configure_permitted_parameters

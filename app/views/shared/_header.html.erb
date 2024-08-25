@@ -18,7 +18,7 @@
             <%= link_to t('helpers.submit.user.seat'), 'https://koshien.hanshin.co.jp/stadium_seat/', class: 'dropdown-item', target: "_blank", data: { confirm: '外部サイトへリンクします。よろしいですか？' } %>
             <%= link_to t('helpers.submit.user.calendar'), matches_path(date: Date.today), class: 'dropdown-item' %>
           <% if user_signed_in? %>
-            <%= link_to t('helpers.submit.user.profile'), profile_path(current_user), class: 'dropdown-item' %>
+            <%= link_to t('helpers.submit.user.profile'), profile_path, class: 'dropdown-item' %>
             <%= link_to t('helpers.submit.user.like_post'), like_posts_posts_path, class: 'dropdown-item' %>
             <%= link_to t('helpers.submit.user.logout'), destroy_user_session_path, class: 'dropdown-item', method: :delete, data: { confirm: 'ログアウトしますか？' } %>
           <% else %>
