@@ -13,20 +13,12 @@
         <% users.each_with_index do |user, index| %>
           <% user_location = user.user_locations.find_by(created_at: Date.today.all_day) %>
           <% if user_location.present? %>
-            <% points = JSON.parse(user_location.location.points) %>
-            <% if points.present? %>
-              <% top = points.sum { |point| point["y"].to_i } / points.size %>
-              <% left = points.sum { |point| point["x"].to_i } / points.size %>
-              <% offset_x = (index % 3) * 5 - 5 %> <!-- 横方向のオフセット -->
-              <% offset_y = (index / 3 % 3) * 5 - 5 %> <!-- 縦方向のオフセット -->
-              <% left = left + offset_x %>
-              <% top = top + offset_y %>
-              <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
-                <% if user.latest_post %>
-                  <div class="tooltip">
-                    <%= link_to user.latest_post.body, post_path(user.latest_post) %> <!-- 最新の投稿を表示 -->
-                  </div>
-                <% end %>
+            <% left, top = user_location.calculate_offset(index) %>
+            <%= image_tag "icons/#{user_location.icon}", class: "seat-icon", style: "left: #{left}%; top: #{top}%;" %>
+            <% if user.latest_post %>
+              <div class="tooltip">
+                <%= link_to user.latest_post.body, post_path(user.latest_post) %> <!-- 最新の投稿を表示 -->
+              </div>
             <% end %>
           <% end %>
         <% end %>
