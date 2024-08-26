@@ -54,12 +54,12 @@
 
         <tr>
           <th><%= User.human_attribute_name(:provider) %></th>
-          <td><%= @user.provider %></td>
+          <td><%= @user.sns_credential.provider if @user.sns_credential %></td>
         </tr>
 
         <tr>
           <th><%= User.human_attribute_name(:uid) %></th>
-          <td><%= @user.uid %></td>
+          <td><%= @user.sns_credential.uid if @user.sns_credential %></td>
         </tr>
       </table>
     </div>

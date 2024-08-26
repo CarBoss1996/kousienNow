@@ -1,5 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :build_sns_credential, only: %i[edit update]
 
   def index
     @q = User.ransack(params[:q])
@@ -34,7 +35,11 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params[:id])
   end
 
+  def build_sns_credential
+    @user.build_sns_credential unless @user.sns_credential
+  end
+
   def user_params
-    params.require(:user).permit(:user_name, :email, :first_name, :last_name, :avatar, :favorite_player, :location_id, :role, :line_user_id, :provider, :uid)
+    params.require(:user).permit(:user_name, :email, :first_name, :last_name, :avatar, :favorite_player, :location_id, :role, :line_user_id, sns_credential_attributes: [:provider, :uid])
   end
 end
