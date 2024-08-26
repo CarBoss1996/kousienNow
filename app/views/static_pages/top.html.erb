@@ -11,17 +11,20 @@
 </div>
 
   <% if @posts.present? %>
-    <% @posts.each do |post| %>
-      <div class="card-body mb-3 card-post">
-        <div class="row">
-          <div class="col-8 col-md-5 mx-auto">
+    <div class="row">
+      <div class="col-8 col-md-5 mx-auto">
+        <% @posts.each do |post| %>
+          <div class="card-body mb-3 card-post">
             <%= link_to post_path(post) do %>
               <%= render post %>
             <% end %>
           </div>
+        <% end %>
+        <div class="d-flex justify-content-end mb-5">
+          <%= link_to 'もっと見る', posts_path %>
         </div>
       </div>
-    <% end %>
+    </div>
   <% else %>
   <div class="card text-bg-light mb-3 mx-auto" style="max-width: 18rem;">
     <p class="card-text mx-auto"><%= I18n.t('posts.no_result') %></p>
