@@ -23,25 +23,30 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
-      case auth.provider
-      when 'google_oauth2'
-        user.email = auth.info.email
-        user.user_name = auth.info.name
-        user.password = Devise.friendly_token[0,20]
-        user.uid = auth.uid
-        user.first_name = auth.info.first_name
-        user.last_name = auth.info.last_name
-        user.role = :admin if user.email == ENV['ADMIN_EMAIL']
-      when 'line'
-        user.user_name = auth.info.name
-        user.password = Devise.friendly_token[0,20]
-        user.uid = auth.uid
+    sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
+    user = sns_credential.user
+    if user.nil?
+      user = User.where(email: auth.info.email).first if auth.provider == 'google_oauth2'
+      if user.nil?
+        user = User.new(
+          user_name: auth.info.name,
+          password: Devise.friendly_token[0,20],
+          uid: auth.uid
+        )
+        case auth.provider
+        when 'google_oauth2'
+          user.email = auth.info.email
+          user.first_name = auth.info.first_name
+          user.last_name = auth.info.last_name
+          user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+        end
       end
+      user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
       unless user.save
         Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
       end
     end
+    user
   end
 
   def self.authenticate(email, password)
@@ -106,7 +111,7 @@ class User < ApplicationRecord
   end
 
   def email_required?
-    provider.blank?
+    sns_credentials.first&.provider.blank?
   end
 
   private
