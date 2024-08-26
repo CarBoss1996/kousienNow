@@ -1,7 +1,7 @@
 // Lottie player
-import { defineCustomElements } from '@dotlottie/player-component/loader';
+import { DotLottieWC } from '@lottiefiles/dotlottie-wc';
 
-defineCustomElements(window);
+customElements.define('lottie-player', DotLottieWC);
 
 document.addEventListener('turbo:load', function() {
   // When the page has loaded, hide the animation
