@@ -15,6 +15,9 @@
   <body class="d-flex flex-column min-vh-100" data-user-signed-in="<%= user_signed_in? %>">
     <%= breadcrumbs separator: " &rsaquo; " %>
       <%= render 'shared/header' %>
+
+      <%# <dotlottie-player id="loadingAnimation" src="https://lottie.host/0a12408d-8878-4ef2-855c-3f8f30877110/SiMJoyZg4b.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> %>
+
     <%= render 'shared/flash_message' %>
     <main class="flex-shrink-0">
     <%= yield %>

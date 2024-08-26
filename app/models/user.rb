@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :user_matches
   has_many :matches, through: :user_matches
+  has_many :sns_credentials
 
   VALID_PASSWORD_REGEX = /\A[\w+\-.!@#$%^&*]+\z/
   validates_format_of :password, with: VALID_PASSWORD_REGEX, message: 'は半角英数字と記号のみ使用できます', allow_blank: true
@@ -36,10 +37,9 @@ class User < ApplicationRecord
         user.user_name = auth.info.name
         user.password = Devise.friendly_token[0,20]
         user.uid = auth.uid
-        user.email = "#{user.uid}@line.example.com" 
       end
       unless user.save
-        Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
+        Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
       end
     end
   end
@@ -47,10 +47,6 @@ class User < ApplicationRecord
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)
     user if user&.valid_password?(password)
-  end
-
-  def self.create_unique_string
-    SecureRandom.uuid
   end
 
   def avatar_type
