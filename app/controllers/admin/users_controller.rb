@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::BaseController
   before_action :build_sns_credential, only: %i[edit update]
 
   def index
-    @q = User.ransack(params[:q])
+    @q = User.order(:id).ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
 
@@ -36,7 +36,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def build_sns_credential
-    @user.build_sns_credential unless @user.sns_credential
+    @user.sns_credentials.build unless @user.sns_credentials.present?
   end
 
   def user_params

@@ -52,15 +52,16 @@
           <td><%= @user.line_user_id %></td>
         </tr>
 
-        <tr>
-          <th><%= User.human_attribute_name(:provider) %></th>
-          <td><%= @user.sns_credential.provider if @user.sns_credential %></td>
-        </tr>
-
-        <tr>
-          <th><%= User.human_attribute_name(:uid) %></th>
-          <td><%= @user.sns_credential.uid if @user.sns_credential %></td>
-        </tr>
+        <% @user.sns_credentials.each do |sns_credential| %>
+          <tr>
+            <th><%= User.human_attribute_name(:provider) %></th>
+            <td><%= sns_credential.provider %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name(:uid) %></th>
+            <td><%= sns_credential.uid %></td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>
