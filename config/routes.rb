@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations', confirmations: 'users/confirmations' }
   resource :profile, only: [:show, :edit, :update, :destroy]
   get 'profiles/:id', to: 'profiles#show_other_user', as: :other_profile
   resources :posts do

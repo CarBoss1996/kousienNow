@@ -1,5 +1,9 @@
 <p>ようこそ <%= @email %>さん！</p>
 
-<p>以下のリンクをクリックして、アカウントのメールアドレスの変更を完了してください：</p>
-
-<p><%= link_to 'メールアドレスの変更を完了する', confirmation_url(@resource, confirmation_token: @token) %></p>
+<% if @new_user %>
+  <p>以下のリンクをクリックして、新規登録を完了させてください：</p>
+  <%= link_to 'ここをクリック', confirmation_url(@resource, confirmation_token: @token, new_user: true) %>
+<% else %>
+  <p>以下のリンクをクリックして、アカウントのメールアドレスの変更を完了してください：</p>
+  <%= link_to 'ここをクリック', confirmation_url(@resource, confirmation_token: @token) %>
+<% end %>
