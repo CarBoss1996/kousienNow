@@ -23,10 +23,9 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
-  sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
-  user = sns_credential.user
-  if user.nil?
-    user = User.where(email: auth.info.email).first if auth.provider == 'google_oauth2'
+    sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    user = User.where(email: auth.info.email).first
+
     if user.nil?
       user = User.new(
         user_name: auth.info.name,
@@ -35,13 +34,16 @@ class User < ApplicationRecord
       user.email = auth.info.email if auth.provider == 'google_oauth2'
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
+
+    sns_credential.user = user
     user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
+
     unless user.save
       Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
     end
+
+    user
   end
-  user
-end
 
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)
