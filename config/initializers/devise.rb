@@ -275,7 +275,7 @@ Devise.setup do |config|
   # config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET']
   # config.omniauth :instagram, ENV['INSTAGRAM_CLIENT_ID'], ENV['INSTAGRAM_CLIENT_SECRET']
-  config.omniauth :line, ENV['LINE_ID'], ENV['LINE_SECRET'], scope: 'profile email'
+  config.omniauth :line, ENV['LINE_ID'], ENV['LINE_SECRET'], scope: 'profile email openid'
   # OmniAuth.config.logger = Rails.logger if Rails.env.development?
 
   # ==> Warden configuration
