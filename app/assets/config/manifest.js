@@ -7,4 +7,3 @@
 //= link post.js
 //= link guide.js
 //= link location_modal.js
-//= link loading.js
