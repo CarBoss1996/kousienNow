@@ -23,31 +23,25 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
-    sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
-    user = sns_credential.user
+  sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
+  user = sns_credential.user
+  if user.nil?
+    user = User.where(email: auth.info.email).first if auth.provider == 'google_oauth2'
     if user.nil?
-      user = User.where(email: auth.info.email).first if auth.provider == 'google_oauth2'
-      if user.nil?
-        user = User.new(
-          user_name: auth.info.name,
-          password: Devise.friendly_token[0,20],
-          uid: auth.uid
-        )
-        case auth.provider
-        when 'google_oauth2'
-          user.email = auth.info.email
-          user.first_name = auth.info.first_name
-          user.last_name = auth.info.last_name
-          user.role = :admin if user.email == ENV['ADMIN_EMAIL']
-        end
-      end
-      user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
-      unless user.save
-        Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
-      end
+      user = User.new(
+        user_name: auth.info.name,
+        password: Devise.friendly_token[0,20]
+      )
+      user.email = auth.info.email if auth.provider == 'google_oauth2'
+      user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
-    user
+    user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
+    unless user.save
+      Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
+    end
   end
+  user
+end
 
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)
@@ -103,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def name_fields
-    if provider.blank? # providerが空（つまり、通常の登録）の場合
+    if !google_or_line_auth?
       errors.add(:first_name, "を入力してください") if first_name.blank?
       errors.add(:last_name, "を入力してください") if last_name.blank?
       errors.add(:user_name, "を入力してください") if user_name.blank?
@@ -117,6 +111,10 @@ class User < ApplicationRecord
   private
 
   def password_required?
-    provider.blank? && super
+    google_or_line_auth? && super
+  end
+
+  def google_or_line_auth?
+    sns_credentials.any? { |credential| ["google_oauth2", "line"].include?(credential.provider) }
   end
 end
