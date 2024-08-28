@@ -24,22 +24,22 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
-    user = User.where(email: auth.info.email).first
+    user = User.joins(:sns_credentials).where('sns_credentials.provider = ? AND sns_credentials.uid = ?', auth.provider, auth.uid).first
 
     if user.nil?
       user = User.new(
         user_name: auth.info.name,
-        password: Devise.friendly_token[0,20]
+        password: Devise.friendly_token[0,20],
+        email: auth.info.email
       )
-      user.email = auth.info.email if auth.provider == 'google_oauth2'
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
 
     sns_credential.user = user
     user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
 
-    if user.valid?
-      user.save
+    if user.save
+      user
     else
       Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
     end
