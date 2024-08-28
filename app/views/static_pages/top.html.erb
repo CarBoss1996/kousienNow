@@ -1,6 +1,7 @@
 <%= image_tag 'header.png', class: 'header-image' %>
 <%= render 'shared/guide_modal' %>
 <%= render 'shared/location_modal' %>
+<%= render 'shared/email_prompt_modal' %>
 <div class="center d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
   <%= render 'matches/matches', matches: @matches %>
   <%= render 'user_locations/location' %>

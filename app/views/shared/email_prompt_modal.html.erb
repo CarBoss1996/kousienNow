@@ -1,0 +1,15 @@
+<div class="modal fade" id="emailPromptModal" tabindex="-1" aria-labelledby="emailPromptModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailPromptModalLabel">メールアドレスの登録をお願いいたします！</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>LINEログインの方はメールアドレスの登録をお願いいたします！<br>
+          メールアドレスが未登録の場合は、通常ログインやGoogleログインでのアカウント連携ができません🙇‍♀️<br>
+          登録はこちら　⇨ <%= link_to t('defaults.edit'), edit_profile_path, class: 'btn btn-success' %></p>
+      </div>
+    </div>
+  </div>
+</div>
