@@ -109,7 +109,7 @@ class User < ApplicationRecord
   end
 
   def email_required?
-    sns_credentials.first&.provider.blank?
+    super && !(sns_credentials.first&.provider == 'line')
   end
 
   private

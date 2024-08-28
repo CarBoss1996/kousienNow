@@ -7,3 +7,4 @@
 //= link post.js
 //= link guide.js
 //= link location_modal.js
+//= link email_prompt_modal.js

@@ -9,6 +9,7 @@ import './like_post';
 import './location';
 import './guide';
 import './location_modal';
+import './email_prompt_modal';
 
 window.bootstrap = bootstrap;
 

@@ -12,7 +12,7 @@
     <meta name="google-site-verification" content="Z8L0G6zPNKHAZm8FbnHysNbZhNR31k72bflslBiRt3g" />
   </head>
 
-  <body class="d-flex flex-column min-vh-100" data-user-signed-in="<%= user_signed_in? %>">
+  <body class="d-flex flex-column min-vh-100" data-user-signed-in="<%= user_signed_in? %>" data-prompt-email="<%= @prompt_email %>">
     <%= breadcrumbs separator: " &rsaquo; " %>
       <%= render 'shared/header' %>
 
