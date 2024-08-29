@@ -29,8 +29,9 @@ class User < ApplicationRecord
     if user.nil?
       user = User.new(
         user_name: auth.info.name,
-        password: Devise.friendly_token[0,20],
+        password: Devise.friendly_token[0,20]
       )
+      user.skip_confirmation! if auth.provider == 'line'
       user.email = auth.info.email if auth.provider != 'line'
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
     end
