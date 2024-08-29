@@ -13,7 +13,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").id)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    resource_updated = update_resource(resource, account_update_params)
+    if resource.provider.present? # SNS認証を使用している場合
+      resource_updated = resource.update_without_password(account_update_params)
+    else
+      resource_updated = update_resource(resource, account_update_params)
+    end
+
     yield resource if block_given?
     if resource_updated
       case
