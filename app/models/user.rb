@@ -117,7 +117,7 @@ class User < ApplicationRecord
   end
 
   def email_required?
-    super && !(sns_credentials.first&.provider == 'line')
+    super && !sns_credentials.any? { |credential| credential.provider == 'line' } && !email.include?("@kasutamu.line")
   end
 
   private
