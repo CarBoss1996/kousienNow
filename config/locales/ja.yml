@@ -403,6 +403,9 @@ ja:
       title: 通知設定
     link_line_account:
       title: コード入力画面
+  deactivations:
+    new:
+      title: 退会手続き
   admin:
     sessions:
       new:

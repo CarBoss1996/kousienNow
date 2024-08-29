@@ -1,29 +1,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def create
-    build_resource(sign_up_params)
-
-    # LINEログインの場合はemailの確認をスキップ
-    logger.debug "Provider: #{params[:user][:provider]}"
-    resource.skip_confirmation! if params[:user][:provider] == 'line'
-
-    resource.save
-    logger.debug "Resource saved: #{resource.persisted?}"
-
-    yield resource if block_given?
-    if resource.persisted?
-      if resource.active_for_authentication?
-        set_flash_message! :notice, :signed_up
-        sign_up(resource_name, resource)
-        respond_with resource, location: after_sign_up_path_for(resource)
-      else
-        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
-        expire_data_after_sign_in!
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+    super do |resource|
+      if resource.persisted?
+        flash[:notice] = I18n.t('devise.registrations.signed_up')
+        cookies[:new_user] = true
       end
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
     end
   end
 
