@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protect_from_forgery
-  skip_before_action :verify_authenticity_token, only: :google_oauth2
+  skip_before_action :verify_authenticity_token, only: [:google_oauth2, :line]
   # callback for google
   def google_oauth2
     callback_for(:google)
@@ -41,7 +41,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in user
       redirect_to admin_root_path
     else
-      super
+      sign_in user
+      redirect_to root_path
     end
   end
 end
