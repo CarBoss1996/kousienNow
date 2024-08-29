@@ -23,11 +23,7 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
-    Rails.logger.error "from_omniauth started with auth: #{auth.inspect}"
-
     sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
-    Rails.logger.error "sns_credential: #{sns_credential.inspect}"
-
     user = User.joins(:sns_credentials).where('sns_credentials.provider = ? AND sns_credentials.uid = ?', auth.provider, auth.uid).first
     Rails.logger.error "user found: #{user.inspect}"
 
@@ -37,10 +33,10 @@ class User < ApplicationRecord
         password: Devise.friendly_token[0,20]
       )
       if auth.provider == 'line'
-        user.skip_confirmation!
-        Rails.logger.debug "skip_confirmation! called for user: #{user.inspect}"
+        user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
+      else
+        user.email = auth.info.email
       end
-      user.email = auth.info.email if auth.provider != 'line'
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
       Rails.logger.error "new user created: #{user.inspect}"
     end

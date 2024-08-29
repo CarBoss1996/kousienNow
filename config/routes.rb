@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post '/callback' => 'notifications#callback'
   resources :like_posts, only: %i[create destroy]
   resources :user_locations
-  resources :deactivations, only: %i[destroy]
+  resources :deactivations, only: %i[new create destroy]
   namespace :api do
     resources :seats, only: [:index]
   end
