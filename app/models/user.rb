@@ -36,6 +36,7 @@ class User < ApplicationRecord
 
     if auth.provider == 'line'
       user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
+      user.skip_confirmation!
     else
       user.email = auth.info.email
     end
@@ -119,7 +120,11 @@ class User < ApplicationRecord
   end
 
   def email_required?
-    super && !sns_credentials.any? { |credential| credential.provider == 'line' } && !email.include?("@kasutamu.line")
+    super && !line_auth?
+  end
+
+  def will_save_change_to_email?
+    super && !line_auth?
   end
 
   private
@@ -130,5 +135,9 @@ class User < ApplicationRecord
 
   def google_or_line_auth?
     sns_credentials.any? { |credential| ["google_oauth2", "line"].include?(credential.provider) }
+  end
+
+  def line_auth?
+    sns_credentials.any? { |credential| credential.provider == 'line' }
   end
 end
