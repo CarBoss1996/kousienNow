@@ -32,14 +32,16 @@ class User < ApplicationRecord
         user_name: auth.info.name,
         password: Devise.friendly_token[0,20]
       )
-      if auth.provider == 'line'
-        user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
-      else
-        user.email = auth.info.email
-      end
-      user.role = :admin if user.email == ENV['ADMIN_EMAIL']
-      Rails.logger.error "new user created: #{user.inspect}"
     end
+
+    if auth.provider == 'line'
+      user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
+    else
+      user.email = auth.info.email
+    end
+
+    user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+    Rails.logger.error "new user created: #{user.inspect}"
 
     sns_credential.user = user
     user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
