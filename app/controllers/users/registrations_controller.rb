@@ -20,6 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if sns_credential
         SnsCredential.create(user_id: existing_user.id, provider: sns_credential.provider, uid: sns_credential.uid)
         # @kasutamu.lineのアカウントを削除
+        resource.sns_credentials.destroy_all # この行を追加
         resource.destroy
         self.resource = existing_user
         respond_with resource, location: after_update_path_for(resource)
