@@ -29,10 +29,12 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
         </div>
 
-        <div class="field mb-3">
-          <%= f.label :current_password %> <i>（変更を確認するため現在のパスワードが必要です）</i><br />
-          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
-        </div>
+        <% unless resource.sns_credentials.any? %>
+          <div class="field mb-3">
+            <%= f.label :current_password %> <i>（変更を確認するため現在のパスワードが必要です）</i><br />
+            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+        <% end %>
 
         <div class="actions text-center mt-3">
           <%= f.submit t('defaults.update'), class: "btn btn-primary", style: "width: 40%;" %>

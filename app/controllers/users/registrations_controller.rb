@@ -54,4 +54,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
     user_path(resource, show_guide_modal: true)
   end
+
+  def account_update_params
+    params = devise_parameter_sanitizer.sanitize(:account_update)
+    if resource.sns_credentials.any?
+      params.delete(:current_password) # SNS認証を使用しているユーザーはcurrent_passwordを必要としない
+    end
+    params
+  end
 end
