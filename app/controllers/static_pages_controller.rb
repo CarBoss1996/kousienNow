@@ -2,7 +2,7 @@
 
 class StaticPagesController < ApplicationController
   def top
-    @prompt_email = user_signed_in? && current_user.email.nil?
+    @prompt_email = user_signed_in? && current_user.email.end_with?("@kasutamu.line")
     @users = User.all
     @posts = Post.order(created_at: :desc).limit(3)
     @weather = fetch_weather
