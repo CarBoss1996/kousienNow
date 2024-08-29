@@ -51,6 +51,7 @@ class User < ApplicationRecord
 
     if user.save
       Rails.logger.error "user saved successfully: #{user.inspect}"
+      sign_in user
       user
     else
       Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
