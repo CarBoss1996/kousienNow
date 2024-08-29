@@ -26,27 +26,22 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
     user = User.joins(:sns_credentials).where('sns_credentials.provider = ? AND sns_credentials.uid = ?', auth.provider, auth.uid).first
-    Rails.logger.error "user found: #{user.inspect}"
 
     if user.nil?
-      user = User.new(
-        user_name: auth.info.name,
-        password: Devise.friendly_token[0,20]
-      )
+      user = User.where(email: auth.info.email).first_or_initialize
+      user.user_name = auth.info.name
+      user.password = Devise.friendly_token[0,20] if user.new_record?
 
       if auth.provider == 'line'
         user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
-        user.skip_confirmation!
       else
         user.email = auth.info.email
       end
+      user.skip_confirmation!
 
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
-      Rails.logger.error "new user created: #{user.inspect}"
-
       sns_credential.user = user
       user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
-      Rails.logger.error "sns_credential associated with user: #{sns_credential.inspect}"
 
       if user.save
         Rails.logger.error "user saved successfully: #{user.inspect}"
