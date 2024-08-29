@@ -12,11 +12,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}"))
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    email_changed = resource.email != params[:user][:email]
     resource_updated = update_resource(resource, account_update_params)
     yield resource if block_given?
     if resource_updated
-      if email_changed
+      case
+      when resource.email != params[:user][:email] && resource.email.include?('@kasutamu.line')
+        existing_user = User.find_by(email: params[:user][:email])
+        if existing_user
+          # メールアドレスがすでに存在する場合は、そのユーザーにSNS認証情報を追加
+          SnsCredential.create(user_id: existing_user.id, provider: 'line', uid: resource.uid)
+          resource.destroy
+          self.resource = existing_user
+        else
+          # メールアドレスが存在しない場合は、メールアドレスを更新
+          resource.unconfirmed_email = nil
+        end
+      when resource.email != params[:user][:email]
         resource.unconfirmed_email = resource.email
         resource.email = resource.email_was
         resource.send_confirmation_instructions
