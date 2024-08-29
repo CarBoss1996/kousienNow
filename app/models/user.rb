@@ -23,8 +23,13 @@ class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
 
   def self.from_omniauth(auth)
+    Rails.logger.error "from_omniauth started with auth: #{auth.inspect}"
+
     sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    Rails.logger.error "sns_credential: #{sns_credential.inspect}"
+
     user = User.joins(:sns_credentials).where('sns_credentials.provider = ? AND sns_credentials.uid = ?', auth.provider, auth.uid).first
+    Rails.logger.error "user found: #{user.inspect}"
 
     if user.nil?
       user = User.new(
@@ -34,15 +39,18 @@ class User < ApplicationRecord
       user.skip_confirmation! if auth.provider == 'line'
       user.email = auth.info.email if auth.provider != 'line'
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
+      Rails.logger.error "new user created: #{user.inspect}"
     end
 
     sns_credential.user = user
     user.sns_credentials << sns_credential unless user.sns_credentials.exists?(sns_credential.id)
+    Rails.logger.error "sns_credential associated with user: #{sns_credential.inspect}"
 
     if user.save
+      Rails.logger.error "user saved successfully: #{user.inspect}"
       user
     else
-      Rails.logger.error "ここを見て！！！User validation failed: #{user.errors.full_messages.join(", ")}"
+      Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
     end
 
     user
