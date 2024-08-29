@@ -16,11 +16,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     existing_user = User.find_by(email: params[:user][:email])
     if existing_user && resource.email != params[:user][:email] && resource.email.include?('@kasutamu.line')
       # メールアドレスがすでに存在する場合は、そのユーザーにSNS認証情報を追加
-      SnsCredential.create(user_id: existing_user.id, provider: 'line', uid: resource.uid)
-      # @kasutamu.lineのアカウントを削除
-      resource.destroy
-      self.resource = existing_user
-      respond_with resource, location: after_update_path_for(resource)
+      sns_credential = resource.sns_credentials.find_by(provider: 'line')
+      if sns_credential
+        SnsCredential.create(user_id: existing_user.id, provider: sns_credential.provider, uid: sns_credential.uid)
+        # @kasutamu.lineのアカウントを削除
+        resource.destroy
+        self.resource = existing_user
+        respond_with resource, location: after_update_path_for(resource)
+      end
     else
       if resource.sns_credentials.any? # SNS認証を使用している場合
         resource_updated = resource.update_without_password(account_update_params)
