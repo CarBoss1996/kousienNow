@@ -3,9 +3,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     # LINEログインの場合はemailの確認をスキップ
+    logger.debug "Provider: #{params[:user][:provider]}"
     resource.skip_confirmation! if params[:user][:provider] == 'line'
 
     resource.save
+    logger.debug "Resource saved: #{resource.persisted?}"
+
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
