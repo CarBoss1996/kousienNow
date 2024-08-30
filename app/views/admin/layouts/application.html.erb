@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta lang='ja'>
     <meta name="robots" content="noindex, nofollow">
-    <title><%= page_title(yield(:title), admin: true) %></title>
+    <title><%= admin_page_title(yield(:title), true) %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
