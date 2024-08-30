@@ -16,7 +16,7 @@ class Match < ApplicationRecord
     "rotte" => "ZOZOマリンスタジアム",
     "rakuten" => "楽天モバイルパーク宮城"
   }
-  enum result: { 勝ち: 0, 負け: 1, 引き分け: 2 }
+  enum result: { 勝ち: 0, 負け: 1, 引き分け: 2, 雨天中止: 3 }
 
   attr_accessor :match_time
 

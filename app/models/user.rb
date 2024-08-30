@@ -31,13 +31,13 @@ class User < ApplicationRecord
       user = User.where(email: auth.info.email).first_or_initialize
       user.user_name = auth.info.name
       user.password = Devise.friendly_token[0,20] if user.new_record?
+      user.skip_confirmation!
 
       if auth.provider == 'line'
         user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
       else
         user.email = auth.info.email
       end
-      user.skip_confirmation!
 
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
       sns_credential.user = user
