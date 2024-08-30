@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:title) || "甲子園NOW!" %></title>
+    <title><%= page_title(yield(:title) || "甲子園NOW!") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,6 +10,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
     <meta name="google-site-verification" content="7LFDZ71B2lTVvdtwCYMeNkfmGth2ehjsji_v8_-hMkQ" />
     <meta name="google-site-verification" content="Z8L0G6zPNKHAZm8FbnHysNbZhNR31k72bflslBiRt3g" />
+    <meta property="og:title" content="<%= page_title(yield(:title) || "甲子園NOW!") %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kousiennow.onrender.com/" />
+    <meta property="og:image" content="<%= image_url('thumbnail.png') %>" />
+    <meta property="og:description" content="甲子園NOW!は、甲子園球場での観戦をより楽しくするためのSNSアプリです📣" />
+    <meta property="og:site_name" content="甲子園NOW!" />
+    <meta property="og:locale" content="ja_JP" />
   </head>
 
   <body class="d-flex flex-column min-vh-100" data-user-signed-in="<%= user_signed_in? %>" data-prompt-email="<%= @prompt_email %>">
