@@ -67,6 +67,183 @@
 
 画面遷移図：　<a href="https://www.figma.com/board/I7TWuNN9Id1z2tpi35RQI0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=HprCttfLc6lzSBqo-0">https://www.figma.com/board/I7TWuNN9Id1z2tpi35RQI0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=HprCttfLc6lzSBqo-0</a>
 <br>
+ER図：　
+```mermaid
+erDiagram
+    users ||--o{ posts: "ユーザーは複数の投稿を持つ"
+    users ||--o{ comments: "ユーザーは複数のコメントを持つ"
+    users ||--o{ like_posts: "ユーザーは複数のいいねを持つ"
+    users ||--o{ user_locations: "ユーザーは複数のユーザー球場位置を持つ"
+    users ||--o{ user_matches: "ユーザーは複数の試合情報を持つ"
+    users ||--o| notifications: "ユーザーは１つの通知機能を持つ"
+    users ||--o| one_time_codes: "ユーザーは1つのワンタイムコードを持つ"
+    users ||--o{ sns_credentials: "ユーザーは複数の認証を持つ"
+    posts ||--o{ comments: "投稿は複数のコメントを持つ"
+    posts ||--o{ like_posts: "投稿は複数のいいねを持つ"
+    posts ||--o| notifications: "投稿は１つの通知を持つ"
+    locations ||--o{ user_locations: "球場位置は複数のユーザー球場位置を持つ"
+    locations ||--o{ seats: "球場位置は複数のシート位置を持つ"
+    events ||--o{ event_dates: "イベントは複数のイベント日時を持つ"
+    matches ||--o{ user_matches: "試合は複数のユーザー試合を持つ"
+    matches ||--o| events: "試合は０か1つのイベントを持つ"
+    seats ||--o{ user_locations: "シート位置は複数のユーザー球場位置を持つ"
+
+
+    users {
+        bigint id PK "ユーザーID"
+        string email "メールアドレス"
+        string encrypted_password "暗号化パスワード"
+        string reset_password_token "パスワードリセットトークン"
+        datetime reset_password_sent_at "パスワードリセット送信時間"
+        datetime remember_created_at "ログイン状態の記録クッキーの作成日"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+        string user_name "ユーザーネーム"
+        string first_name "名"
+        string last_name "姓"
+        string avatar "ユーザー画像"
+        string favorite_player "推し選手"
+        integer favorite_viewing_block "いつもの場所"
+        bigint location_id "シートID"
+        integer role "権限"
+        string line_user_id "LINEユーザーID"
+        string oauth_token "OAuthトークン"
+        datetime oauth_expires_at "OAuth有効期限"
+        string confirmation_token "メールアドレス確認トークン"
+        datetime confirmed_at "メールアドレス確認日時"
+        datetime confirmation_sent_at "メールアドレス確認メール送信日時"
+        string unconfirmed_email "未確認メールアドレス"
+    }
+
+    posts {
+        bigint id PK ""
+        bigint user_id FK ""
+        text body ""
+        string image ""
+        datetime created_at ""
+        datetime update_at ""
+    }
+
+    comments {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        bigint post_id FK "投稿ID"
+        text body "本文"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    like_posts {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        bigint post_id FK "投稿ID"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    locations {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        string seat_name "座席名"
+        jsonb points "座席範囲(表示)"
+        integer location_type "座席タイプ"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    user_locations {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        bigint location_id FK "座席ID"
+        integer offset_x "X座標のオフセット"
+        integer offset_y "Y座標のオフセット"
+        integer index "インデックス"
+        integer icon "アイコン"
+        date date "日付"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    seats {
+        bigint id PK "ID"
+        bigint location_id FK "座席ID"
+        string seat_name "座席名"
+        float latitude "緯度"
+        float longitude "軽度"
+        integer location_type "座席タイプ"
+        jsonb spots "座席範囲"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    matches {
+        bigint id PK "ID"
+        bigint event_id FK "イベントID"
+        integer opponent "対戦相手"
+        string stadium "試合会場"
+        integer result "勝敗"
+        integer team_score "チームスコア"
+        integer away_team_score "相手のスコア"
+        datetime match_date "試合日程"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    user_matches {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        bigint match_id FK "試合ID"
+        date date "日付"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    events {
+        bigint id PK "ID"
+        string title "イベントタイトル"
+        string body "イベント内容"
+        string detail_url "詳細URL"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    event_dates {
+        bigint id PK "ID"
+        bigint event_id FK "イベントID"
+        date start_date "開始日"
+        date end_date "終了日"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    notifications {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        bigint post_id FK "投稿ID"
+        text message "メッセージ"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    one_time_codes {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        integer code "コード"
+        datetime expires_at "有効期限"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+    sns_credentials {
+        bigint id PK "ID"
+        bigint user_id FK "ユーザーID"
+        string provider "プロバイダー名"
+        string uid "UID"
+        datetime created_at "作成日"
+        datetime updated_at "更新日"
+    }
+
+```
 <br>
 <br>
 
