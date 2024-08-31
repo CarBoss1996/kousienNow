@@ -15,7 +15,7 @@
 <h2>■機能一覧</h2>
 ・ユーザー登録　( gem devise )<br>
 ・いいね・コメント機能　( turbo )<br>
-・位置情報登録機能　（ GeocordingAPI、Javascript ）<br>
+・位置情報登録機能　（ GeolocationAPI、Javascript ）<br>
 ・アイコンの表示機能　（　turbo、Javascript　）<br>
 ・カレンダー機能　（ gem simple_calendar ）<br>
 ・コメント通知機能　（　line-bot-api　）<br>
