@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!, only: %i[edit update]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: %i[show edit update]
+  before_action :set_user, only: %i[show edit update]
 
   def show_other_user
     @user = User.find(params[:id])
@@ -32,6 +32,10 @@ class ProfilesController < ApplicationController
   end
 
   def set_user
-    @user = current_user.decorate
+    if current_user
+      @user = current_user.decorate
+    else
+      redirect_to new_user_session_path, alert: 'ログインしてください'
+    end
   end
 end
