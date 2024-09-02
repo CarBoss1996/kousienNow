@@ -1,0 +1,18 @@
+<% if current_user %>
+  <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="postModalLabel">投稿が完了しました！</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>🎉🎉🎉</p>
+          <p>投稿が完了しました！</p>
+          <p>あなたの投稿をXでシェアしませんか？</p>
+          <%= link_to "Xでシェアする", "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.body + "\n甲子園NOW!で虎に声援を送る！\n")}&url=#{CGI.escape(request.base_url + request.path)}", class: "btn btn-dark", target: "_blank" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
