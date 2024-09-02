@@ -9,3 +9,4 @@
 //= link guide.js
 //= link location_modal.js
 //= link email_prompt_modal.js
+//= link post_modal.js

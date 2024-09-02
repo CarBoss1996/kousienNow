@@ -11,6 +11,7 @@ import './location';
 import './guide';
 import './location_modal';
 import './email_prompt_modal';
+import './post_modal';
 
 window.bootstrap = bootstrap;
 
