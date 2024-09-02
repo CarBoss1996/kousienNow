@@ -29,7 +29,7 @@
 
       <div class="form-group">
         <%= form.label :opponent %>
-        <%= form.select :opponent, Match.opponents.keys.map { |opponent| [opponent, opponent] }, {}, class: 'form-control' %>
+        <%= form.select :opponent, Match.opponents.keys.map { |opponent| [opponent, opponent] }.prepend(["甲子園", nil]), {}, class: 'form-control' %>
       </div>
 
       <div class="form-group">

@@ -14,6 +14,8 @@ class Admin::MatchesController < Admin::BaseController
   end
 
   def create
+    match_params = self.match_params
+    match_params[:match_date] = DateTime.parse("#{match_params[:match_date]} #{match_params[:match_time]}") if match_params[:match_time].present?
     @match = Match.new(match_params)
 
     if @match.save
@@ -26,6 +28,8 @@ class Admin::MatchesController < Admin::BaseController
   def edit; end
 
   def update
+    match_params = self.match_params
+    match_params[:match_date] = DateTime.parse("#{match_params[:match_date]} #{match_params[:match_time]}") if match_params[:match_time].present?
     if @match.update(match_params)
       redirect_to admin_matches_path, success: I18n.t('matches.update.success')
     else
@@ -60,6 +64,6 @@ class Admin::MatchesController < Admin::BaseController
   end
 
   def match_params
-    params.require(:match).permit(:match_date, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
+    params.require(:match).permit(:match_date, :match_time, :event_id, :opponent, :stadium, :result, :team_score, :away_team_score)
   end
 end
