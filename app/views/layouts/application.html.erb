@@ -8,6 +8,13 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <div id="loading">
+      <div id="loading_box">
+        <div class="loading-one animation_loading">
+          <p class="loading-txt">Loading...</p>
+        </div>
+      </div>
+    </div>
     <meta name="google-site-verification" content="7LFDZ71B2lTVvdtwCYMeNkfmGth2ehjsji_v8_-hMkQ" />
     <meta name="google-site-verification" content="Z8L0G6zPNKHAZm8FbnHysNbZhNR31k72bflslBiRt3g" />
     <meta property="og:title" content="<%= page_title(yield(:title) || "甲子園NOW!") %>" />

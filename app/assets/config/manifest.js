@@ -3,6 +3,7 @@
 //= link rails-ujs.js
 //= link application.js
 //= link application.css
+//= link loading.js
 //= link user_location.js
 //= link post.js
 //= link guide.js
