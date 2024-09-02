@@ -8,9 +8,13 @@ class MatchesController < ApplicationController
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @month = @date.beginning_of_month
-    @matches = Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
-    @events = Event.eager_load(:event_dates)
-             .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
+    @matches = Rails.cache.fetch("matches/#{@month}", expires_in: 12.hours) do
+      Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
+    end
+    @events = Rails.cache.fetch("events/#{@month}", expires_in: 12.hours) do
+      Event.eager_load(:event_dates)
+          .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
+    end
     logger.debug @events.inspect
     if current_user
       @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
@@ -36,11 +40,15 @@ class MatchesController < ApplicationController
     rescue ArgumentError
       @month = Date.today
     end
-    @matches = Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
     @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
     @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
-    @events = Event.eager_load(:event_dates)
-             .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
+    @matches = Rails.cache.fetch("matches/#{@month}", expires_in: 12.hours) do
+      Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
+    end
+    @events = Rails.cache.fetch("events/#{@month}", expires_in: 12.hours) do
+      Event.eager_load(:event_dates)
+          .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
+    end
     logger.debug @events.inspect
     render 'index', layout: 'application'
   end
