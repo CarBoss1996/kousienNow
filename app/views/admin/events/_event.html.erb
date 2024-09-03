@@ -9,7 +9,6 @@
       <%= event.event_dates.first.end_date.strftime('%m-%d') if event.event_dates.first.end_date.present? %>
     <% end %>
   </td>
-  <td><%= event.created_at.strftime('%Y-%m-%d %H:%M') %></td>
   <td class="d-flex justify-content-end ">
     <%= link_to t('admin.events.show'), admin_event_path(event), class: 'btn btn-primary mx-1' %>
     <%= link_to t('admin.events.edit.label'), edit_admin_event_path(event), class: 'btn btn-secondary' %>

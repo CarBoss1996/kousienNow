@@ -107,7 +107,7 @@ matches = [
   { match_date: '2024-08-30 18:00', opponent: Match.opponents[:巨人], result: 3 },
   { match_date: '2024-08-31 18:00', opponent: Match.opponents[:巨人], result: 0, team_score: 4, away_team_score: 2 },
   { match_date: '2024-09-01 18:00', opponent: Match.opponents[:巨人], result: 1, team_score: 1, away_team_score: 3 },
-  { match_date: '2024-09-03 18:00', opponent: Match.opponents[:中日] },
+  { match_date: '2024-09-03 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 4, away_team_score: 1 },
   { match_date: '2024-09-04 18:00', opponent: Match.opponents[:中日] },
   { match_date: '2024-09-05 18:00', opponent: Match.opponents[:中日] },
   { match_date: '2024-09-06 18:00', opponent: Match.opponents[:ヤクルト], stadium: "jingu" },
@@ -170,11 +170,9 @@ matches.each do |match|
   ]
   events.each do |event|
     existing_event = Event.find_by(title: event[:event_title])
-    if existing_event
-      existing_event.update!(title: event[:event_title], body: event[:body], detail_url: event[:detail_url])
-    else
-      existing_event = Event.create!(title: event[:event_title], body: event[:body], detail_url: event[:detail_url])
+    unless existing_event
+      new_event = Event.create!(title: event[:event_title], body: event[:body], detail_url: event[:detail_url])
+      new_event.event_dates.create!(start_date: event[:start_date], end_date: event[:end_date])
     end
-    EventDate.create!(event_id: existing_event.id, start_date: event[:start_date], end_date: event[:end_date])
   end
 end

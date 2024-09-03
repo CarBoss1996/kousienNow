@@ -4,7 +4,7 @@ class Admin::EventsController < Admin::BaseController
   def index
     params[:q] ||= {}
     @q = Event.ransack(params[:q])
-    @events = @q.result(distinct: true).page(params[:page]).order(event_date: :desc)
+    @events = @q.result.page(params[:page]).joins(:event_dates).order('events.id ASC')
   end
 
   def show; end
@@ -51,6 +51,6 @@ class Admin::EventsController < Admin::BaseController
   end
 
   def event_params
-    params.require(:event).permit(:title, :body, :event_date, :start_date, :end_date, :detail_url)
+    params.require(:event).permit(:title, :body, :detail_url, event_dates_attributes: [:start_date, :end_date])
   end
 end
