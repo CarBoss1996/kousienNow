@@ -15,7 +15,7 @@ class Admin::MatchesController < Admin::BaseController
 
   def create
     match_params = self.match_params
-    match_params[:match_date] = DateTime.parse("#{match_params[:match_date]} #{match_params[:match_time]}") if match_params[:match_time].present?
+    match_params[:match_date] = DateTime.parse("#{match_params[:match_date]} #{match_params[:match_time]}").in_time_zone('Asia/Tokyo') if match_params[:match_time].present?
     @match = Match.new(match_params)
 
     if @match.save
@@ -29,7 +29,7 @@ class Admin::MatchesController < Admin::BaseController
 
   def update
     match_params = self.match_params
-    match_params[:match_date] = DateTime.parse("#{match_params[:match_date]} #{match_params[:match_time]}") if match_params[:match_time].present?
+    match_params[:match_date] = DateTime.parse("#{match_params[:match_date]} #{match_params[:match_time]}").in_time_zone('Asia/Tokyo') if match_params[:match_time].present?
     if @match.update(match_params)
       redirect_to admin_matches_path, success: I18n.t('matches.update.success')
     else
