@@ -109,7 +109,7 @@ matches = [
   { match_date: '2024-09-01 18:00', opponent: Match.opponents[:巨人], result: 1, team_score: 1, away_team_score: 3 },
   { match_date: '2024-09-03 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 4, away_team_score: 1 },
   { match_date: '2024-09-04 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 9, away_team_score: 4 },
-  { match_date: '2024-09-05 18:00', opponent: Match.opponents[:中日] },
+  { match_date: '2024-09-05 18:00', opponent: Match.opponents[:中日], result: 0, team_score: 2, away_team_score: 1 },
   { match_date: '2024-09-06 18:00', opponent: Match.opponents[:ヤクルト], stadium: "jingu" },
   { match_date: '2024-09-07 18:00', opponent: Match.opponents[:ヤクルト], stadium: "jingu" },
   { match_date: '2024-09-08 17:00', opponent: Match.opponents[:ヤクルト], stadium: "jingu" },
