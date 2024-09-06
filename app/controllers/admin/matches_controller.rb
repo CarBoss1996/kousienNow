@@ -44,6 +44,7 @@ class Admin::MatchesController < Admin::BaseController
   end
 
   def destroy
+    @match.user_matches.destroy_all
     @match.destroy!
     respond_to do |format|
       format.turbo_stream { redirect_to admin_matches_path, success: I18n.t('defaults.flash_message.delete', item: Match.model_name.human), status: :see_other }
