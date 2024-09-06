@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
   before_action :set_beginning_of_week
   before_action :authenticate_user!, only: [:add_to_schedule]
   def index
-    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @date = params[:date] ? Time.zone.parse(params[:date]) : Time.zone.today
     @month = @date.beginning_of_month
     @matches = Rails.cache.fetch("matches/#{@month}", expires_in: 12.hours) do
       Match.where(match_date: @month.beginning_of_month..@date.end_of_month).order(match_date: :desc)
@@ -36,9 +36,9 @@ class MatchesController < ApplicationController
 
   def show_month
     begin
-      @month = params[:month] ? Date.strptime(params[:month], "%Y-%m") : Date.today
+      @month = params[:month] ? Time.zone.strptime(params[:month], "%Y-%m") : Time.zone.today
     rescue ArgumentError
-      @month = Date.today
+      @month = Time.zone.today
     end
     @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
     @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
@@ -54,7 +54,7 @@ class MatchesController < ApplicationController
   end
 
   def add_to_schedule
-    date = Date.parse(params[:date])
+    date = Time.zone.parse(params[:date])
     @match = Match.where(match_date: date.beginning_of_day..date.end_of_day).first
     user_match = current_user.user_matches.build(date: date, match: @match)
     if user_match.save

@@ -10,7 +10,7 @@
           <p>🎉🎉🎉</p>
           <p>投稿が完了しました！</p>
           <p>あなたの投稿をXでシェアしませんか？</p>
-          <%= link_to "Xでシェアする", "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.body + "\n甲子園NOW!で虎に声援を送る！\n")}&url=#{CGI.escape(request.base_url + request.path)}", class: "btn btn-dark", target: "_blank" %>
+          <%= link_to "Xでシェアする", "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.body + "\n甲子園NOW!で虎に声援を送る！\n #阪神タイガース #甲子園NOW!")}&url=#{CGI.escape(request.base_url + request.path)}", class: "btn btn-dark", target: "_blank" %>
         </div>
       </div>
     </div>
