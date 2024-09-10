@@ -14,7 +14,7 @@
 
 <table class="table table-bordered" style="background-color: white;">
   <thead>
-    <% (@month.beginning_of_month..@month.end_of_month).each do |date| %>
+    <% (@month.to_date.beginning_of_month..@month.to_date.end_of_month).each do |date| %>
       <tr>
         <td colspan="4">
           <div class="d-flex justify-content-between">

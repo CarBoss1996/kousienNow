@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations', confirmations: 'users/confirmations' }
-  resource :profile, only: [:show, :edit, :update, :destroy]
+  resource :profile, only: %i[show edit update destroy]
   get 'profiles/:id', to: 'profiles#show_other_user', as: :other_profile
   resources :posts do
     resources :comments, only: %i[create edit destroy], shallow: true
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
   post '/callback' => 'notifications#callback'
   resources :like_posts, only: %i[create destroy]
-  resources :user_locations
+  resources :user_locations, only: %i[index show new create]
   resources :deactivations, only: %i[new create destroy]
   namespace :api do
     resources :seats, only: [:index]

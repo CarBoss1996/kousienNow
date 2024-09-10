@@ -40,8 +40,13 @@ class MatchesController < ApplicationController
     rescue ArgumentError
       @month = Time.zone.today
     end
-    @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
-    @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
+    if current_user
+      @user_locations = current_user.user_locations.where(date: @month.beginning_of_month..@month.end_of_month)
+      @user_matches = current_user.user_matches.where(date: @month.beginning_of_month..@month.end_of_month)
+    else
+      @user_locations = []
+      @user_matches = []
+    end
     @matches = Rails.cache.fetch("matches/#{@month}", expires_in: 12.hours) do
       Match.where(match_date: @month.beginning_of_month..@month.end_of_month).order(match_date: :desc)
     end
