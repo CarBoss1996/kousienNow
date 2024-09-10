@@ -1,14 +1,6 @@
 class UserLocationsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
   before_action :validate_location_id, only: [:create]
-
-  def index; end
-
-  def show
-    location = Location.find(params[:id])
-    @points = JSON.parse(location.points)
-  end
-
   def new
     @user_location = UserLocation.new
     @seat = Seat.find_by(params[:seat_id])
