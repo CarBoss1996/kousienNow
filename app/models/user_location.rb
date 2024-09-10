@@ -33,8 +33,15 @@ class UserLocation < ApplicationRecord
     left = points.sum { |point| point["x"].to_i } / points.size
     width = points.max_by { |point| point["x"].to_i }["x"].to_i - points.min_by { |point| point["x"].to_i }["x"].to_i
     height = points.max_by { |point| point["y"].to_i }["y"].to_i - points.min_by { |point| point["y"].to_i }["y"].to_i
-    offset_x = (index % 3) * (width / 3.0) - (width / 3.0)
-    offset_y = (index / 3 % 3) * (height / 3.0) - (height / 3.0)
+
+    # Ensure the icon does not go outside the points area
+    offset_x = (index % 3) * (width / 3.0)
+    offset_y = (index / 3) * (height / 3.0)
+
+    # Ensure the icon does not go outside the image
+    offset_x = [offset_x, width].min
+    offset_y = [offset_y, height].min
+
     [left + offset_x, top + offset_y]
   end
 
