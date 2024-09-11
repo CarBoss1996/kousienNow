@@ -14,8 +14,8 @@
             <% user_location = current_user.user_locations.where('created_at >= ?', Date.today).first %>
             <% if Seat.exists?(user_location.location_id) %>
               <% location_id = user_location.location_id %>
-              <% location_name = I18n.t("user_location.seat.#{Seat.find(location_id).seat_name}") %>
-              <%= link_to "Xでシェアする", "https://twitter.com/intent/tweet?text=#{CGI.escape("今日は#{location_name}から応援します！！ #阪神タイガース #甲子園NOW!")}&url=#{CGI.escape(request.base_url + request.path)}", class: "btn btn-dark", target: "_blank" %>
+              <% location_name = I18n.t("user_location.location.#{Location.find(location_id).seat_name}") %>
+              <%= link_to "Xでシェアする", "https://twitter.com/intent/tweet?text=#{CGI.escape("今日は#{location_name}から応援します！！\n#阪神タイガース #甲子園NOW!\n")}&url=#{CGI.escape(request.base_url + request.path)}", class: "btn btn-dark", target: "_blank" %>
             <% end %>
           <% end %>
         </div>
