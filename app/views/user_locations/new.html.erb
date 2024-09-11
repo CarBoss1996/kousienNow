@@ -21,7 +21,7 @@
             <h5>選択されたシート：<span id="selected-seat">???</span></h5>
               <div id="seat-select-popup" style="display: none;">
               <p>この位置でよろしいですか？</p>
-                  <%= form.select :location_id, Seat.all.map { |seat| [I18n.t("user_location.seat.#{seat.seat_name}"), seat.id] }, { selected: @seat.location_id }, { onchange: 'updateSelectedSeat()', id: 'location_id' } %>
+                  <%= form.select :location_id, Location.all.map { |location| [I18n.t("user_location.location.#{location.seat_name}"), location.id] }, { selected: @location&.id }, { onchange: 'updateSelectedSeat()', id: 'location_id' } %>
                 <button id="yes-btn" class="btn btn-secondary btn-sm" type="button">登録</button>
                 <div id="seat-select" style="display: none;"></div>
               </div>

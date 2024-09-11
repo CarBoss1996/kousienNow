@@ -332,7 +332,7 @@ ja:
       title: 位置情報の登録
       submit: 登録
   user_location:
-    seat:
+    location:
       seat_id: 座席を選択する
       backnet: "バックネット"
       smbc_seat: "SMBCシート"
@@ -344,8 +344,9 @@ ja:
       left_outfield: "レフト外野席"
       home_cheering: "自宅から応援"
       blank: 座席を変更する
-      submit: 登録
+    seat:
       icon: アイコンを選択する
+      submit: 登録
     icon:
       heart: ハート
       tiger: 虎
