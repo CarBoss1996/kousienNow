@@ -5,6 +5,7 @@ require 'uri'
 class MatchesController < ApplicationController
   before_action :set_beginning_of_week
   before_action :authenticate_user!, only: [:add_to_schedule]
+
   def index
     @date = params[:date] ? Time.zone.parse(params[:date]) : Time.zone.today
     @month = @date.beginning_of_month
@@ -23,11 +24,6 @@ class MatchesController < ApplicationController
       @user_matches = []
       @user_locations = []
     end
-  end
-
-  def show
-    @user = User.find(params[:id])
-    @match = Match.find(params[:id])
   end
 
   def kelvin_to_celsius(kelvin)

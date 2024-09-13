@@ -1,9 +1,8 @@
 <% content_for(:title, t('.title')) %>
 <div class='container d-flex flex-column align-items-center'>
-  <h1 class="zen-maru my-3"><%= t('.title') %></h1>
-  <p>通知設定を有効にするために、以下のQRコードをスキャンしてLINEのアカウントを追加してください。</p>
-  <p>アカウント未認証のため、パソコンやお友達のスマホでQRコードを表示していただき、読み込んでいただくようにお願いいたします。</p>
-  <%= image_tag 'koushienNowQR.png', alt: 'LINE QR Code' %>
+  <h1 class="zen-maru my-5"><%= t('.title') %></h1>
+  <p>通知設定を有効にするために、以下のボタンから公式LINEを友達追加してください。</p>
+  <a href="https://lin.ee/i4xzjxG"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
   <%= link_to '次へ', link_line_account_notifications_path, class: 'btn btn-primary mt-5' %>
-  <%= link_to t('defaults.back'), profile_path(current_user), class: 'btn btn-secondary mt-5' %>
+  <%= link_to t('defaults.back'), profile_path(current_user), class: 'btn btn-secondary mt-2' %>
 </div>
