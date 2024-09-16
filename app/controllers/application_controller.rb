@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   add_flash_types :success, :danger
 
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      session[:user_return_to] = request.fullpath
+      redirect_to new_user_session_path, :notice => 'ログインしてください。'
+    end
+  end
+
   private
 
   def configure_permitted_parameters
@@ -12,11 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    session.delete(:previous_url) || root_path
-  end
-
-  def store_location
-    session[:forwarding_url] = request.original_url if request.get?
+    session.delete(:user_return_to) || root_path
   end
 
   def after_sign_out_path_for(_resource_or_scope)
