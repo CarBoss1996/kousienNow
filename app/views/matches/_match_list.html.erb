@@ -17,21 +17,24 @@
     <% (@month.to_date.beginning_of_month..@month.to_date.end_of_month).each do |date| %>
       <tr>
         <td colspan="4">
-          <div class="d-flex justify-content-between">
+          <div class="container-fluid">
             <div>
               <%= date.strftime('%m/%d(%a)') %>
             </div>
-            <div class="d-flex">
+            <div class="row">
               <% user_match_on_date = @user_matches.find { |user_match| user_match.date == date } %>
               <% user_location_on_date = @user_locations.find { |location| location.date == date } if @user_locations %>
               <% event_on_date = @events.find { |event| event.event_dates.any? { |event_date| date >= event_date.start_date && date <= event_date.end_date } } if @events %>
-              <% if user_match_on_date %>
-                <div class='user-match-show mr-2'>
+              <div class="col">
+              <% if user_match_on_date && user_match_on_date.date >= Date.today %>
+                <div class='user-match-show'>
                   <div class='user-match-match'>
-                    _観戦予定_
+                    観戦予定
                   </div>
                 </div>
               <% end %>
+              </div>
+              <div class="col">
               <% if user_location_on_date %>
                 <div class='user-calendar-show'>
                   <div class='calendar-icon'>
@@ -42,6 +45,7 @@
                   </div>
                 </div>
               <% end %>
+              </div>
             </div>
           </div>
         </td>
