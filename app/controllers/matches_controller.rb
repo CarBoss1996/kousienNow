@@ -57,11 +57,15 @@ class MatchesController < ApplicationController
   def add_to_schedule
     date = Time.zone.parse(params[:date])
     @match = Match.where(match_date: date.beginning_of_day..date.end_of_day).first
-    user_match = current_user.user_matches.build(date: date, match: @match)
-    if user_match.save
-      redirect_to matches_path, notice: '観戦予定を登録しました'
+    if @match
+      user_match = current_user.user_matches.build(date: date, match: @match)
+      if user_match.save
+        redirect_to matches_path, notice: '観戦予定を登録しました'
+      else
+        redirect_to matches_path, alert: '観戦予定の登録に失敗しました'
+      end
     else
-      redirect_to matches_path, alert: '観戦予定の登録に失敗しました'
+      redirect_to matches_path, alert: '該当する試合が見つかりませんでした'
     end
   end
 

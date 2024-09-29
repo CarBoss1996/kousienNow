@@ -265,6 +265,57 @@ main {
   }
 }
 
+
+// 観戦カレンダー
+li.info.result {
+  list-style-type: none;
+}
+
+td.day {
+  height: 117px;
+  width: 14.28%; /* 100% / 7 days = 14.28% */
+}
+
+.match_calendar {
+  display: flex;
+  flex-direction: column;
+}
+.user-calendar-show {
+  background-color: #FFDE59;
+  display: flex;
+  justify-content: center; /* テキストを中央に配置 */
+}
+.calendar-icon img {
+  width: 25px;
+  height: 25px;
+}
+.calendar-icon {
+  width: 50px; /* アイコンの幅を固定 */
+  margin-left: 30px;
+}
+.calendar-seat {
+  font-size: 0.8rem;
+  margin-right: 30px;
+  white-space: nowrap;
+}
+.user-match-match {
+  background-color: #FF6347; /* Tomato color */
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.event-show {
+  background-color: #03b603;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    font-size: 0.8em;
+  }
+}
+
 // postの表示
 .show-card {
   min-height: 300px;
@@ -303,6 +354,10 @@ main {
   color: #FF6347;
 }
 
+.no-background {
+  background-color: transparent;
+}
+
 // footer
 footer {
   margin-top: auto;
@@ -336,54 +391,6 @@ footer {
 .admin.post-body {
   width: 600px;
   overflow: auto;
-}
-
-// 観戦カレンダー
-li.info.result {
-  list-style-type: none;
-}
-
-td.day {
-  height: 117px;
-  width: 14.28%; /* 100% / 7 days = 14.28% */
-}
-
-.match_calendar {
-  display: flex;
-  flex-direction: column;
-}
-.user-calendar-show {
-  background-color: #FFDE59;
-  display: flex;
-  justify-content: flex-start; /* テキストを中央に配置 */
-}
-.calendar-icon img {
-  width: 25px;
-  height: 25px;
-}
-.calendar-icon, .calendar-seat {
-  flex: auto;
-  min-width: 0;
-}
-.calendar-seat {
-  font-size: 0.8rem;
-}
-.user-match-match {
-  background-color: #FF6347; /* Tomato color */
-  color: #FFFFFF;
-  text-align: center;
-}
-
-.event-show {
-  background-color: #03b603;
-  color: #FFFFFF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media (min-width: 1024px) {
-    font-size: 0.8em;
-  }
 }
 
 // いずれやりたいアニメーション

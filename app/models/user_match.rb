@@ -6,7 +6,7 @@ class UserMatch < ApplicationRecord
   private
 
   def one_match_per_day_per_user
-    if UserMatch.joins(:match).where(user_id: user_id, matches: { match_date: match.match_date }).exists?
+    if match && UserMatch.joins(:match).where(user_id: user_id, matches: { match_date: match.match_date }).exists?
       errors.add(:base, 'You can only register one match per day.')
     end
   end
