@@ -31,7 +31,7 @@
           <div class="card-text"><%= simple_format(post.body) %></div>
         </div>
       </div>
-      <div class="mt-md-auto d-md-flex justify-content-md-end">
+      <div class="mt-auto d-flex justify-content-end mt-auto">
           <% user_location_on_date = UserLocation.where(user_id: post.user_id, created_at: post.created_at.beginning_of_day..post.created_at.end_of_day).first %>
           <% if user_location_on_date %>
             <div class='user-calendar-show mt-1 no-background'>
@@ -43,18 +43,8 @@
               </div>
             </div>
           <% end %>
-            <div><i class="bi bi-person"></i> <%= post.user.user_name %>_</div>
-            <div><i class="bi bi-calendar"></i> <%= l post.created_at, format: :short %></div>
-            <% if !browser.device.mobile? && user_location_on_date %>
-        <div class='user-calendar-show mt-1 no-background'>
-          <div class='calendar-icon'>
-            <%= image_tag("icons/#{user_location_on_date.icon}", alt: user_location_on_date.icon) %>
-          </div>
-          <div class='calendar-seat'>
-            <%= I18n.t("seats.#{user_location_on_date.location_type}") %>
-          </div>
-        </div>
-      <% end %>
+        <div><i class="bi bi-person"></i> <%= post.user.user_name %>_</div>
+        <div><i class="bi bi-calendar"></i> <%= l post.created_at, format: :short %></div>
       </div>
     </div>
   </div>
