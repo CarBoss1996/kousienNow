@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Location < ApplicationRecord
   attribute :points, :jsonb, default: {}
   has_many :user_locations

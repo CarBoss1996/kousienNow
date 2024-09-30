@@ -288,6 +288,7 @@ td.day {
 .calendar-icon img {
   width: 25px;
   height: 25px;
+  margin-left: 20px;
 }
 .calendar-icon {
   width: 50px; /* アイコンの幅を固定 */
@@ -356,6 +357,8 @@ td.day {
 
 .no-background {
   background-color: transparent;
+  margin: 0;
+  padding: 0;
 }
 
 // footer

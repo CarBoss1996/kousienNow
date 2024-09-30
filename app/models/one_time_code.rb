@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OneTimeCode < ApplicationRecord
   belongs_to :user
 

@@ -115,6 +115,7 @@ GEM
     bootstrap5-kaminari-views (0.0.1)
       kaminari (>= 0.13)
       rails (>= 3.1)
+    browser (6.0.0)
     builder (3.2.4)
     capybara (3.40.0)
       addressable
@@ -163,6 +164,11 @@ GEM
     drb (2.2.1)
     erubi (1.12.0)
     excon (0.110.0)
+    factory_bot (6.5.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faraday (2.9.2)
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
@@ -497,6 +503,9 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    spring (4.2.1)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -546,6 +555,7 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap
   bootstrap5-kaminari-views
+  browser
   capybara
   config
   cssbundling-rails
@@ -553,6 +563,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   draper
+  factory_bot_rails
   fog-aws
   font-awesome-sass (~> 6.5.2)
   google-cloud-vision
@@ -583,6 +594,7 @@ DEPENDENCIES
   sidekiq
   simple_calendar
   simplecov
+  spring-commands-rspec
   sprockets-rails
   stimulus-rails
   turbo-rails

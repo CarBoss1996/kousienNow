@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'json'
 require 'uri'
@@ -14,7 +16,7 @@ class MatchesController < ApplicationController
     end
     @events = Rails.cache.fetch("events/#{@month}", expires_in: 12.hours) do
       Event.eager_load(:event_dates)
-          .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
+           .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
     end
     logger.debug @events.inspect
     if current_user
@@ -32,7 +34,7 @@ class MatchesController < ApplicationController
 
   def show_month
     begin
-      @month = params[:month] ? Time.zone.strptime(params[:month], "%Y-%m") : Time.zone.today
+      @month = params[:month] ? Time.zone.strptime(params[:month], '%Y-%m') : Time.zone.today
     rescue ArgumentError
       @month = Time.zone.today
     end
@@ -48,7 +50,7 @@ class MatchesController < ApplicationController
     end
     @events = Rails.cache.fetch("events/#{@month}", expires_in: 12.hours) do
       Event.eager_load(:event_dates)
-          .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
+           .where('event_dates.start_date <= :end_of_month AND event_dates.end_date >= :start_of_month', start_of_month: @month.beginning_of_month, end_of_month: @month.end_of_month)
     end
     logger.debug @events.inspect
     render 'index', layout: 'application'
@@ -58,7 +60,7 @@ class MatchesController < ApplicationController
     date = Time.zone.parse(params[:date])
     @match = Match.where(match_date: date.beginning_of_day..date.end_of_day).first
     if @match
-      user_match = current_user.user_matches.build(date: date, match: @match)
+      user_match = current_user.user_matches.build(date:, match: @match)
       if user_match.save
         redirect_to matches_path, notice: '観戦予定を登録しました'
       else

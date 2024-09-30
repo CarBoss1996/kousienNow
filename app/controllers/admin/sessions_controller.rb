@@ -1,39 +1,42 @@
-class Admin::SessionsController < Admin::BaseController
-  skip_before_action :check_admin, only: %i[new create]
-  layout 'admin/layouts/admin_login'
+# frozen_string_literal: true
 
-  def new
-  end
+module Admin
+  class SessionsController < Admin::BaseController
+    skip_before_action :check_admin, only: %i[new create]
+    layout 'admin/layouts/admin_login'
 
-  def create
-    @user = User.find_by(email: params[:email])
-    if @user&.valid_password?(params[:password])
-      if @user.email == ENV['ADMIN_EMAIL']
-        sign_in @user
-        flash[:success] = t('.success')
-        redirect_to admin_root_path
-      elsif @user.admin?
-        flash[:danger] = t('.danger')
-        render :new
+    def new; end
+
+    def create
+      @user = User.find_by(email: params[:email])
+      if @user&.valid_password?(params[:password])
+        if @user.email == ENV['ADMIN_EMAIL']
+          sign_in @user
+          flash[:success] = t('.success')
+          redirect_to admin_root_path
+        elsif @user.admin?
+          flash[:danger] = t('.danger')
+          render :new
+        else
+          flash[:danger] = t('defaults.flash_message.not_authorized')
+          redirect_to root_path
+        end
       else
-        flash[:danger] = t('defaults.flash_message.not_authorized')
-        redirect_to root_path
+        flash[:danger] = t('.invalid_credentials')
+        render :new
       end
-    else
-      flash[:danger] = t('.invalid_credentials')
-      render :new
     end
-  end
 
-  def destroy
-    session[:user_id] = nil
-    flash[:success] = t('.success')
-    redirect_to admin_login_path
-  end
+    def destroy
+      session[:user_id] = nil
+      flash[:success] = t('.success')
+      redirect_to admin_login_path
+    end
 
-  protected
+    protected
 
-  def after_sign_in_path_for(resource)
-    admin_root_path
+    def after_sign_in_path_for(_resource)
+      admin_root_path
+    end
   end
 end

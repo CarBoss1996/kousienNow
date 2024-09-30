@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeDateToStartDateAndEndDateInEventDates < ActiveRecord::Migration[7.1]
   def change
     remove_column :event_dates, :date, :datetime

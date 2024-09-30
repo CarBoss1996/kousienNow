@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations', confirmations: 'users/confirmations' }
+  devise_for :users,
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations',
+                            confirmations: 'users/confirmations' }
   resource :profile, only: %i[show edit update destroy]
   get 'profiles/:id', to: 'profiles#show_other_user', as: :other_profile
   resources :posts do
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
   resources :notifications, only: %i[index] do
-    match 'link_line_account', via: [:get, :post], on: :collection
+    match 'link_line_account', via: %i[get post], on: :collection
   end
   post '/callback' => 'notifications#callback'
   resources :like_posts, only: %i[create destroy]

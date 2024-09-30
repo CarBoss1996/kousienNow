@@ -51,41 +51,43 @@ gem 'bootsnap', require: false
 
 # Additional gems for the project
 gem 'active_model_serializers'
+gem 'annotate'
+gem 'aws-sdk-s3', require: false
+gem 'bootstrap5-kaminari-views'
 gem 'config'
 gem 'devise'
+gem 'draper'
 gem 'fog-aws'
+gem 'font-awesome-sass', '~> 6.5.2'
 gem 'google-cloud-vision'
 gem 'gretel'
 gem 'httparty'
+gem 'image_processing', '~> 1.2'
+gem 'jquery-rails'
+gem 'kaminari'
 gem 'line-bot-api'
 gem 'noticed'
-gem 'sidekiq'
-gem 'aws-sdk-s3', require: false
-gem 'image_processing', '~> 1.2'
-gem 'ruby-vips'
-gem 'jquery-rails'
-gem 'popper_js', '~> 1.16'
-gem 'annotate'
-gem 'font-awesome-sass', '~> 6.5.2'
-gem 'ransack'
-gem 'kaminari'
-gem 'bootstrap5-kaminari-views'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-line'
 gem 'omniauth-rails_csrf_protection'
-gem 'simple_calendar'
+gem 'popper_js', '~> 1.16'
 gem 'rack-cors'
-gem 'draper'
+gem 'ransack'
+gem 'ruby-vips'
+gem 'sidekiq'
+gem 'simple_calendar'
+gem 'browser'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
+  gem 'dotenv-rails'
+  gem 'factory_bot_rails'
   gem 'letter_opener_web'
+  gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'simplecov', require: false
-  gem 'rspec-rails'
-  gem 'dotenv-rails'
 end
 
 group :development do
@@ -97,6 +99,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'spring-commands-rspec'
 end
 
 group :test do

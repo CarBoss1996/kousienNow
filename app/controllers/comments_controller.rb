@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
-    if @comment.save
-      flash[:success] = t('.success')
-    end
+    flash[:success] = t('.success') if @comment.save
     respond_to do |format|
       format.turbo_stream { render 'comments/create' }
       format.html { redirect_to @comment }

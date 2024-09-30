@@ -10,9 +10,12 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join('node_modules/bootstrap-icons/font')
 Rails.application.config.assets.paths << Rails.root.join('node_modules/@hotwired/turbo-rails/dist')
 Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'javascripts')
-Rails.application.config.assets.precompile += Dir[Rails.root.join('app', 'assets', 'images', 'icons', '*')].map{ |path| "icons/#{File.basename(path, File.extname(path))}" }
-Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
-Rails.application.config.assets.precompile += %w( adminLTE.js adminlte.scss )
+Rails.application.config.assets.precompile += Dir[Rails.root.join('app', 'assets', 'images', 'icons',
+                                                                  '*')].map do |path|
+  "icons/#{File.basename(path, File.extname(path))}"
+end
+Rails.application.config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
+Rails.application.config.assets.precompile += %w[adminLTE.js adminlte.scss]
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'uri'
 require 'json'
@@ -9,9 +11,7 @@ class NotificationsController < ApplicationController
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
-    unless client.validate_signature(body, signature)
-      return head :bad_request
-    end
+    return head :bad_request unless client.validate_signature(body, signature)
 
     events = client.parse_events_from(body)
     events.each do |event|
@@ -28,7 +28,8 @@ class NotificationsController < ApplicationController
     @user = User.find(current_user.id)
 
     return handle_get_request if request.get?
-    return handle_post_request if request.post?
+
+    handle_post_request if request.post?
   end
 
   private
@@ -93,17 +94,17 @@ class NotificationsController < ApplicationController
     unless received_text == '通知設定'
       message = {
         type: 'text',
-        text: "通知設定をしたい場合は、「通知設定」とメッセージを送ってください。"
+        text: '通知設定をしたい場合は、「通知設定」とメッセージを送ってください。'
       }
       return client.reply_message(event['replyToken'], message)
     end
 
-    user = User.find_by(line_user_id: line_user_id)
+    user = User.find_by(line_user_id:)
 
     if user
       message = {
         type: 'text',
-        text: "通知設定は完了しています。"
+        text: '通知設定は完了しています。'
       }
       return client.reply_message(event['replyToken'], message)
     end
@@ -122,7 +123,7 @@ class NotificationsController < ApplicationController
         text: "認証を完了するには、次のリンクをクリックしてください：#{redirect_url}"
       }
     ]
-    return client.reply_message(event['replyToken'], messages)
+    client.reply_message(event['replyToken'], messages)
   end
 
   def generate_unique_code(user_id)
@@ -131,19 +132,19 @@ class NotificationsController < ApplicationController
     code = rand(1000..9999)
 
     # 有効期限を設定します。この例では、コードの有効期限を10分後に設定します：
-    expires_at = 10.minutes.from_now
+    10.minutes.from_now
 
     # 一意のコードとその有効期限をデータベースに保存します：
     # 例: 10分後に有効期限が切れるOneTimeCodeを作成する場合
-    OneTimeCode.create(user_id: user_id, code: code, expires_at: Time.current + 10.minutes)
+    OneTimeCode.create(user_id:, code:, expires_at: Time.current + 10.minutes)
 
     code
   end
 
   def client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
+    @client ||= Line::Bot::Client.new do |config|
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+    end
   end
 end

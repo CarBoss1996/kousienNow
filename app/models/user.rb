@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   validate :name_fields
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :line]
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 line]
   has_one_attached :avatar
   validate :name_fields, on: :create
   validate :avatar_type
@@ -25,19 +25,20 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     sns_credential = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
-    user = User.joins(:sns_credentials).where('sns_credentials.provider = ? AND sns_credentials.uid = ?', auth.provider, auth.uid).first
+    user = User.joins(:sns_credentials).where('sns_credentials.provider = ? AND sns_credentials.uid = ?',
+                                              auth.provider, auth.uid).first
 
     if user.nil?
       user = User.where(email: auth.info.email).first_or_initialize
       user.user_name = auth.info.name
-      user.password = Devise.friendly_token[0,20] if user.new_record?
+      user.password = Devise.friendly_token[0, 20] if user.new_record?
       user.skip_confirmation!
 
-      if auth.provider == 'line'
-        user.email = auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
-      else
-        user.email = auth.info.email
-      end
+      user.email = if auth.provider == 'line'
+                     auth.info.email.present? ? auth.info.email : "#{auth.uid}@kasutamu.line"
+                   else
+                     auth.info.email
+                   end
 
       user.role = :admin if user.email == ENV['ADMIN_EMAIL']
       sns_credential.user = user
@@ -46,7 +47,7 @@ class User < ApplicationRecord
       if user.save
         Rails.logger.error "user saved successfully: #{user.inspect}"
       else
-        Rails.logger.error "User validation failed: #{user.errors.full_messages.join(", ")}"
+        Rails.logger.error "User validation failed: #{user.errors.full_messages.join(', ')}"
       end
     end
 
@@ -54,14 +55,14 @@ class User < ApplicationRecord
   end
 
   def self.authenticate(email, password)
-    user = User.find_for_authentication(email: email)
+    user = User.find_for_authentication(email:)
     user if user&.valid_password?(password)
   end
 
   def avatar_type
-    if avatar.attached? && !avatar.content_type.in?(%w(image/jpeg image/png))
-      errors.add(:avatar, 'must be a JPEG or PNG or JPG')
-    end
+    return unless avatar.attached? && !avatar.content_type.in?(%w[image/jpeg image/png])
+
+    errors.add(:avatar, 'must be a JPEG or PNG or JPG')
   end
 
   def avatar_variant
@@ -73,7 +74,7 @@ class User < ApplicationRecord
   end
 
   def latest_post
-    self.posts.order(created_at: :desc).first
+    posts.order(created_at: :desc).first
   end
 
   def like(post)
@@ -88,11 +89,11 @@ class User < ApplicationRecord
     like_posts.exists?(post_id: post.id)
   end
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     %w[first_name last_name role user_name]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     %w[comments like_posts liked_posts]
   end
 
@@ -107,11 +108,11 @@ class User < ApplicationRecord
   end
 
   def name_fields
-    unless google_or_line_auth?
-      errors.add(:first_name, "を入力してください") if first_name.blank?
-      errors.add(:last_name, "を入力してください") if last_name.blank?
-      errors.add(:user_name, "を入力してください") if user_name.blank?
-    end
+    return if google_or_line_auth?
+
+    errors.add(:first_name, 'を入力してください') if first_name.blank?
+    errors.add(:last_name, 'を入力してください') if last_name.blank?
+    errors.add(:user_name, 'を入力してください') if user_name.blank?
   end
 
   def email_required?
@@ -129,7 +130,7 @@ class User < ApplicationRecord
   end
 
   def google_or_line_auth?
-    sns_credentials.any? { |credential| ["google_oauth2", "line"].include?(credential.provider) }
+    sns_credentials.any? { |credential| %w[google_oauth2 line].include?(credential.provider) }
   end
 
   def line_auth?
