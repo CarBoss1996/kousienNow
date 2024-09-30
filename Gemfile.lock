@@ -115,6 +115,7 @@ GEM
     bootstrap5-kaminari-views (0.0.1)
       kaminari (>= 0.13)
       rails (>= 3.1)
+    browser (6.0.0)
     builder (3.2.4)
     capybara (3.40.0)
       addressable
@@ -554,6 +555,7 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap
   bootstrap5-kaminari-views
+  browser
   capybara
   config
   cssbundling-rails

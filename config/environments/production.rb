@@ -97,9 +97,9 @@ Rails.application.configure do
     allow do
       origins 'https://kousiennow.onrender.com' # 本番環境のオリジンを許可
       resource '*',
-        headers: :any,
-        methods: [:get, :post, :put, :patch, :delete, :options, :head],
-        credentials: true
+               headers: :any,
+               methods: %i[get post put patch delete options head],
+               credentials: true
     end
   end
 

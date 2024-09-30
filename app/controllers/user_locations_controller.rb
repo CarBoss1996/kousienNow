@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLocationsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
   before_action :validate_location_id, only: [:create]
@@ -15,7 +17,8 @@ class UserLocationsController < ApplicationController
       redirect_to root_path and return
     end
 
-    @user_location = UserLocation.create_with_seat(user_location_params.merge(icon: user_location_params[:icon].to_i), current_user)
+    @user_location = UserLocation.create_with_seat(user_location_params.merge(icon: user_location_params[:icon].to_i),
+                                                   current_user)
 
     unless @user_location.persisted?
       flash.now[:danger] = t('user_locations.create.failure')
@@ -33,10 +36,10 @@ class UserLocationsController < ApplicationController
   end
 
   def validate_location_id
-    unless Location.exists?(user_location_params[:location_id])
-      flash[:danger] = t('user_locations.create.invalid_location')
-      redirect_to new_user_location_path
-      return
-    end
+    return if Location.exists?(user_location_params[:location_id])
+
+    flash[:danger] = t('user_locations.create.invalid_location')
+    redirect_to new_user_location_path
+    nil
   end
 end

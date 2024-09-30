@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_post, only: %i[show edit update destroy]
   def index
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def show
-    unless @post
-      redirect_to root_path, alert: t('posts.show.failure')
-    end
+    redirect_to root_path, alert: t('posts.show.failure') unless @post
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'line/bot'
 
 class Notification < ApplicationRecord
@@ -11,13 +13,11 @@ class Notification < ApplicationRecord
     send_line_notification(line_user_id, message)
   end
 
-  private
-
   def self.send_line_notification(line_user_id, message)
     # LINE bot APIのクライアントを初期化
     client = Line::Bot::Client.new do |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
     end
 
     # メッセージを作成
@@ -30,8 +30,8 @@ class Notification < ApplicationRecord
     response = client.push_message(line_user_id, message)
 
     # エラーハンドリング
-    unless Net::HTTPSuccess == response
-      Rails.logger.error("Error sending LINE message: #{response.message}")
-    end
+    return if response == Net::HTTPSuccess
+
+    Rails.logger.error("Error sending LINE message: #{response.message}")
   end
 end

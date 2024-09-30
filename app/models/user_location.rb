@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLocation < ApplicationRecord
   after_create :set_date, :set_location_type
   before_create :set_index
@@ -23,10 +25,10 @@ class UserLocation < ApplicationRecord
     points = JSON.parse(location.points)
     return [0, 0] unless points.present?
 
-    top = points.sum { |point| point["y"].to_i } / points.size
-    left = points.sum { |point| point["x"].to_i } / points.size
-    width = points.max_by { |point| point["x"].to_i }["x"].to_i - points.min_by { |point| point["x"].to_i }["x"].to_i
-    height = points.max_by { |point| point["y"].to_i }["y"].to_i - points.min_by { |point| point["y"].to_i }["y"].to_i
+    top = points.sum { |point| point['y'].to_i } / points.size
+    left = points.sum { |point| point['x'].to_i } / points.size
+    width = points.max_by { |point| point['x'].to_i }['x'].to_i - points.min_by { |point| point['x'].to_i }['x'].to_i
+    height = points.max_by { |point| point['y'].to_i }['y'].to_i - points.min_by { |point| point['y'].to_i }['y'].to_i
 
     # Ensure the icon does not go outside the points area
     offset_x = (index % 3) * (width / 3.0)
@@ -42,12 +44,12 @@ class UserLocation < ApplicationRecord
   private
 
   def set_date
-    self.update(date: self.created_at.to_date)
+    update(date: created_at.to_date)
   end
 
   def set_location_type
-    location = Location.find(self.location_id)
-    self.update(location_type: location.location_type)
+    location = Location.find(location_id)
+    update(location_type: location.location_type)
   end
 
   def set_index

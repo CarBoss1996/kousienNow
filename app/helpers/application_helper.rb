@@ -14,15 +14,15 @@ module ApplicationHelper
 
   def page_title(title)
     base_title = '甲子園NOW!'
-    title.empty? ? base_title : title + " | " +  base_title
+    title.empty? ? base_title : "#{title} | #{base_title}"
   end
 
   def admin_page_title(title, admin = false)
     base_title = if admin
-                    'Article APP（管理画面）'
+                   'Article APP（管理画面）'
                  else
-                    'Article APP'
+                   'Article APP'
                  end
-    title.empty? ? base_title : title + " | " +  base_title
+    title.empty? ? base_title : "#{title} | #{base_title}"
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SeatsController < ApplicationController
   def show
     @seat = Seat.find(params[:id])

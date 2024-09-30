@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOneTimeCodes < ActiveRecord::Migration[7.1]
   def change
     create_table :one_time_codes do |t|
