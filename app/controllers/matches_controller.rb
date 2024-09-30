@@ -71,6 +71,12 @@ class MatchesController < ApplicationController
     end
   end
 
+  def destroy
+    @match = Match.find(params[:id])
+    @match.destroy
+    redirect_to matches_path, notice: '試合情報を削除しました'
+  end
+
   private
 
   def set_beginning_of_week
