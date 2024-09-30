@@ -69,14 +69,6 @@ class MatchesController < ApplicationController
     end
   end
 
-  def destroy
-    @match = Match.find(params[:id])
-    @match.destroy
-    respond_to do |format|
-      format.js
-    end
-  end
-
   private
 
   def set_beginning_of_week
