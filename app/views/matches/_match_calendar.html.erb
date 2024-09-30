@@ -4,7 +4,6 @@
   <% matches_on_date = @matches.select { |match| match.match_date.to_date == date } %>
   <% matches_on_date.each do |match| %>
     <div class='mb-1 text-center'>
-      <%= link_to '削除', match_path(match), method: :delete, remote: true, data: { confirm: '本当に削除しますか？' } %>
       <% if match.result %>
         <% match_color = if match.result == '勝ち'
                            'rgba(255, 60, 0, 0.3)' # 透明の赤色
